@@ -132,18 +132,6 @@ table td { border: 1px solid #e8e8e8; }
 .post-content h4 { font-size: 20px; }
 @media screen and (max-width: 800px) { .post-content h4 { font-size: 18px; } }
 
-.tile {
-  height: 50px;
-  width: 50px;
-  background-color: red;
-}
-
-.letterspot {
-  height: 50px;
-  width: 50px;
-  border: 1px solid black;
-}
-
 /** Syntax highlighting styles */
 .highlight { background: #fff; }
 .highlighter-rouge .highlight { background: #eef; }

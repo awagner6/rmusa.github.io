@@ -132,10 +132,22 @@ table td { border: 1px solid #e8e8e8; }
 .post-content h4 { font-size: 20px; }
 @media screen and (max-width: 800px) { .post-content h4 { font-size: 18px; } }
 
+#wordTarget {
+  height: 60px;
+}
+
+#tileArea {
+  height: 60px;
+}
+
 .tile {
   height: 50px;
   width: 50px;
-  background-color: red;
+  display: inline-flex;
+  margin: 4px;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
 }
 
 .letterspot {

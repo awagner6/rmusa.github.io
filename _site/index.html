@@ -31,21 +31,84 @@
   <link rel="stylesheet" href="main.css">
   <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title" />
   <script>
-    function allowDrop(ev) {
-      if (ev.target.childElementCount === 0) {
-        ev.preventDefault();
+    var solution = ['sued', 'dunes', 'undies'];
+    var currentWord = "";
+    var currentRound = 0;
+
+    // function getLetterAt(index) {
+    //   return letters[index];
+    // }
+    //
+    // function allowDrop(ev) {
+    //   if (ev.target.childElementCount === 0) {
+    //     ev.preventDefault();
+    //   }
+    // }
+    //
+    // function drag(ev) {
+    //   ev.dataTransfer.setData("text", ev.target.id);
+    //   ev.dataTransfer.setData("dragOrigin", ev.target.parentElement.id);
+    // }
+    //
+    // function drop(ev, el) {
+    //   // if (el.childElementCount === 0) {
+    //   ev.preventDefault();
+    //   var currentChild = el.firstChild;
+    //   var data = ev.dataTransfer.getData("text");
+    //   el.appendChild(document.getElementById(data));
+    //   dragOrigin.appendChild(currentChild);
+    // }
+    // // }
+
+    function clickTile(ev) {
+      console.log('on click tile')
+      if (document.getElementById('wordTarget').contains(ev.target)) {
+        return;
       }
+      document.getElementById('wordTarget').appendChild(ev.target)
+      currentWord += ev.target.textContent
+      if (solution.includes(currentWord)) {
+        reset();
+        currentRound++;
+        var newTile = document.createElement('div');
+        newTile.className = "tile";
+        newTile.addEventListener('click', clickTile);
+        newTile.innerText = findNewLetter(currentRound);
+        document.getElementById('tileArea').appendChild(newTile);
+      }
+      console.log(currentWord)
     }
 
-    function drag(ev) {
-      ev.dataTransfer.setData("text", ev.target.id);
+    function findNewLetter(round) {
+      oldLetters = solution[round - 1].split('').sort().join('');
+      newLetters = solution[round].split('').sort().join('');
+      for (var i = 0; i < oldLetters.length; i++) {
+        if (oldLetters[i] !== newLetters[i]) {
+          return newLetters[i];
+        }
+      }
+      return newLetters[newLetters.length - 1];
     }
 
-    function drop(ev) {
-      if (ev.target.childElementCount === 0) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
+    function back() {
+      document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
+      currentWord = currentWord.slice(0, -1)
+      console.log(currentWord)
+    }
+
+    function reset() {
+      var word = document.getElementById('wordTarget');
+      var tiles = document.getElementById('tileArea');
+      while (word.childNodes.length > 0) {
+        tiles.appendChild(word.childNodes[0])
+      }
+      currentWord = "";
+    }
+
+    function shuffle() {
+      var tile = document.getElementById('tileArea');
+      for (var i = tile.children.length; i >= 0; i--) {
+        tile.appendChild(tile.children[Math.random() * i | 0]);
       }
     }
   </script>
@@ -78,19 +141,36 @@
           <h1 class="post-title">A fun word game</h1>
         </header>
 
-        <div class="tile" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+        <div id="wordTarget"></div>
+
+        <div>LALALALALALLALALALALALAL</div>
+
+        <div id="tileArea">
+          <div class="tile" onClick="clickTile(event)">s</div>
+          <div class="tile" onClick="clickTile(event)">u</div>
+          <div class="tile" onClick="clickTile(event)">e</div>
+          <div class="tile" onClick="clickTile(event)">d</div>
+        </div>
+
+
+        <button onClick="back()">Back</button>
+        <button onClick="reset()">Reset</button>
+        <button onClick="shuffle()">Shuffle</button>
+
+        <!-- <div class="tile" ondrop="drop(event, this)" ondragover="allowDrop(event)">
           <div id="letter1" draggable="true" ondragstart="drag(event)">a</div>
         </div>
-        <div class="tile" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="tile" ondrop="drop(event, this)" ondragover="allowDrop(event)">
           <div id="letter2" draggable="true" ondragstart="drag(event)">b</div>
         </div>
-        <div class="tile" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="tile" ondrop="drop(event, this)" ondragover="allowDrop(event)">
           <div id="letter3" draggable="true" ondragstart="drag(event)">c</div>
         </div>
 
-        <div class="letterspot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div class="letterspot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div class="letterspot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div class="letterspot" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+        <div class="letterspot" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+        <div class="letterspot" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div> -->
 
       </article>
 

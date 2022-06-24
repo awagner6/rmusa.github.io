@@ -30,88 +30,6 @@
   <!-- End Jekyll SEO tag -->
   <link rel="stylesheet" href="main.css">
   <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title" />
-  <script>
-    var solution = ['sued', 'dunes', 'undies'];
-    var currentWord = "";
-    var currentRound = 0;
-
-    // function getLetterAt(index) {
-    //   return letters[index];
-    // }
-    //
-    // function allowDrop(ev) {
-    //   if (ev.target.childElementCount === 0) {
-    //     ev.preventDefault();
-    //   }
-    // }
-    //
-    // function drag(ev) {
-    //   ev.dataTransfer.setData("text", ev.target.id);
-    //   ev.dataTransfer.setData("dragOrigin", ev.target.parentElement.id);
-    // }
-    //
-    // function drop(ev, el) {
-    //   // if (el.childElementCount === 0) {
-    //   ev.preventDefault();
-    //   var currentChild = el.firstChild;
-    //   var data = ev.dataTransfer.getData("text");
-    //   el.appendChild(document.getElementById(data));
-    //   dragOrigin.appendChild(currentChild);
-    // }
-    // // }
-
-    function clickTile(ev) {
-      console.log('on click tile')
-      if (document.getElementById('wordTarget').contains(ev.target)) {
-        return;
-      }
-      document.getElementById('wordTarget').appendChild(ev.target)
-      currentWord += ev.target.textContent
-      if (solution.includes(currentWord)) {
-        reset();
-        currentRound++;
-        var newTile = document.createElement('div');
-        newTile.className = "tile";
-        newTile.addEventListener('click', clickTile);
-        newTile.innerText = findNewLetter(currentRound);
-        document.getElementById('tileArea').appendChild(newTile);
-      }
-      console.log(currentWord)
-    }
-
-    function findNewLetter(round) {
-      oldLetters = solution[round - 1].split('').sort().join('');
-      newLetters = solution[round].split('').sort().join('');
-      for (var i = 0; i < oldLetters.length; i++) {
-        if (oldLetters[i] !== newLetters[i]) {
-          return newLetters[i];
-        }
-      }
-      return newLetters[newLetters.length - 1];
-    }
-
-    function back() {
-      document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
-      currentWord = currentWord.slice(0, -1)
-      console.log(currentWord)
-    }
-
-    function reset() {
-      var word = document.getElementById('wordTarget');
-      var tiles = document.getElementById('tileArea');
-      while (word.childNodes.length > 0) {
-        tiles.appendChild(word.childNodes[0])
-      }
-      currentWord = "";
-    }
-
-    function shuffle() {
-      var tile = document.getElementById('tileArea');
-      for (var i = tile.children.length; i >= 0; i--) {
-        tile.appendChild(tile.children[Math.random() * i | 0]);
-      }
-    }
-  </script>
 </head>
 
 <body>
@@ -144,19 +62,28 @@
 
         <div id="wordTarget"></div>
 
-        <div>LALALALALALLALALALALALAL</div>
+        <div>-------------------------</div>
 
-        <div id="tileArea">
-          <div class="tile" onClick="clickTile(event)">s</div>
-          <div class="tile" onClick="clickTile(event)">u</div>
-          <div class="tile" onClick="clickTile(event)">e</div>
-          <div class="tile" onClick="clickTile(event)">d</div>
-        </div>
+        <div id="tileArea"></div>
 
 
         <button onClick="back()">Back</button>
         <button onClick="reset()">Reset</button>
         <button onClick="shuffle()">Shuffle</button>
+        <button onClick="openModal('rulesModal')">Rules</button>
+
+        <div id="congratsModal" class="modal">
+          <div class="modal-content">
+            <p>Congrats! You win!</p>
+          </div>
+        </div>
+
+        <div id="rulesModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onClick="closeModal('rulesModal')">&times;</span>
+            <p>Here are some rules and other info!</p>
+          </div>
+        </div>
 
         <!-- <div class="tile" ondrop="drop(event, this)" ondragover="allowDrop(event)">
           <div id="letter1" draggable="true" ondragstart="drag(event)">a</div>
@@ -210,6 +137,122 @@
     </div>
 
   </footer>
+  <script>
+    var solution = ['sued', 'dunes', 'undies'];
+    var currentWord = "";
+    var currentRound = 0;
+
+    for (var i = 0; i < solution[0].length; i++) {
+      var newTile = document.createElement('div');
+      newTile.className = "tile";
+      newTile.addEventListener('click', clickTile);
+      newTile.innerText = solution[0][i];
+      document.getElementById('tileArea').appendChild(newTile);
+    }
+
+    console.log([...document.getElementById('tileArea').children].map((child) => child.innerText))
+
+    document.addEventListener('keydown', (e) => {
+      if (!e.repeat) {
+        if (e.key === 'Backspace') {
+          back();
+          return;
+        }
+        var index = [...document.getElementById('tileArea').children].map((child) => child.innerText).indexOf(e.key);
+        if (index !== -1) {
+          document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
+        }
+      }
+    });
+
+    // function getLetterAt(index) {
+    //   return letters[index];
+    // }
+    //
+    // function allowDrop(ev) {
+    //   if (ev.target.childElementCount === 0) {
+    //     ev.preventDefault();
+    //   }
+    // }
+    //
+    // function drag(ev) {
+    //   ev.dataTransfer.setData("text", ev.target.id);
+    //   ev.dataTransfer.setData("dragOrigin", ev.target.parentElement.id);
+    // }
+    //
+    // function drop(ev, el) {
+    //   // if (el.childElementCount === 0) {
+    //   ev.preventDefault();
+    //   var currentChild = el.firstChild;
+    //   var data = ev.dataTransfer.getData("text");
+    //   el.appendChild(document.getElementById(data));
+    //   dragOrigin.appendChild(currentChild);
+    // }
+    // // }
+
+    function clickTile(ev) {
+      if (document.getElementById('wordTarget').contains(ev.target)) {
+        return;
+      }
+      document.getElementById('wordTarget').appendChild(ev.target)
+      currentWord += ev.target.textContent
+      if (solution.includes(currentWord)) {
+        reset();
+        currentRound++;
+        if (currentRound === solution.length) {
+          document.getElementById('congratsModal').style.display = "block";
+          return;
+        }
+        var newTile = document.createElement('div');
+        newTile.className = "tile";
+        newTile.addEventListener('click', clickTile);
+        newTile.innerText = findNewLetter(currentRound);
+        document.getElementById('tileArea').appendChild(newTile);
+      }
+    }
+
+    function findNewLetter(round) {
+      oldLetters = solution[round - 1].split('').sort().join('');
+      newLetters = solution[round].split('').sort().join('');
+      for (var i = 0; i < oldLetters.length; i++) {
+        if (oldLetters[i] !== newLetters[i]) {
+          return newLetters[i];
+        }
+      }
+      return newLetters[newLetters.length - 1];
+    }
+
+    function back() {
+      if (currentWord !== "") {
+        document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
+        currentWord = currentWord.slice(0, -1)
+      }
+    }
+
+    function reset() {
+      var word = document.getElementById('wordTarget');
+      var tiles = document.getElementById('tileArea');
+      while (word.childNodes.length > 0) {
+        tiles.appendChild(word.childNodes[0])
+      }
+      currentWord = "";
+    }
+
+    function shuffle() {
+      var tile = document.getElementById('tileArea');
+      for (var i = tile.children.length; i >= 0; i--) {
+        tile.appendChild(tile.children[Math.random() * i | 0]);
+      }
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = "block";
+    }
+  </script>
 </body>
 
 </html>

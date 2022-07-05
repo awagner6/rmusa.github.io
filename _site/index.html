@@ -61,16 +61,15 @@
 
 
         <div id="wordTarget"></div>
-
-        <div>-------------------------</div>
-
+        <div class="divider"></div>
         <div id="tileArea"></div>
 
-
-        <button onClick="back()">Back</button>
-        <button onClick="reset()">Reset</button>
-        <button onClick="shuffle()">Shuffle</button>
-        <button onClick="openModal('rulesModal')">Rules</button>
+        <div class="buttonMenu">
+          <button class="button-84" role="button" onClick="back()">Back</button>
+          <button class="button-84" role="button" onClick="reset()">Reset</button>
+          <button class="button-84" role="button" onClick="shuffle()">Shuffle</button>
+          <button class="button-84" role="button" onClick="openModal('rulesModal')">Rules</button>
+        </div>
 
         <div id="prevAnswers"></div>
 
@@ -162,7 +161,8 @@
           back();
           return;
         }
-        var index = [...document.getElementById('tileArea').children].map((child) => child.innerText).indexOf(e.key);
+        var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(e.key);
+        console.log(index)
         if (index !== -1) {
           document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
         }

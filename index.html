@@ -72,6 +72,8 @@
         <button onClick="shuffle()">Shuffle</button>
         <button onClick="openModal('rulesModal')">Rules</button>
 
+        <div id="prevAnswers"></div>
+
         <div id="congratsModal" class="modal">
           <div class="modal-content">
             <p>Congrats! You win!</p>
@@ -138,19 +140,21 @@
 
   </footer>
   <script>
-    var solution = ['sued', 'dunes', 'undies'];
+    var solution = [
+      ['sued', 'used', 'dues'],
+      ['dunes', 'nudes'],
+      ['undies']
+    ];
     var currentWord = "";
     var currentRound = 0;
 
-    for (var i = 0; i < solution[0].length; i++) {
+    for (var i = 0; i < solution[0][0].length; i++) {
       var newTile = document.createElement('div');
       newTile.className = "tile";
       newTile.addEventListener('click', clickTile);
-      newTile.innerText = solution[0][i];
+      newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
     }
-
-    console.log([...document.getElementById('tileArea').children].map((child) => child.innerText))
 
     document.addEventListener('keydown', (e) => {
       if (!e.repeat) {
@@ -196,7 +200,10 @@
       }
       document.getElementById('wordTarget').appendChild(ev.target)
       currentWord += ev.target.textContent
-      if (solution.includes(currentWord)) {
+      if (solution.flat().includes(currentWord)) {
+        var solutionWord = document.createElement('div');
+        solutionWord.innerHTML = document.getElementById('wordTarget').innerHTML;
+        document.getElementById('prevAnswers').appendChild(solutionWord)
         reset();
         currentRound++;
         if (currentRound === solution.length) {
@@ -212,8 +219,8 @@
     }
 
     function findNewLetter(round) {
-      oldLetters = solution[round - 1].split('').sort().join('');
-      newLetters = solution[round].split('').sort().join('');
+      oldLetters = solution[round - 1][0].split('').sort().join('');
+      newLetters = solution[round][0].split('').sort().join('');
       for (var i = 0; i < oldLetters.length; i++) {
         if (oldLetters[i] !== newLetters[i]) {
           return newLetters[i];

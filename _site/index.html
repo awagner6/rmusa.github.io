@@ -68,6 +68,7 @@
           <button class="button-84" role="button" onClick="back()">Back</button>
           <button class="button-84" role="button" onClick="reset()">Reset</button>
           <button class="button-84" role="button" onClick="shuffle()">Shuffle</button>
+          <button class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
           <button class="button-84" role="button" onClick="openModal('rulesModal')">Rules</button>
         </div>
 
@@ -162,7 +163,6 @@
           return;
         }
         var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(e.key);
-        console.log(index)
         if (index !== -1) {
           document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
         }
@@ -216,6 +216,12 @@
         newTile.innerText = findNewLetter(currentRound);
         document.getElementById('tileArea').appendChild(newTile);
       }
+    }
+
+    function showFirstLetter() {
+      reset();
+      var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(solution[currentRound][0][0]);
+      document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
     }
 
     function findNewLetter(round) {

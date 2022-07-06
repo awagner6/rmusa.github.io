@@ -65,7 +65,7 @@
         <div id="tileArea"></div>
 
         <div class="buttonMenu">
-          <button class="button-84" role="button" onClick="back()">Back</button>
+          <button class="button-84" role="button" onClick="goback()">Back</button>
           <button class="button-84" role="button" onClick="reset()">Reset</button>
           <button class="button-84" role="button" onClick="shuffle()">Shuffle</button>
           <button class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
@@ -141,9 +141,12 @@
   </footer>
   <script>
     var solution = [
-      ['sued', 'used', 'dues'],
-      ['dunes', 'nudes'],
-      ['undies']
+      ['sext'],
+      ['texts'],
+      ['sextet'],
+      ['extents'],
+      ['existent'],
+      ['sixteenth']
     ];
     var currentWord = "";
     var currentRound = 0;
@@ -184,12 +187,20 @@
       newTile.addEventListener('click', clickTile);
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
+      shuffle();
+    }
+
+    function goback() {
+      if (currentWord !== "") {
+        document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
+        currentWord = currentWord.slice(0, -1)
+      }
     }
 
     document.addEventListener('keydown', (e) => {
       if (!e.repeat) {
         if (e.key === 'Backspace') {
-          back();
+          goback();
           return;
         }
         var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(e.key);
@@ -273,13 +284,6 @@
         }
       }
       return newLetters[newLetters.length - 1];
-    }
-
-    function back() {
-      if (currentWord !== "") {
-        document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
-        currentWord = currentWord.slice(0, -1)
-      }
     }
 
     function reset() {

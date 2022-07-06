@@ -59,7 +59,7 @@
           <h1 class="post-title">A fun word game</h1>
         </header>
 
-
+        <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div>
         <div id="wordTarget"></div>
         <div class="divider"></div>
         <div id="tileArea"></div>
@@ -167,7 +167,7 @@
         flipper = document.createElement('div');
         front = document.createElement('div');
         back = document.createElement('div');
-        emojiTile.className = "tile flip-container";
+        emojiTile.className = "tile showTile flip-container";
         flipper.className = "flipper";
         front.className = "front";
         back.className = `back back-${i}`;
@@ -183,7 +183,7 @@
 
     for (var i = 0; i < solution[0][0].length; i++) {
       var newTile = document.createElement('div');
-      newTile.className = "tile";
+      newTile.className = "tile showTile";
       newTile.addEventListener('click', clickTile);
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
@@ -241,7 +241,12 @@
       }
       document.getElementById('wordTarget').appendChild(ev.target)
       currentWord += ev.target.textContent
-      if (solution.flat().includes(currentWord)) {
+      // correct word
+      if (solution.flat().includes(currentWord) && currentWord.length === currentRound + 4) {
+        // animate solution word
+        [...document.getElementById('wordTarget').children].forEach((tile) => {
+          tile.classList.add("bounce");
+        });
         // set solution that player actually went with
         var emojisToFlip = document.querySelectorAll(`.back-${currentRound}`);
         console.log(emojisToFlip)
@@ -255,17 +260,27 @@
         Array.from(flipContainers).forEach((flipContainer, i) => {
           flipContainer.firstChild.classList.add("flip");
         });
-        reset();
-        currentRound++;
-        if (currentRound === solution.length) {
-          document.getElementById('congratsModal').style.display = "block";
-          return;
-        }
-        var newTile = document.createElement('div');
-        newTile.className = "tile";
-        newTile.addEventListener('click', clickTile);
-        newTile.innerText = findNewLetter(currentRound);
-        document.getElementById('tileArea').appendChild(newTile);
+        setTimeout(() => {
+          reset();
+          currentRound++;
+          if (currentRound === solution.length) {
+            document.getElementById('congratsModal').style.display = "block";
+            return;
+          }
+          var newTile = document.createElement('div');
+          newTile.className = "tile";
+          newTile.addEventListener('click', clickTile);
+          newTile.innerText = findNewLetter(currentRound);
+          document.getElementById('tileArea').appendChild(newTile);
+          setTimeout(() => newTile.classList.add("showTile"), 100);
+        }, 250)
+      }
+      // incorrect word
+      else if (currentWord.length === currentRound + 4) {
+        console.log("Here!!")
+        var feedbackMessage = document.getElementById('incorrectFeedback')
+        feedbackMessage.classList.add("showIncorrectFeedback");
+        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 800);
       }
     }
 
@@ -290,6 +305,7 @@
       var word = document.getElementById('wordTarget');
       var tiles = document.getElementById('tileArea');
       while (word.childNodes.length > 0) {
+        word.childNodes[0].classList.remove("bounce");
         tiles.appendChild(word.childNodes[0])
       }
       currentWord = "";

@@ -140,28 +140,39 @@ table td { border: 1px solid #e8e8e8; }
   height: 66px;
 }
 
-.flip-container {
-  /* position: absolute;
-  top: 50%;
-  left: 50%; */
-  /* width: 300px;
-  height: 300px;
-  margin: -150px; */
-  /* float: left; */
-  /* perspective: 500px; */
+.incorrectFeedback {
+  /* background-image: linear-gradient(#464d55, #25292e); */
+  background-color: #25292e;
+  border-radius: 8px;
+  border-width: 0;
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05); */
+  font-family: expo-brand-demi,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 12px;
+  height: 36px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 8px;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  color: white;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: opacity;
+  transition: 0.2s;
+  transition-timing-function: ease-in;
+}
+
+.showIncorrectFeedback {
+  opacity: 1;
 }
 
 .flipper {
-  /* position: absolute;
-  width: 100%;
-  height: 100%; */
   width: 100%;
   height: 100%;
-  /* box-shadow: 0 0 15px rgba(0,0,0,0.1); */
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
   transition: transform 1s;
   transform-style: preserve-3d;
 }
@@ -174,22 +185,28 @@ table td { border: 1px solid #e8e8e8; }
 .front,
 .back {
   position: absolute;
-  /* position: absolute; */
-  /* height: 100%;
-  width: 100%; */
-  /* background: white; */
-  /* line-height: 300px; */
-  /* color: #03446A; */
-  /* text-align: center; */
-  /* font-size: 60px; */
-  /* border-radius: 5px; */
   backface-visibility: hidden;
 }
 
 .back {
-  /* background: #03446A; */
-  /* color: white; */
   transform: rotateX( 180deg );
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+  -moz-animation-name: bounce;
+  -o-animation-name: bounce;
+  animation-name: bounce;
+  animation-duration: 0.25s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-direction: alternate;
+}
+
+@keyframes bounce {
+  0%, 100% {transform: translateY(0);opacity: 1;}
+  50% {transform: translateY(-10px);}
+  /* 60% {transform: translateY(-10px);} */
 }
 
 
@@ -204,6 +221,12 @@ table td { border: 1px solid #e8e8e8; }
   text-transform: uppercase;
   font-weight: bold;
   font-size: 24px;
+  transform: scale(0);
+  transition: 1.5s;
+}
+
+.showTile {
+  transform: scale(1);
 }
 
 .buttonMenu {

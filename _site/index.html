@@ -147,6 +147,36 @@
     ];
     var currentWord = "";
     var currentRound = 0;
+    var emojiMapping = {
+      0: '🦜',
+      1: '🦒',
+      2: '🐬',
+      3: '🦉',
+      4: '🐙',
+      5: '🐐',
+    }
+    var allAnswers = document.getElementById('prevAnswers');
+    for (var i = 0; i < solution.length; i++) {
+      var answer = document.createElement('div');
+      answer.className = "answerRow";
+      for (var j = 0; j < solution[i][0].length; j++) {
+        emojiTile = document.createElement('div');
+        flipper = document.createElement('div');
+        front = document.createElement('div');
+        back = document.createElement('div');
+        emojiTile.className = "tile flip-container";
+        flipper.className = "flipper";
+        front.className = "front";
+        back.className = `back back-${i}`;
+        front.innerText = emojiMapping[i];
+        back.innerText = 'X';
+        flipper.appendChild(front);
+        flipper.appendChild(back);
+        emojiTile.appendChild(flipper);
+        answer.appendChild(emojiTile)
+      }
+      allAnswers.appendChild(answer);
+    }
 
     for (var i = 0; i < solution[0][0].length; i++) {
       var newTile = document.createElement('div');
@@ -201,9 +231,19 @@
       document.getElementById('wordTarget').appendChild(ev.target)
       currentWord += ev.target.textContent
       if (solution.flat().includes(currentWord)) {
-        var solutionWord = document.createElement('div');
-        solutionWord.innerHTML = document.getElementById('wordTarget').innerHTML;
-        document.getElementById('prevAnswers').appendChild(solutionWord)
+        // set solution that player actually went with
+        var emojisToFlip = document.querySelectorAll(`.back-${currentRound}`);
+        console.log(emojisToFlip)
+        emojisToFlip.forEach((emoji, i) => {
+          emoji.innerText = currentWord[i].toUpperCase();
+        });
+        // flip the tiles
+        var flipContainers = document.querySelectorAll(".answerRow")[currentRound].children;
+        console.log(flipContainers)
+        console.log(currentRound)
+        Array.from(flipContainers).forEach((flipContainer, i) => {
+          flipContainer.firstChild.classList.add("flip");
+        });
         reset();
         currentRound++;
         if (currentRound === solution.length) {

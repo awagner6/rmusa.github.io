@@ -245,7 +245,6 @@ table td { border: 1px solid #e8e8e8; }
   background: none!important;
   border: none;
   text-decoration: underline;
-  cursor: pointer;
   font-size: 16px;
 }
 
@@ -391,6 +390,28 @@ table td { border: 1px solid #e8e8e8; }
 
   .link-button {
     font-size: 14px;
+  }
+
+  #wordTarget {
+    height: calc(7.5vw + 12px);
+  }
+
+  #tileArea {
+    height: calc(7.5vw + 12px);;
+  }
+
+  .emoji-button {
+    font-size: 24px;
+  }
+
+  .emoji-button-menu {
+    margin-top: 0;
+  }
+
+  .button-84 {
+    font-size: 14px;
+    height: 36px;
+    padding: 0 12px;
   }
 }
 

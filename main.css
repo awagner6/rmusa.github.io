@@ -409,9 +409,9 @@ table td { border: 1px solid #e8e8e8; }
     height: calc(28vw + 30px);;
   }
 
-  .emoji-button {
+  /* .emoji-button {
     font-size: 32px;
-  }
+  } */
 
   /* .emoji-button-menu {
     margin-top: 4px;

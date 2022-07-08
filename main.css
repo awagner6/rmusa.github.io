@@ -136,9 +136,9 @@ table td { border: 1px solid #e8e8e8; }
   height: 66px;
 }
 
-/* #tileArea {
+#tileArea {
   height: 66px;
-} */
+}
 
 .incorrectFeedback {
   /* background-image: linear-gradient(#464d55, #25292e); */
@@ -379,8 +379,8 @@ table td { border: 1px solid #e8e8e8; }
 
 @media screen and (max-width: 650px) {
   .tile {
-    height: 7.5vw;
-    width: 7.5vw;
+    height: 7vw;
+    width: 7vw;
     margin: 2px;
     border: 2px solid black;
     font-size: 16px;
@@ -402,12 +402,12 @@ table td { border: 1px solid #e8e8e8; }
   }
 
   #wordTarget {
-    height: calc(7.5vw + 12px);
+    height: calc(7vw + 12px);
   }
 
-  /* #tileArea {
-    height: calc(30vw + 18px);;
-  } */
+  #tileArea {
+    height: calc(28vw + 30px);;
+  }
 
   .emoji-button {
     font-size: 32px;

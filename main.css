@@ -132,13 +132,13 @@ table td { border: 1px solid #e8e8e8; }
 .post-content h4 { font-size: 20px; }
 @media screen and (max-width: 800px) { .post-content h4 { font-size: 18px; } }
 
-#wordTarget {
+/* #wordTarget {
   height: 66px;
 }
 
 #tileArea {
   height: 66px;
-}
+} */
 
 .incorrectFeedback {
   /* background-image: linear-gradient(#464d55, #25292e); */
@@ -385,6 +385,13 @@ table td { border: 1px solid #e8e8e8; }
     font-size: 16px;
   }
 
+  #tileArea .tile {
+    height: 15vw;
+    width: 15vw;
+    font-size: 32px;
+    border: 4px solid black;
+  }
+
   .title {
     font-size: 28px;
   }
@@ -393,21 +400,21 @@ table td { border: 1px solid #e8e8e8; }
     font-size: 14px;
   }
 
-  #wordTarget {
+  /* #wordTarget {
     height: calc(7.5vw + 12px);
   }
 
   #tileArea {
-    height: calc(7.5vw + 12px);;
-  }
+    height: calc(30vw + 18px);;
+  } */
 
   .emoji-button {
     font-size: 32px;
   }
 
-  .emoji-button-menu {
+  /* .emoji-button-menu {
     margin-top: 4px;
-  }
+  } */
 
   .button-84 {
     font-size: 14px;

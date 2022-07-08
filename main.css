@@ -132,11 +132,11 @@ table td { border: 1px solid #e8e8e8; }
 .post-content h4 { font-size: 20px; }
 @media screen and (max-width: 800px) { .post-content h4 { font-size: 18px; } }
 
-/* #wordTarget {
+#wordTarget {
   height: 66px;
 }
 
-#tileArea {
+/* #tileArea {
   height: 66px;
 } */
 
@@ -247,6 +247,7 @@ table td { border: 1px solid #e8e8e8; }
   text-decoration: underline;
   font-size: 16px;
   color: black;
+  padding: 1px 6px;
 }
 
 .title {
@@ -400,11 +401,11 @@ table td { border: 1px solid #e8e8e8; }
     font-size: 14px;
   }
 
-  /* #wordTarget {
+  #wordTarget {
     height: calc(7.5vw + 12px);
   }
 
-  #tileArea {
+  /* #tileArea {
     height: calc(30vw + 18px);;
   } */
 

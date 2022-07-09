@@ -297,9 +297,12 @@
 
     function shuffle() {
       var tiles = document.getElementById('tileArea');
-      while (solution.flat().includes([...tiles.children].map((child) => child.innerText).join('').toLowerCase())) {
+      while (true) {
         for (var i = tiles.children.length; i >= 0; i--) {
           tiles.appendChild(tiles.children[Math.random() * i | 0]);
+        }
+        if (!solution.flat().includes([...tiles.children].map((child) => child.innerText).join('').toLowerCase())) {
+          break;
         }
       }
     }

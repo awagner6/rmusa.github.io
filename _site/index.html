@@ -161,18 +161,16 @@
       newTile.addEventListener('click', clickTile);
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
-      shuffle();
     }
+    shuffle();
 
     function goback() {
-      console.log(currentWord);
       if (currentWord !== "") {
         var tile = document.getElementById('wordTarget').lastChild;
         var firstBlank = document.querySelector('.hidden-tile');
         firstBlank.innerText = tile.innerText;
         firstBlank.classList.remove('hidden-tile');
         tile.remove();
-        // document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
         currentWord = currentWord.slice(0, -1)
       }
     }
@@ -216,12 +214,10 @@
     // // }
 
     function clickTile(ev) {
-      console.log("CLICKING A TILE");
       if (document.getElementById('wordTarget').contains(ev.target)) {
         return;
       }
       currentWord += ev.target.innerText;
-      console.log(currentWord);
       var tileClone = ev.target.cloneNode(true);
       tileClone.addEventListener('click', clickTile);
       document.getElementById('wordTarget').appendChild(tileClone);
@@ -298,9 +294,11 @@
     }
 
     function shuffle() {
-      var tile = document.getElementById('tileArea');
-      for (var i = tile.children.length; i >= 0; i--) {
-        tile.appendChild(tile.children[Math.random() * i | 0]);
+      var tiles = document.getElementById('tileArea');
+      while (solution.flat().includes([...tiles.children].map((child) => child.innerText).join('').toLowerCase())) {
+        for (var i = tiles.children.length; i >= 0; i--) {
+          tiles.appendChild(tiles.children[Math.random() * i | 0]);
+        }
       }
     }
 

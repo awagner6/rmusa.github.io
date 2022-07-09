@@ -162,22 +162,22 @@
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
     }
-    for (var i = 1; i < solution.length; i++) {
-      emojiTile = document.createElement('div');
-      flipper = document.createElement('div');
-      front = document.createElement('div');
-      back = document.createElement('div');
-      emojiTile.className = "tile showTile flip-container emoji-tile";
-      flipper.className = "flipper";
-      front.className = "front";
-      back.className = `back back-${i}`;
-      front.innerText = emojiMapping[i];
-      back.innerText = 'X';
-      flipper.appendChild(front);
-      flipper.appendChild(back);
-      emojiTile.appendChild(flipper);
-      document.getElementById('tileArea').appendChild(emojiTile)
-    }
+    // for (var i = 1; i < solution.length; i++) {
+    //   emojiTile = document.createElement('div');
+    //   flipper = document.createElement('div');
+    //   front = document.createElement('div');
+    //   back = document.createElement('div');
+    //   emojiTile.className = "tile showTile flip-container emoji-tile";
+    //   flipper.className = "flipper";
+    //   front.className = "front";
+    //   back.className = `back back-${i}`;
+    //   front.innerText = emojiMapping[i];
+    //   back.innerText = 'X';
+    //   flipper.appendChild(front);
+    //   flipper.appendChild(back);
+    //   emojiTile.appendChild(flipper);
+    //   document.getElementById('tileArea').appendChild(emojiTile)
+    // }
     shuffle();
 
     function goback() {
@@ -265,28 +265,25 @@
             return;
           }
           // document.getElementById('tileArea').appendChild(document.getElementById('tilesWrapper').children[1]);
-          var tileToFlip = document.querySelector('.emoji-tile')
-          tileToFlip.firstChild.children[1].innerText = findNewLetter(currentRound);
-          // document.getElementById('tileArea').lastChild.addEventListener('click', clickTile);
-          setTimeout(() => {
-            tileToFlip.firstChild.classList.add("flip");
-          }, 100);
-          setTimeout(() => {
-            var newTile = document.createElement('div');
-            newTile.className = "tile showTile";
-            newTile.addEventListener('click', clickTile);
-            newTile.innerText = findNewLetter(currentRound);
-            // document.querySelector(`#tileArea :nth-child(${c?\urrentRound + 4})`)
-            document.getElementById('tileArea').insertBefore(newTile, tileToFlip);
-            tileToFlip.remove();
-            // document.getElementById('tileArea').appendChild(newTile);
-          }, 500);
-          // var newTile = document.createElement('div');
-          // newTile.className = "tile";
-          // newTile.addEventListener('click', clickTile);
-          // newTile.innerText = findNewLetter(currentRound);
-          // document.getElementById('tileArea').appendChild(newTile);
-          // setTimeout(() => newTile.classList.add("showTile"), 100);
+          // var tileToFlip = document.querySelector('.emoji-tile')
+          // tileToFlip.firstChild.children[1].innerText = findNewLetter(currentRound);
+          // setTimeout(() => {
+          //   tileToFlip.firstChild.classList.add("flip");
+          // }, 100);
+          // setTimeout(() => {
+          //   var newTile = document.createElement('div');
+          //   newTile.className = "tile showTile";
+          //   newTile.addEventListener('click', clickTile);
+          //   newTile.innerText = findNewLetter(currentRound);
+          //   document.getElementById('tileArea').insertBefore(newTile, tileToFlip);
+          //   tileToFlip.remove();
+          // }, 500);
+          var newTile = document.createElement('div');
+          newTile.className = "tile";
+          newTile.addEventListener('click', clickTile);
+          newTile.innerText = findNewLetter(currentRound);
+          document.getElementById('tileArea').appendChild(newTile);
+          setTimeout(() => newTile.classList.add("showTile"), 100);
         }, 250)
       }
       // incorrect word
@@ -334,8 +331,8 @@
     function shuffle() {
       var tiles = document.getElementById('tileArea');
       while (true) {
-        for (var i = currentRound + 4; i >= 0; i--) {
-          tiles.prepend(tiles.children[Math.random() * i | 0]);
+        for (var i = tiles.children.length; i >= 0; i--) {
+          tiles.appendChild(tiles.children[Math.random() * i | 0]);
         }
         if (!solution.flat().includes([...tiles.children].slice(0, currentRound + 4).map((child) => child.innerText).join('').toLowerCase())) {
           break;

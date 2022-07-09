@@ -170,6 +170,7 @@
         var firstBlank = document.querySelector('.hidden-tile');
         firstBlank.innerText = tile.innerText;
         firstBlank.classList.remove('hidden-tile');
+        firstBlank.addEventListener('click', clickTile);
         tile.remove();
         currentWord = currentWord.slice(0, -1)
       }
@@ -222,6 +223,7 @@
       tileClone.addEventListener('click', clickTile);
       document.getElementById('wordTarget').appendChild(tileClone);
       ev.target.innerText = '/';
+      ev.target.removeEventListener('click', clickTile);
       ev.target.classList.add("hidden-tile");
       // correct word
       if (solution.flat().includes(currentWord.toLowerCase()) && currentWord.length === currentRound + 4) {

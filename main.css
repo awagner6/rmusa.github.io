@@ -444,8 +444,9 @@ table td { border: 1px solid #e8e8e8; }
 }
 
 .hidden-tile {
-  color: white!important;
-  border-color: white!important;
+  opacity: 0;
+  /* color: white!important;
+  border-color: white!important; */
 }
 
 

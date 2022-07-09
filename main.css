@@ -156,7 +156,18 @@ table td { border: 1px solid #e8e8e8; }
 
 #tileArea {
   height: 66px;
-  /* display: flex; */
+  display: inline;
+  display: flex;
+}
+
+#futureTiles {
+  height: 66px;
+  display: inline;
+}
+
+#tilesWrapper {
+  display: flex;
+  align-items: center;
 }
 
 .incorrectFeedback {
@@ -192,7 +203,7 @@ table td { border: 1px solid #e8e8e8; }
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  transition: transform 1s;
+  transition: transform 2s;
   transform-style: preserve-3d;
 }
 

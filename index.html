@@ -49,7 +49,11 @@
         <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div>
         <div id="wordTarget"></div>
         <div class="divider"></div>
-        <div id="tileArea"></div>
+
+        <div id="tilesWrapper">
+          <div id="tileArea"></div>
+          <div id="futureTiles"></div>
+        </div>
 
         <div class="emoji-button-menu">
           <button class="emoji-button" role="button" onClick="goback()">⬅️</button>
@@ -162,6 +166,22 @@
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
     }
+    for (var i = 1; i < solution.length; i++) {
+      emojiTile = document.createElement('div');
+      flipper = document.createElement('div');
+      front = document.createElement('div');
+      back = document.createElement('div');
+      emojiTile.className = "tile showTile flip-container";
+      flipper.className = "flipper";
+      front.className = "front";
+      back.className = `back back-${i}`;
+      front.innerText = emojiMapping[i];
+      back.innerText = 'X';
+      flipper.appendChild(front);
+      flipper.appendChild(back);
+      emojiTile.appendChild(flipper);
+      document.getElementById('futureTiles').appendChild(emojiTile)
+    }
     shuffle();
 
     function goback() {
@@ -234,7 +254,7 @@
         // set solution that player actually went with
         var emojisToFlip = document.querySelectorAll(`.back-${currentRound}`);
         emojisToFlip.forEach((emoji, i) => {
-          emoji.innerText = currentWord[i].toUpperCase();
+          emoji.innerText = currentWord[i];
         });
         // flip the tiles
         var flipContainers = document.querySelectorAll(".answerRow")[currentRound].children;
@@ -248,12 +268,26 @@
             document.getElementById('congratsModal').style.display = "block";
             return;
           }
-          var newTile = document.createElement('div');
-          newTile.className = "tile";
-          newTile.addEventListener('click', clickTile);
-          newTile.innerText = findNewLetter(currentRound);
-          document.getElementById('tileArea').appendChild(newTile);
-          setTimeout(() => newTile.classList.add("showTile"), 100);
+          document.getElementById('tileArea').appendChild(document.getElementById('futureTiles').firstChild);
+          document.getElementById('tileArea').lastChild.firstChild.children[1].innerText = findNewLetter(currentRound);
+          document.getElementById('tileArea').lastChild.addEventListener('click', clickTile);
+          setTimeout(() => {
+            document.getElementById('tileArea').lastChild.firstChild.classList.add("flip");
+          }, 100);
+          setTimeout(() => {
+            var newTile = document.createElement('div');
+            newTile.className = "tile showTile";
+            newTile.addEventListener('click', clickTile);
+            newTile.innerText = findNewLetter(currentRound);
+            document.getElementById('tileArea').lastChild.remove();
+            document.getElementById('tileArea').appendChild(newTile);
+          }, 500);
+          // var newTile = document.createElement('div');
+          // newTile.className = "tile";
+          // newTile.addEventListener('click', clickTile);
+          // newTile.innerText = findNewLetter(currentRound);
+          // document.getElementById('tileArea').appendChild(newTile);
+          // setTimeout(() => newTile.classList.add("showTile"), 100);
         }, 250)
       }
       // incorrect word
@@ -266,6 +300,9 @@
     }
 
     function showFirstLetter() {
+      if (currentWord.toLowerCase() === solution[currentRound][0][0].toLowerCase()) {
+        return;
+      }
       reset();
       var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(solution[currentRound][0][0]);
       document.querySelector(`#tileArea :nth-child(${index + 1})`).click();

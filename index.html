@@ -165,8 +165,14 @@
     }
 
     function goback() {
+      console.log(currentWord);
       if (currentWord !== "") {
-        document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
+        var tile = document.getElementById('wordTarget').lastChild;
+        var firstBlank = document.querySelector('.hidden-tile');
+        firstBlank.innerText = tile.innerText;
+        firstBlank.classList.remove('hidden-tile');
+        tile.remove();
+        // document.getElementById('tileArea').appendChild(document.getElementById('wordTarget').lastChild);
         currentWord = currentWord.slice(0, -1)
       }
     }
@@ -210,27 +216,30 @@
     // // }
 
     function clickTile(ev) {
+      console.log("CLICKING A TILE");
       if (document.getElementById('wordTarget').contains(ev.target)) {
         return;
       }
-      document.getElementById('wordTarget').appendChild(ev.target)
-      currentWord += ev.target.textContent
+      currentWord += ev.target.innerText;
+      console.log(currentWord);
+      var tileClone = ev.target.cloneNode(true);
+      tileClone.addEventListener('click', clickTile);
+      document.getElementById('wordTarget').appendChild(tileClone);
+      ev.target.innerText = '';
+      ev.target.classList.add("hidden-tile");
       // correct word
-      if (solution.flat().includes(currentWord) && currentWord.length === currentRound + 4) {
+      if (solution.flat().includes(currentWord.toLowerCase()) && currentWord.length === currentRound + 4) {
         // animate solution word
         [...document.getElementById('wordTarget').children].forEach((tile) => {
           tile.classList.add("bounce");
         });
         // set solution that player actually went with
         var emojisToFlip = document.querySelectorAll(`.back-${currentRound}`);
-        console.log(emojisToFlip)
         emojisToFlip.forEach((emoji, i) => {
           emoji.innerText = currentWord[i].toUpperCase();
         });
         // flip the tiles
         var flipContainers = document.querySelectorAll(".answerRow")[currentRound].children;
-        console.log(flipContainers)
-        console.log(currentRound)
         Array.from(flipContainers).forEach((flipContainer, i) => {
           flipContainer.firstChild.classList.add("flip");
         });
@@ -251,9 +260,9 @@
       }
       // incorrect word
       else if (currentWord.length === currentRound + 4) {
-        console.log("Here!!")
         var feedbackMessage = document.getElementById('incorrectFeedback')
         feedbackMessage.classList.add("showIncorrectFeedback");
+        reset();
         setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 800);
       }
     }
@@ -276,6 +285,9 @@
     }
 
     function reset() {
+      [...document.querySelectorAll('.hidden-tile')].map((hiddenTile) => {
+        hiddenTile.remove();
+      })
       var word = document.getElementById('wordTarget');
       var tiles = document.getElementById('tileArea');
       while (word.childNodes.length > 0) {

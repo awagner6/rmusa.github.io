@@ -156,7 +156,7 @@ table td { border: 1px solid #e8e8e8; }
 
 #tileArea {
   height: 66px;
-  display: flex;
+  /* display: flex; */
 }
 
 .incorrectFeedback {
@@ -242,11 +242,6 @@ table td { border: 1px solid #e8e8e8; }
   font-size: 24px;
   transform: scale(0);
   transition: transform 1.5s;
-}
-
-.hidden-tile {
-  color: white;
-  border-color: white;
 }
 
 .header-wrapper {
@@ -447,6 +442,12 @@ table td { border: 1px solid #e8e8e8; }
     padding: 0 12px;
   }
 }
+
+.hidden-tile {
+  color: white!important;
+  border-color: white!important;
+}
+
 
 /** Syntax highlighting styles */
 .highlight { background: #fff; }

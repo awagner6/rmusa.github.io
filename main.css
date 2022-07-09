@@ -156,18 +156,20 @@ table td { border: 1px solid #e8e8e8; }
 
 #tileArea {
   height: 66px;
-  display: inline;
-  display: flex;
+  display: inline-flex;
+  /* display: flex; */
 }
 
 #futureTiles {
   height: 66px;
-  display: inline;
+  display: inline-flex;
 }
 
 #tilesWrapper {
+  height: 66px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .incorrectFeedback {
@@ -421,6 +423,7 @@ table td { border: 1px solid #e8e8e8; }
     width: 15vw;
     font-size: 32px;
     border: 4px solid black;
+    /* display: inline; */
   }
 
   .title {
@@ -436,7 +439,9 @@ table td { border: 1px solid #e8e8e8; }
   }
 
   #tileArea {
-    height: calc(28vw + 30px);;
+    /* max-height: calc(28vw + 30px); */
+    flex-wrap: wrap;
+    height: auto;
   }
 
   /* .emoji-button {

@@ -49,11 +49,7 @@
         <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div>
         <div id="wordTarget"></div>
         <div class="divider"></div>
-
-        <div id="tilesWrapper">
-          <div id="tileArea"></div>
-          <div id="futureTiles"></div>
-        </div>
+        <div id="tileArea"></div>
 
         <div class="emoji-button-menu">
           <button class="emoji-button" role="button" onClick="goback()">⬅️</button>
@@ -171,7 +167,7 @@
       flipper = document.createElement('div');
       front = document.createElement('div');
       back = document.createElement('div');
-      emojiTile.className = "tile showTile flip-container";
+      emojiTile.className = "tile showTile flip-container emoji-tile";
       flipper.className = "flipper";
       front.className = "front";
       back.className = `back back-${i}`;
@@ -180,7 +176,7 @@
       flipper.appendChild(front);
       flipper.appendChild(back);
       emojiTile.appendChild(flipper);
-      document.getElementById('futureTiles').appendChild(emojiTile)
+      document.getElementById('tileArea').appendChild(emojiTile)
     }
     shuffle();
 
@@ -268,19 +264,22 @@
             document.getElementById('congratsModal').style.display = "block";
             return;
           }
-          document.getElementById('tileArea').appendChild(document.getElementById('futureTiles').firstChild);
-          document.getElementById('tileArea').lastChild.firstChild.children[1].innerText = findNewLetter(currentRound);
-          document.getElementById('tileArea').lastChild.addEventListener('click', clickTile);
+          // document.getElementById('tileArea').appendChild(document.getElementById('tilesWrapper').children[1]);
+          var tileToFlip = document.querySelector('.emoji-tile')
+          tileToFlip.firstChild.children[1].innerText = findNewLetter(currentRound);
+          // document.getElementById('tileArea').lastChild.addEventListener('click', clickTile);
           setTimeout(() => {
-            document.getElementById('tileArea').lastChild.firstChild.classList.add("flip");
+            tileToFlip.firstChild.classList.add("flip");
           }, 100);
           setTimeout(() => {
             var newTile = document.createElement('div');
             newTile.className = "tile showTile";
             newTile.addEventListener('click', clickTile);
             newTile.innerText = findNewLetter(currentRound);
-            document.getElementById('tileArea').lastChild.remove();
-            document.getElementById('tileArea').appendChild(newTile);
+            // document.querySelector(`#tileArea :nth-child(${c?\urrentRound + 4})`)
+            document.getElementById('tileArea').insertBefore(newTile, tileToFlip);
+            tileToFlip.remove();
+            // document.getElementById('tileArea').appendChild(newTile);
           }, 500);
           // var newTile = document.createElement('div');
           // newTile.className = "tile";
@@ -326,8 +325,8 @@
       var word = document.getElementById('wordTarget');
       var tiles = document.getElementById('tileArea');
       while (word.childNodes.length > 0) {
-        word.childNodes[0].classList.remove("bounce");
-        tiles.appendChild(word.childNodes[0])
+        word.lastChild.classList.remove("bounce");
+        tiles.prepend(word.lastChild);
       }
       currentWord = "";
     }
@@ -335,10 +334,10 @@
     function shuffle() {
       var tiles = document.getElementById('tileArea');
       while (true) {
-        for (var i = tiles.children.length; i >= 0; i--) {
-          tiles.appendChild(tiles.children[Math.random() * i | 0]);
+        for (var i = currentRound + 4; i >= 0; i--) {
+          tiles.prepend(tiles.children[Math.random() * i | 0]);
         }
-        if (!solution.flat().includes([...tiles.children].map((child) => child.innerText).join('').toLowerCase())) {
+        if (!solution.flat().includes([...tiles.children].slice(0, currentRound + 4).map((child) => child.innerText).join('').toLowerCase())) {
           break;
         }
       }

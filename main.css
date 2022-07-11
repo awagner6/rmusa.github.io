@@ -232,7 +232,7 @@ table td { border: 1px solid #e8e8e8; }
   -moz-animation-name: bounce;
   -o-animation-name: bounce;
   animation-name: bounce;
-  animation-duration: 0.25s;
+  animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-delay: 0s;
   animation-direction: alternate;

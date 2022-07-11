@@ -232,7 +232,7 @@ table td { border: 1px solid #e8e8e8; }
   -moz-animation-name: bounce;
   -o-animation-name: bounce;
   animation-name: bounce;
-  animation-duration: 0.5s;
+  animation-duration: 0.25s;
   animation-timing-function: ease-in-out;
   animation-delay: 0s;
   animation-direction: alternate;
@@ -447,18 +447,14 @@ table td { border: 1px solid #e8e8e8; }
     height: auto;
   }
 
-  /* .emoji-button {
-    font-size: 32px;
-  } */
-
-  /* .emoji-button-menu {
-    margin-top: 4px;
-  } */
-
   .button-84 {
     font-size: 14px;
     height: 36px;
     padding: 0 12px;
+  }
+
+  .bounce {
+    animation-duration: 0.5s;
   }
 }
 

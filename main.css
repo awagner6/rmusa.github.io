@@ -220,7 +220,7 @@ table td { border: 1px solid #e8e8e8; }
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
-  transform: rotateX(0deg); 
+  transform: rotateX(0deg);
 }
 
 .back {
@@ -466,6 +466,10 @@ table td { border: 1px solid #e8e8e8; }
   opacity: 0;
   /* color: white!important;
   border-color: white!important; */
+}
+
+body {
+  touch-action: manipulation;
 }
 
 

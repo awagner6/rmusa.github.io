@@ -48,7 +48,10 @@
     <div class="wrapper">
       <article class="post">
         <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div>
-        <div id="wordTarget"></div>
+
+        <div id="solutionArea"></div>
+
+        <!-- <div id="wordTarget"></div> -->
         <div class="divider"></div>
         <div id="tileArea"></div>
 
@@ -59,10 +62,10 @@
 
         <div class="buttonMenu">
           <button class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
-          <button class="button-84" role="button" onClick="reset()">Reset</button>
+          <!-- <button class="button-84" role="button" onClick="reset()">Reset</button> -->
         </div>
 
-        <div id="prevAnswers"></div>
+        <!-- <div id="prevAnswers"></div> -->
 
         <div id="congratsModal" class="modal">
           <div class="modal-content">
@@ -133,27 +136,42 @@
       4: '🐙',
       5: '🐐',
     }
-    var allAnswers = document.getElementById('prevAnswers');
+
+    // var allAnswers = document.getElementById('prevAnswers');
     for (var i = 0; i < solution.length; i++) {
-      var answer = document.createElement('div');
-      answer.className = "answerRow";
+      // var answer = document.createElement('div');
+      // answer.className = "answerRow";
       for (var j = 0; j < solution[i][0].length; j++) {
-        emojiTile = document.createElement('div');
-        flipper = document.createElement('div');
-        front = document.createElement('div');
-        back = document.createElement('div');
-        emojiTile.className = "tile showTile flip-container";
-        flipper.className = "flipper";
-        front.className = "front";
-        back.className = `back back-${i}`;
-        front.innerText = emojiMapping[i];
-        back.innerText = 'X';
-        flipper.appendChild(front);
-        flipper.appendChild(back);
-        emojiTile.appendChild(flipper);
-        answer.appendChild(emojiTile)
+        // emojiTile = document.createElement('div');
+        // flipper = document.createElement('div');
+        // front = document.createElement('div');
+        // back = document.createElement('div');
+        // emojiTile.className = "tile showTile flip-container";
+        // flipper.className = "flipper";
+        // front.className = "front";
+        // back.className = `back back-${i}`;
+        // front.innerText = emojiMapping[i];
+        // back.innerText = 'X';
+        // flipper.appendChild(front);
+        // flipper.appendChild(back);
+        // emojiTile.appendChild(flipper);
+        // answer.appendChild(emojiTile)
+
+        var solutionRow = document.createElement('div');
+        solutionRow.className = "solution-row";
+        numberDiv = document.createElement('div');
+        numberDiv.innerText = i + 4;
+        solutionCell = document.createElement('div');
+        solutionCell.id = `solution-${i + 4}`;
+        solutionCell.className = "solution-cell"
+        if (i === 0) {
+          solutionCell.classList.add('active-cell');
+        }
+        solutionRow.appendChild(numberDiv);
+        solutionRow.appendChild(solutionCell);
       }
-      allAnswers.appendChild(answer);
+      // allAnswers.appendChild(answer);
+      document.getElementById('solutionArea').appendChild(solutionRow);
     }
 
     for (var i = 0; i < solution[0][0].length; i++) {
@@ -163,33 +181,38 @@
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
     }
-    // for (var i = 1; i < solution.length; i++) {
-    //   emojiTile = document.createElement('div');
-    //   flipper = document.createElement('div');
-    //   front = document.createElement('div');
-    //   back = document.createElement('div');
-    //   emojiTile.className = "tile showTile flip-container emoji-tile";
-    //   flipper.className = "flipper";
-    //   front.className = "front";
-    //   back.className = `back back-${i}`;
-    //   front.innerText = emojiMapping[i];
-    //   back.innerText = 'X';
-    //   flipper.appendChild(front);
-    //   flipper.appendChild(back);
-    //   emojiTile.appendChild(flipper);
-    //   document.getElementById('tileArea').appendChild(emojiTile)
-    // }
+    for (var i = 1; i < solution.length; i++) {
+      emojiTile = document.createElement('div');
+      flipper = document.createElement('div');
+      front = document.createElement('div');
+      back = document.createElement('div');
+      emojiTile.className = "tile showTile flip-container emoji-tile";
+      flipper.className = "flipper";
+      front.className = "front";
+      back.className = `back back-${i}`;
+      front.innerText = emojiMapping[i];
+      back.innerText = 'X';
+      flipper.appendChild(front);
+      flipper.appendChild(back);
+      emojiTile.appendChild(flipper);
+      document.getElementById('tileArea').appendChild(emojiTile)
+    }
     shuffle();
 
     function goback() {
       if (currentWord !== "") {
-        var tile = document.getElementById('wordTarget').lastChild;
-        var firstBlank = document.querySelector('.hidden-tile');
-        firstBlank.innerText = tile.innerText;
-        firstBlank.classList.remove('hidden-tile');
-        firstBlank.addEventListener('click', clickTile);
-        tile.remove();
+        // var tile = document.getElementById('wordTarget').lastChild;
+        // var firstBlank = document.querySelector('.hidden-tile');
+        // firstBlank.innerText = tile.innerText;
+        // firstBlank.classList.remove('hidden-tile');
+        // firstBlank.addEventListener('click', clickTile);
+        // tile.remove();
+        var lastLetter = currentWord[currentWord.length - 1];
         currentWord = currentWord.slice(0, -1)
+        document.querySelector(`#solution-${currentRound + 4}`).innerText = currentWord;
+        var usedTiles = document.querySelectorAll('.used-tile');
+        var tile = [...usedTiles].filter((usedTile) => usedTile.innerText === lastLetter)[0];
+        tile.classList.remove('used-tile');
       }
     }
 
@@ -199,7 +222,8 @@
           goback();
           return;
         }
-        var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(e.key);
+        var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains('used-tile') ? '?' : child.innerText.toLowerCase()).indexOf(e.key);
+        console.log(index);
         if (index !== -1) {
           document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
         }
@@ -232,60 +256,69 @@
     // // }
 
     function clickTile(ev) {
-      if (document.getElementById('wordTarget').contains(ev.target)) {
-        return;
-      }
+      // if (document.getElementById('wordTarget').contains(ev.target)) {
+      //   return;
+      // }
       currentWord += ev.target.innerText;
-      var tileClone = ev.target.cloneNode(true);
-      tileClone.addEventListener('click', clickTile);
-      document.getElementById('wordTarget').appendChild(tileClone);
-      ev.target.innerText = '/';
-      ev.target.removeEventListener('click', clickTile);
-      ev.target.classList.add("hidden-tile");
+
+      document.querySelector(`#solution-${currentRound + 4}`).innerText = currentWord;
+      ev.target.classList.add("used-tile");
+
+      // var tileClone = ev.target.cloneNode(true);
+      // tileClone.addEventListener('click', clickTile);
+      // document.getElementById('wordTarget').appendChild(tileClone);
+      // ev.target.innerText = '/';
+      // ev.target.removeEventListener('click', clickTile);
+      // ev.target.classList.add("hidden-tile");
       // correct word
       if (solution.flat().includes(currentWord.toLowerCase()) && currentWord.length === currentRound + 4) {
         // animate solution word
-        [...document.getElementById('wordTarget').children].forEach((tile) => {
-          tile.classList.add("bounce");
-        });
+        // [...document.getElementById('wordTarget').children].forEach((tile) => {
+        //   tile.classList.add("bounce");
+        // });
         // set solution that player actually went with
-        var emojisToFlip = document.querySelectorAll(`.back-${currentRound}`);
-        emojisToFlip.forEach((emoji, i) => {
-          emoji.innerText = currentWord[i];
-        });
+        // var emojisToFlip = document.querySelectorAll(`.back-${currentRound}`);
+        // emojisToFlip.forEach((emoji, i) => {
+        //   emoji.innerText = currentWord[i];
+        // });
         // flip the tiles
-        var flipContainers = document.querySelectorAll(".answerRow")[currentRound].children;
-        Array.from(flipContainers).forEach((flipContainer, i) => {
-          flipContainer.firstChild.classList.add("flip");
-        });
+        // var flipContainers = document.querySelectorAll(".answerRow")[currentRound].children;
+        // Array.from(flipContainers).forEach((flipContainer, i) => {
+        //   flipContainer.firstChild.classList.add("flip");
+        // });
+        // change active answer cell
+
+
         setTimeout(() => {
-          reset();
+          reset(true);
+          document.querySelector(`#solution-${currentRound + 4}`).classList.remove("active-cell");
           currentRound++;
           if (currentRound === solution.length) {
             document.getElementById('congratsModal').style.display = "block";
             return;
           }
+          document.querySelector(`#solution-${currentRound + 4}`).classList.add("active-cell");
           // document.getElementById('tileArea').appendChild(document.getElementById('tilesWrapper').children[1]);
-          // var tileToFlip = document.querySelector('.emoji-tile')
-          // tileToFlip.firstChild.children[1].innerText = findNewLetter(currentRound);
-          // setTimeout(() => {
-          //   tileToFlip.firstChild.classList.add("flip");
-          // }, 100);
-          // setTimeout(() => {
-          //   var newTile = document.createElement('div');
-          //   newTile.className = "tile showTile";
-          //   newTile.addEventListener('click', clickTile);
-          //   newTile.innerText = findNewLetter(currentRound);
-          //   document.getElementById('tileArea').insertBefore(newTile, tileToFlip);
-          //   tileToFlip.remove();
-          // }, 500);
-          var newTile = document.createElement('div');
-          newTile.className = "tile";
-          newTile.addEventListener('click', clickTile);
-          newTile.innerText = findNewLetter(currentRound);
-          document.getElementById('tileArea').appendChild(newTile);
-          setTimeout(() => newTile.classList.add("showTile"), 100);
-        }, 500)
+          var tileToFlip = document.querySelector('.emoji-tile')
+          tileToFlip.firstChild.children[1].innerText = findNewLetter(currentRound);
+          setTimeout(() => {
+            tileToFlip.firstChild.classList.add("flip");
+          }, 100);
+          setTimeout(() => {
+            var newTile = document.createElement('div');
+            newTile.className = "tile showTile";
+            newTile.addEventListener('click', clickTile);
+            newTile.innerText = findNewLetter(currentRound);
+            document.getElementById('tileArea').insertBefore(newTile, tileToFlip);
+            tileToFlip.remove();
+          }, 500);
+          // var newTile = document.createElement('div');
+          // newTile.className = "tile";
+          // newTile.addEventListener('click', clickTile);
+          // newTile.innerText = findNewLetter(currentRound);
+          // document.getElementById('tileArea').appendChild(newTile);
+          // setTimeout(() => newTile.classList.add("showTile"), 100);
+        }, 0)
       }
       // incorrect word
       else if (currentWord.length === currentRound + 4) {
@@ -316,24 +349,30 @@
       return newLetters[newLetters.length - 1];
     }
 
-    function reset() {
-      [...document.querySelectorAll('.hidden-tile')].map((hiddenTile) => {
-        hiddenTile.remove();
-      })
-      var word = document.getElementById('wordTarget');
-      var tiles = document.getElementById('tileArea');
-      while (word.childNodes.length > 0) {
-        word.lastChild.classList.remove("bounce");
-        tiles.prepend(word.lastChild);
-      }
+    function reset(preserveWord = false) {
+      [...document.querySelectorAll('.used-tile')].map((usedTile) => {
+        usedTile.classList.remove('used-tile');
+      });
+      // [...document.querySelectorAll('.hidden-tile')].map((hiddenTile) => {
+      //   hiddenTile.remove();
+      // })
+      // var word = document.getElementById('wordTarget');
+      // var tiles = document.getElementById('tileArea');
+      // while (word.childNodes.length > 0) {
+      //   word.lastChild.classList.remove("bounce");
+      //   tiles.prepend(word.lastChild);
+      // }
       currentWord = "";
+      if (!preserveWord) {
+        document.querySelector(`#solution-${currentRound + 4}`).innerText = "";
+      }
     }
 
     function shuffle() {
       var tiles = document.getElementById('tileArea');
       while (true) {
-        for (var i = tiles.children.length; i >= 0; i--) {
-          tiles.appendChild(tiles.children[Math.random() * i | 0]);
+        for (var i = currentRound + 4; i >= 0; i--) {
+          tiles.insertBefore(tiles.children[Math.random() * i | 0], tiles.children[currentRound + 4]);
         }
         if (!solution.flat().includes([...tiles.children].slice(0, currentRound + 4).map((child) => child.innerText).join('').toLowerCase())) {
           break;

@@ -48,11 +48,11 @@
     <div class="wrapper">
       <article class="post">
         <!-- <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div> -->
-
+        <div id="introInfo">Unscramble a word to reveal the next letter</div>
         <div id="solutionArea"></div>
 
         <!-- <div id="wordTarget"></div> -->
-        <div class="divider"></div>
+        <!-- <div class="divider"></div> -->
         <div id="tileArea"></div>
 
         <div class="emoji-button-menu" onClick="() => {}">
@@ -160,7 +160,10 @@
         var solutionRow = document.createElement('div');
         solutionRow.className = "solution-row";
         numberDiv = document.createElement('div');
+        emojiDiv = document.createElement('div');
+        emojiDiv.className = "emojiDiv";
         numberDiv.innerText = i + 4;
+        emojiDiv.innerText = emojiMapping[i];
         solutionCell = document.createElement('div');
         solutionCell.id = `solution-${i + 4}`;
         solutionCell.className = "solution-cell"
@@ -169,6 +172,7 @@
         }
         solutionRow.appendChild(numberDiv);
         solutionRow.appendChild(solutionCell);
+        solutionRow.appendChild(emojiDiv);
       }
       // allAnswers.appendChild(answer);
       document.getElementById('solutionArea').appendChild(solutionRow);
@@ -322,7 +326,7 @@
       // incorrect word
       else if (currentWord.length === currentRound + 4) {
         var feedbackMessage = document.createElement('div');
-        feedbackMessage.innerText = "Word not in dictionary";
+        feedbackMessage.innerText = "Invalid word";
         feedbackMessage.className = "incorrectFeedback";
         // var feedbackMessage = document.getElementById('incorrectFeedback')
         feedbackMessage.classList.add("showIncorrectFeedback");

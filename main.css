@@ -199,6 +199,10 @@ table td { border: 1px solid #e8e8e8; }
   margin-left: 8px;
 }
 
+#introInfo {
+  font-size: 18px;
+}
+
 .showIncorrectFeedback {
   opacity: 1;
 }
@@ -251,7 +255,7 @@ table td { border: 1px solid #e8e8e8; }
 .solution-row {
   display: flex;
   align-items: center;
-  margin: 16px 0;
+  margin: 12px 0;
   font-size: 24px;
   text-transform: uppercase;
   font-weight: bold;
@@ -259,7 +263,7 @@ table td { border: 1px solid #e8e8e8; }
 }
 
 .solution-cell {
-  margin-left: 16px;
+  margin-left: 12px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -267,6 +271,10 @@ table td { border: 1px solid #e8e8e8; }
   height: 42px;
   display: flex;
   align-items: center;
+}
+
+.emojiDiv {
+  margin-left: 16px;
 }
 
 .active-cell {
@@ -495,6 +503,10 @@ table td { border: 1px solid #e8e8e8; }
 
   .bounce {
     animation-duration: 0.5s;
+  }
+
+  #introInfo {
+    font-size: 14px;
   }
 }
 

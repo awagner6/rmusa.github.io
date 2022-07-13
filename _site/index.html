@@ -49,6 +49,7 @@
       <article class="post">
         <!-- <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div> -->
         <div id="introInfo">Unscramble a word to reveal the next letter</div>
+        <div id="timer"></div>
         <div id="solutionArea"></div>
 
         <!-- <div id="wordTarget"></div> -->
@@ -58,25 +59,41 @@
         <div class="emoji-button-menu" onClick="() => {}">
           <button class="emoji-button" role="button" onClick="goback()">⬅️</button>
           <button class="emoji-button" role="button" onClick="shuffle()">🔄</button>
-        </div>
-
-        <div class="buttonMenu">
-          <button class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
-          <!-- <button class="button-84" role="button" onClick="reset()">Reset</button> -->
+          <button id="hintButton" class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
         </div>
 
         <!-- <div id="prevAnswers"></div> -->
 
         <div id="congratsModal" class="modal">
           <div class="modal-content">
-            <p>Congrats! You win!</p>
+            <div class="column-flex">
+              <div class="goat">🐐</div>
+              <div class="goat-text">You reached the G.O.A.T. !!!</div>
+            </div>
+            <div class="goat-modal-info-container">
+              <div id="totalTime"></div>
+              <div>🐐 streak: XX</div>
+            </div>
+            <div>Time Distribution:</div>
+            <div id="emojiTimeDistribution"></div>
+            <div class="goat-modal-info-container">
+              <div>Next Anigram: XX:XX:XX</div>
+              <button class="button-84" role="button" onClick="() => {}">Share</button>
+            </div>
+
           </div>
         </div>
 
         <div id="rulesModal" class="modal">
           <div class="modal-content">
             <span class="close" onClick="closeModal('rulesModal')">&times;</span>
-            <p>Here are some rules and other info!</p>
+            <div class="rules-info">
+              <div>Unscramble a word to reveal the next letter.</div>
+              <div>Each word must use every available letter exactly once.</div>
+              <div>There may be multiple acceptable words at any given level, but you only need to enter one to advance.</div>
+              <div>Feeling stuck? Use the "Show first letter" button for a hint, or the shuffle button to rearrange the letters.</div>
+              <div>A new Anigrams puzzle will post every day at 9:30pm EST, 6:30pm PST</div>
+            </div>
           </div>
         </div>
       </article>
@@ -128,14 +145,53 @@
     ];
     var currentWord = "";
     var currentRound = 0;
-    var emojiMapping = {
-      0: '🦜',
-      1: '🦒',
-      2: '🐬',
-      3: '🦉',
-      4: '🐙',
-      5: '🐐',
+    var emojiMapping = [
+      '🦜',
+      '🦒',
+      '🐬',
+      '🦉',
+      '🐙',
+      '🐐',
+    ]
+    var solveTimes = [];
+
+    var startTime = Math.floor(Date.now() / 1000); //Get the starting time (right now) in seconds
+
+    function startTimeCounter() {
+      var now = Math.floor(Date.now() / 1000); // get the time now
+      var diff = now - startTime; // diff in seconds between now and start
+      var m = Math.floor(diff / 60); // get minutes value (quotient of diff)
+      var s = Math.floor(diff % 60); // get seconds value (remainder of diff)
+      m = checkTime(m); // add a leading zero if it's single digit
+      s = checkTime(s); // add a leading zero if it's single digit
+      document.getElementById("timer").innerHTML = m + ":" + s; // update the element where the timer will appear
+      var t = setTimeout(startTimeCounter, 500); // set a timeout to update the timer
     }
+
+    function checkTime(i) {
+      if (i < 10) {
+        i = "0" + i
+      }; // add zero in front of numbers < 10
+      return i;
+    }
+
+    function getEmojiNumber(solveTime) {
+      if (solveTime < 8) {
+        return 1
+      } else if (solveTime < 16) {
+        return 2
+      } else if (solveTime < 31) {
+        return 3
+      } else if (solveTime < 91) {
+        return 4
+      } else if (solveTime < 301) {
+        return 5
+      } else {
+        return 6
+      }
+    }
+
+    startTimeCounter();
 
     // var allAnswers = document.getElementById('prevAnswers');
     for (var i = 0; i < solution.length; i++) {
@@ -290,13 +346,29 @@
         //   flipContainer.firstChild.classList.add("flip");
         // });
         // change active answer cell
-
-
+        var solveTime = Math.floor(Date.now() / 1000);
+        solveTimes.push(currentRound === 0 ? solveTime - startTime : solveTime - startTime - solveTimes[solveTimes.length - 1]);
         setTimeout(() => {
           reset(true);
           document.querySelector(`#solution-${currentRound + 4}`).classList.remove("active-cell");
           currentRound++;
           if (currentRound === solution.length) {
+            var now = Math.floor(Date.now() / 1000);
+            var diff = now - startTime;
+            var totalMinutes = Math.floor(diff / 60);
+            var h = Math.floor(totalMinutes / 60);
+            var m = Math.floor(totalMinutes % 60);
+            var s = Math.floor(diff % 60);
+            h = checkTime(h)
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('totalTime').innerText = `Total time: ${h}:${m}:${s}`;
+            for (var i = 0; i < emojiMapping.length; i++) {
+              var emojiRow = document.createElement('div');
+              emojiRow.className = "emoji-row";
+              emojiRow.innerText = emojiMapping[i].repeat(getEmojiNumber(solveTimes[i]));
+              document.getElementById('emojiTimeDistribution').appendChild(emojiRow);
+            }
             document.getElementById('congratsModal').style.display = "block";
             return;
           }

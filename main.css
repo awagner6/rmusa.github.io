@@ -188,11 +188,15 @@ table td { border: 1px solid #e8e8e8; }
   justify-content: center;
   display: inline-flex;
   color: white;
-  margin-bottom: 12px;
   opacity: 0;
   transform: opacity;
   transition: 0.2s;
   transition-timing-function: ease-in;
+  font-size: 16px;
+  text-transform: none;
+  font-weight: normal;
+  letter-spacing: normal;
+  margin-left: 8px;
 }
 
 .showIncorrectFeedback {
@@ -261,11 +265,13 @@ table td { border: 1px solid #e8e8e8; }
   align-items: center;
   padding: 12px 0px;
   height: 42px;
+  display: flex;
+  align-items: center;
 }
 
 .active-cell {
   border-bottom: 2px solid black;
-  padding-bottom: 10px;
+  padding-bottom: 10;
 }
 
 .active-cell::after {

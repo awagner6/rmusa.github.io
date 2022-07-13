@@ -47,7 +47,7 @@
   <main class="page-content" aria-label="Content">
     <div class="wrapper">
       <article class="post">
-        <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div>
+        <!-- <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div> -->
 
         <div id="solutionArea"></div>
 
@@ -223,7 +223,6 @@
           return;
         }
         var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains('used-tile') ? '?' : child.innerText.toLowerCase()).indexOf(e.key);
-        console.log(index);
         if (index !== -1) {
           document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
         }
@@ -322,10 +321,15 @@
       }
       // incorrect word
       else if (currentWord.length === currentRound + 4) {
-        var feedbackMessage = document.getElementById('incorrectFeedback')
+        var feedbackMessage = document.createElement('div');
+        feedbackMessage.innerText = "Word not in dictionary";
+        feedbackMessage.className = "incorrectFeedback";
+        // var feedbackMessage = document.getElementById('incorrectFeedback')
         feedbackMessage.classList.add("showIncorrectFeedback");
-        reset();
-        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 800);
+        document.querySelector('.active-cell').appendChild(feedbackMessage);
+        // reset();
+        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 300);
+        setTimeout(() => reset(), 500);
       }
     }
 

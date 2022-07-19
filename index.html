@@ -70,15 +70,54 @@
               <div class="goat">🐐</div>
               <div class="goat-text">You reached the G.O.A.T. !!!</div>
             </div>
-            <div class="goat-modal-info-container">
-              <div id="totalTime"></div>
-              <div>🐐 streak: XX</div>
+            <div id="shareableContent">
+              <div class="share-content-row">
+                <div>🐐</div>
+                <div>🦉</div>
+                <div>🦒</div>
+                <div>🐬</div>
+                <div>🦜</div>
+                <div>🐙</div>
+                <div>🐐</div>
+              </div>
+              <div class="share-content-row">
+                <div>🐙</div>
+                <div>Anigrams</div>
+                <div>🦉</div>
+              </div>
+              <div class="share-content-row">
+                <div>🦜</div>
+                <div id="shareNumber"></div>
+                <div>🦒</div>
+              </div>
+              <div class="share-content-row">
+                <div>🐬</div>
+                <div id="shareTime"></div>
+                <div>🐬</div>
+              </div>
+              <div class="share-content-row">
+                <div>🦒</div>
+                <div id="shareHints"></div>
+                <div>🦜</div>
+              </div>
+              <div class="share-content-row">
+                <div>🦉</div>
+                <div id="shareStreak"></div>
+                <div>🐙</div>
+              </div>
+              <div class="share-content-row">
+                <div>🐐</div>
+                <div>🐙</div>
+                <div>🦜</div>
+                <div>🐬</div>
+                <div>🦒</div>
+                <div>🦉</div>
+                <div>🐐</div>
+              </div>
             </div>
-            <div>Time Distribution:</div>
-            <div id="emojiTimeDistribution"></div>
             <div class="goat-modal-info-container">
               <div>Next Anigram: XX:XX:XX</div>
-              <button class="button-84" role="button" onClick="() => {}">Share</button>
+              <button id="shareButton" class="button-84" role="button" onClick="onClickShare()">Share</button>
             </div>
 
           </div>
@@ -145,6 +184,7 @@
     ];
     var currentWord = "";
     var currentRound = 0;
+    var textToShare = 0;
     var emojiMapping = [
       '🦜',
       '🦒',
@@ -314,6 +354,12 @@
     // }
     // // }
 
+    function onClickShare() {
+      navigator.clipboard.writeText(textToShare)
+      document.getElementById('shareButton').innerText = "Copied to clipboard";
+      setTimeout(() => document.getElementById('shareButton').innerText = "Share", 1000);
+    }
+
     function clickTile(ev) {
       // if (document.getElementById('wordTarget').contains(ev.target)) {
       //   return;
@@ -362,13 +408,18 @@
             h = checkTime(h)
             m = checkTime(m);
             s = checkTime(s);
-            document.getElementById('totalTime').innerText = `Total time: ${h}:${m}:${s}`;
-            for (var i = 0; i < emojiMapping.length; i++) {
-              var emojiRow = document.createElement('div');
-              emojiRow.className = "emoji-row";
-              emojiRow.innerText = emojiMapping[i].repeat(getEmojiNumber(solveTimes[i]));
-              document.getElementById('emojiTimeDistribution').appendChild(emojiRow);
-            }
+            textToShare = `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        #00X        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: X      🦜\n🦉  Streak: 00X  🐙\n🐐🐙🦜🐬🦒🦉🐐`
+            document.getElementById('shareNumber').innerText = "#004"
+            document.getElementById('shareTime').innerText = `${h}:${m}:${s}`
+            document.getElementById('shareHints').innerText = "Hints: X"
+            document.getElementById('shareStreak').innerText = "Streak: 005"
+            // document.getElementById('totalTime').innerText = `Total time: ${h}:${m}:${s}`;
+            // for (var i = 0; i < emojiMapping.length; i++) {
+            //   var emojiRow = document.createElement('div');
+            //   emojiRow.className = "emoji-row";
+            //   emojiRow.innerText = emojiMapping[i].repeat(getEmojiNumber(solveTimes[i]));
+            //   document.getElementById('emojiTimeDistribution').appendChild(emojiRow);
+            // }
             document.getElementById('congratsModal').style.display = "block";
             return;
           }

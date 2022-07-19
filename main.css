@@ -393,13 +393,27 @@ table td { border: 1px solid #e8e8e8; }
 
 .goat-text {
   font-size: 24px;
+  margin-bottom: 42px;
+}
+
+#shareableContent {
+  width: 200px;
+  font-size: 18px;
+  margin: auto;
+}
+
+.share-content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .goat-modal-info-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 12px 0;
+  margin-top: 32px;
+  margin-bottom: 12px;
 }
 
 .emoji-row {

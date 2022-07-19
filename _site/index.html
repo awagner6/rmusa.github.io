@@ -233,44 +233,38 @@
 
     startTimeCounter();
 
-    // var allAnswers = document.getElementById('prevAnswers');
     for (var i = 0; i < solution.length; i++) {
-      // var answer = document.createElement('div');
-      // answer.className = "answerRow";
+      // var solutionRow = document.createElement('div');
+      // solutionRow.className = "solution-row";
+      // numberDiv = document.createElement('div');
+      // emojiDiv = document.createElement('div');
+      // emojiDiv.className = "emojiDiv";
+      // numberDiv.innerText = i + 4;
+      // emojiDiv.innerText = emojiMapping[i];
+      // solutionCell = document.createElement('div');
+      // solutionCell.id = `solution-${i + 4}`;
+      // solutionCell.className = "solution-cell"
+      // if (i === 0) {
+      //   solutionCell.classList.add('active-cell');
+      // }
+      // solutionRow.appendChild(numberDiv);
+      // solutionRow.appendChild(solutionCell);
+      // solutionRow.appendChild(emojiDiv);
+      var solutionRow = document.createElement('div');
+      solutionRow.className = "solution-row";
+      emojiDiv = document.createElement('div');
+      emojiDiv.className = "emojiDiv";
+      emojiDiv.innerText = emojiMapping[i];
+      solutionRow.id = `solution-${i + 4}`
       for (var j = 0; j < solution[i][0].length; j++) {
-        // emojiTile = document.createElement('div');
-        // flipper = document.createElement('div');
-        // front = document.createElement('div');
-        // back = document.createElement('div');
-        // emojiTile.className = "tile showTile flip-container";
-        // flipper.className = "flipper";
-        // front.className = "front";
-        // back.className = `back back-${i}`;
-        // front.innerText = emojiMapping[i];
-        // back.innerText = 'X';
-        // flipper.appendChild(front);
-        // flipper.appendChild(back);
-        // emojiTile.appendChild(flipper);
-        // answer.appendChild(emojiTile)
-
-        var solutionRow = document.createElement('div');
-        solutionRow.className = "solution-row";
-        numberDiv = document.createElement('div');
-        emojiDiv = document.createElement('div');
-        emojiDiv.className = "emojiDiv";
-        numberDiv.innerText = i + 4;
-        emojiDiv.innerText = emojiMapping[i];
-        solutionCell = document.createElement('div');
-        solutionCell.id = `solution-${i + 4}`;
-        solutionCell.className = "solution-cell"
-        if (i === 0) {
-          solutionCell.classList.add('active-cell');
+        var solutionSlot = document.createElement('div');
+        solutionSlot.className = "solution-slot";
+        if (i === 0 && j === 0) {
+          solutionSlot.classList.add("active-solution-slot")
         }
-        solutionRow.appendChild(numberDiv);
-        solutionRow.appendChild(solutionCell);
-        solutionRow.appendChild(emojiDiv);
+        solutionRow.appendChild(solutionSlot);
       }
-      // allAnswers.appendChild(answer);
+      solutionRow.appendChild(emojiDiv)
       document.getElementById('solutionArea').appendChild(solutionRow);
     }
 
@@ -281,7 +275,7 @@
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
     }
-    for (var i = 1; i < solution.length; i++) {
+    for (var i = 0; i < solution.length; i++) {
       emojiTile = document.createElement('div');
       flipper = document.createElement('div');
       front = document.createElement('div');
@@ -309,7 +303,9 @@
         // tile.remove();
         var lastLetter = currentWord[currentWord.length - 1];
         currentWord = currentWord.slice(0, -1)
-        document.querySelector(`#solution-${currentRound + 4}`).innerText = currentWord;
+        document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length + 1})`).innerText = "";
+        document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length + 2})`).classList.remove("active-solution-slot")
+        document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length + 1})`).classList.add("active-solution-slot")
         var usedTiles = document.querySelectorAll('.used-tile');
         var tile = [...usedTiles].filter((usedTile) => usedTile.innerText === lastLetter)[0];
         tile.classList.remove('used-tile');
@@ -332,27 +328,6 @@
     // function getLetterAt(index) {
     //   return letters[index];
     // }
-    //
-    // function allowDrop(ev) {
-    //   if (ev.target.childElementCount === 0) {
-    //     ev.preventDefault();
-    //   }
-    // }
-    //
-    // function drag(ev) {
-    //   ev.dataTransfer.setData("text", ev.target.id);
-    //   ev.dataTransfer.setData("dragOrigin", ev.target.parentElement.id);
-    // }
-    //
-    // function drop(ev, el) {
-    //   // if (el.childElementCount === 0) {
-    //   ev.preventDefault();
-    //   var currentChild = el.firstChild;
-    //   var data = ev.dataTransfer.getData("text");
-    //   el.appendChild(document.getElementById(data));
-    //   dragOrigin.appendChild(currentChild);
-    // }
-    // // }
 
     function onClickShare() {
       navigator.clipboard.writeText(textToShare)
@@ -366,7 +341,11 @@
       // }
       currentWord += ev.target.innerText;
 
-      document.querySelector(`#solution-${currentRound + 4}`).innerText = currentWord;
+      document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length})`).innerText = ev.target.innerText;
+      document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length})`).classList.remove("active-solution-slot")
+      if (currentWord.length !== currentRound + 4) {
+        document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length + 1})`).classList.add("active-solution-slot");
+      }
       ev.target.classList.add("used-tile");
 
       // var tileClone = ev.target.cloneNode(true);
@@ -423,7 +402,7 @@
             document.getElementById('congratsModal').style.display = "block";
             return;
           }
-          document.querySelector(`#solution-${currentRound + 4}`).classList.add("active-cell");
+          document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
           // document.getElementById('tileArea').appendChild(document.getElementById('tilesWrapper').children[1]);
           var tileToFlip = document.querySelector('.emoji-tile')
           tileToFlip.firstChild.children[1].innerText = findNewLetter(currentRound);
@@ -453,10 +432,13 @@
         feedbackMessage.className = "incorrectFeedback";
         // var feedbackMessage = document.getElementById('incorrectFeedback')
         feedbackMessage.classList.add("showIncorrectFeedback");
-        document.querySelector('.active-cell').appendChild(feedbackMessage);
-        // reset();
+        document.querySelector(`#solution-${currentRound + 4}`).appendChild(feedbackMessage);
+        reset();
         setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 300);
-        setTimeout(() => reset(), 500);
+        setTimeout(() => {
+          reset();
+          document.querySelector(`#solution-${currentRound + 4}`).lastChild.remove();
+        }, 500);
       }
     }
 
@@ -495,7 +477,7 @@
       // }
       currentWord = "";
       if (!preserveWord) {
-        document.querySelector(`#solution-${currentRound + 4}`).innerText = "";
+        [...document.querySelectorAll(`#solution-${currentRound + 4} .solution-slot`)].map((child) => child.innerText = "");
       }
     }
 

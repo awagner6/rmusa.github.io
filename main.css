@@ -132,44 +132,17 @@ table td { border: 1px solid #e8e8e8; }
 .post-content h4 { font-size: 20px; }
 @media screen and (max-width: 800px) { .post-content h4 { font-size: 18px; } }
 
-#wordTarget {
-  height: 66px;
-  display: flex;
-  align-items: center;
-}
-
 @keyframes cursor-blink {
   0% {
     opacity: 0;
   }
 }
 
-#wordTarget::after {
-  content: "";
-  width: 1px;
-  height: 40px;
-  background: black;
-  margin-left: 4px;
-  display: inline-block;
-  animation: cursor-blink 1.25s steps(2) infinite;
-}
-
 #tileArea {
-  height: 66px;
+  /* height: 66px; */
   display: inline-flex;
+  margin: 24px 0;
   /* display: flex; */
-}
-
-#futureTiles {
-  height: 66px;
-  display: inline-flex;
-}
-
-#tilesWrapper {
-  height: 66px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .feedbackContainer {
@@ -221,21 +194,10 @@ table td { border: 1px solid #e8e8e8; }
   border-color: #25292e #25292e transparent transparent;
 }
 
-/* .incorrectFeedback::before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 10px solid transparent;
-  border-right: 10px solid #00bfb6;
-  border-top: 10px solid #00bfb6;
-  border-bottom: 10px solid transparent;
-  right: 19px;
-  bottom: -19px;
-} */
-
 #introInfo {
   font-size: 18px;
+  margin-top: 12px;
+  margin-bottom: 24px;
 }
 
 .showIncorrectFeedback {
@@ -270,23 +232,6 @@ table td { border: 1px solid #e8e8e8; }
   transform: rotateX( 180deg );
 }
 
-.bounce {
-  -webkit-animation-name: bounce;
-  -moz-animation-name: bounce;
-  -o-animation-name: bounce;
-  animation-name: bounce;
-  animation-duration: 0.25s;
-  animation-timing-function: ease-in-out;
-  animation-delay: 0s;
-  animation-direction: alternate;
-}
-
-@keyframes bounce {
-  0%, 100% {transform: translateY(0);opacity: 1;}
-  50% {transform: translateY(-10px);}
-  /* 60% {transform: translateY(-10px);} */
-}
-
 .solution-row {
   display: flex;
   align-items: center;
@@ -299,9 +244,10 @@ table td { border: 1px solid #e8e8e8; }
 
 .solution-slot {
   border-radius: 4px;
-  /* border: 1px solid black; */
-  width: 30px;
-  height: 30px;
+  /* width: 30px;
+  height: 30px; */
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,11 +270,6 @@ table td { border: 1px solid #e8e8e8; }
   margin-left: 16px;
 }
 
-/* .active-cell {
-  border-bottom: 2px solid black;
-  padding-bottom: 10px;
-} */
-
 .active-solution-slot::after {
   content: "";
   width: 1px;
@@ -341,11 +282,12 @@ table td { border: 1px solid #e8e8e8; }
 
 
 .tile {
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   display: inline-flex;
   margin: 4px;
-  border: 4px solid black;
+  border: 1px solid black;
+  border-radius: 4px;
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
@@ -388,12 +330,6 @@ table td { border: 1px solid #e8e8e8; }
 
 .showTile {
   transform: scale(1);
-}
-
-.divider {
-  border: 1px solid black;
-  margin-top: 16px;
-  margin-bottom: 16px;
 }
 
 #hintButton {
@@ -562,20 +498,19 @@ table td { border: 1px solid #e8e8e8; }
 
 
 @media screen and (max-width: 650px) {
-  .tile {
-    height: 7vw;
-    width: 7vw;
-    margin: 2px;
-    border: 2px solid black;
-    font-size: 16px;
-  }
-
   #tileArea .tile {
     height: 15vw;
     width: 15vw;
-    font-size: 32px;
-    border: 4px solid black;
-    /* display: inline; */
+    font-size: 28px;
+  }
+
+  .solution-slot {
+    height: 30px;
+    width: 30px;
+  }
+
+  .emojiDiv {
+    margin-left: 12px;
   }
 
   .title {
@@ -586,14 +521,10 @@ table td { border: 1px solid #e8e8e8; }
     font-size: 14px;
   }
 
-  #wordTarget {
-    height: calc(7vw + 12px);
-  }
-
   #tileArea {
-    /* max-height: calc(28vw + 30px); */
     flex-wrap: wrap;
     height: auto;
+    margin: 0;
   }
 
   .button-84 {
@@ -608,6 +539,7 @@ table td { border: 1px solid #e8e8e8; }
 
   #introInfo {
     font-size: 14px;
+    margin: 0;
   }
 
   .solution-cell {
@@ -619,29 +551,13 @@ table td { border: 1px solid #e8e8e8; }
     font-size: 40px;
   }
 
-  /* .emojiDiv {
-    margin-left: 16px;
-  }
-
-  .active-cell {
-    border-bottom: 2px solid black;
-    padding-bottom: 10px;
-  } */
-
-  .active-cell::after {
-    height: 30px;
-  }
-
   .solution-row {
-    /* margin: 12px 0; */
     font-size: 18px;
   }
 }
 
 .hidden-tile {
   opacity: 0;
-  /* color: white!important;
-  border-color: white!important; */
 }
 
 .used-tile {

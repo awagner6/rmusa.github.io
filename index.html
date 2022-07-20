@@ -399,7 +399,7 @@
 
         setTimeout(() => {
           reset(true);
-          document.querySelector(`#solution-${currentRound + 4}`).classList.remove("active-cell");
+          // document.querySelector(`#solution-${currentRound + 4}`).classList.remove("active-cell");
           currentRound++;
           if (currentRound === solution.length) {
             var now = Math.floor(Date.now() / 1000);
@@ -460,10 +460,12 @@
         feedbackContainer.appendChild(feedbackMessage);
         document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
         reset();
+        console.log(document.querySelector(`#solution-${currentRound + 4}`).firstChild);
         setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 300);
         setTimeout(() => {
           reset();
           document.querySelector(`#solution-${currentRound + 4}`).lastChild.previousSibling.remove();
+          document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
         }, 500);
       }
     }
@@ -492,6 +494,7 @@
       [...document.querySelectorAll('.used-tile')].map((usedTile) => {
         usedTile.classList.remove('used-tile');
       });
+      document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length + 1})`).classList.remove("active-solution-slot");
       // [...document.querySelectorAll('.hidden-tile')].map((hiddenTile) => {
       //   hiddenTile.remove();
       // })

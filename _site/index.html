@@ -193,6 +193,14 @@
       '🐙',
       '🐐',
     ]
+    var successMessages = [
+      "Hoo-ray!",
+      "Neck-cellent!",
+      "TeEEEEErrific!",
+      "Caw-esome!",
+      "Gr-eight!",
+      "Maaa-arvelous",
+    ]
     var solveTimes = [];
 
     var startTime = Math.floor(Date.now() / 1000); //Get the starting time (right now) in seconds
@@ -373,6 +381,22 @@
         // change active answer cell
         var solveTime = Math.floor(Date.now() / 1000);
         solveTimes.push(currentRound === 0 ? solveTime - startTime : solveTime - startTime - solveTimes[solveTimes.length - 1]);
+
+        // deal with success message
+        var feedbackContainer = document.createElement('div');
+        feedbackContainer.className = "feedbackContainer";
+        var feedbackMessage = document.createElement('div');
+        feedbackMessage.innerText = successMessages[currentRound];
+        feedbackMessage.className = "incorrectFeedback";
+        feedbackMessage.classList.add("showIncorrectFeedback");
+        feedbackContainer.appendChild(feedbackMessage);
+        document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
+        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 300);
+        // setTimeout(() => {
+        //   document.querySelector(`#solution-${currentRound + 4}`).lastChild.remove();
+        // }, 500);
+
+
         setTimeout(() => {
           reset(true);
           document.querySelector(`#solution-${currentRound + 4}`).classList.remove("active-cell");
@@ -427,17 +451,19 @@
       }
       // incorrect word
       else if (currentWord.length === currentRound + 4) {
+        var feedbackContainer = document.createElement('div');
+        feedbackContainer.className = "feedbackContainer";
         var feedbackMessage = document.createElement('div');
         feedbackMessage.innerText = "Invalid word";
         feedbackMessage.className = "incorrectFeedback";
-        // var feedbackMessage = document.getElementById('incorrectFeedback')
         feedbackMessage.classList.add("showIncorrectFeedback");
-        document.querySelector(`#solution-${currentRound + 4}`).appendChild(feedbackMessage);
+        feedbackContainer.appendChild(feedbackMessage);
+        document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
         reset();
         setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 300);
         setTimeout(() => {
           reset();
-          document.querySelector(`#solution-${currentRound + 4}`).lastChild.remove();
+          document.querySelector(`#solution-${currentRound + 4}`).lastChild.previousSibling.remove();
         }, 500);
       }
     }

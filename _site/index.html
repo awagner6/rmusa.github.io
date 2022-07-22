@@ -40,7 +40,7 @@
       <a class="title" rel="author" href="/">Anigrams</a>
       <div class="flex-container">
         <button class="link-button" role="button" onClick="openModal('rulesModal')">Rules</button>
-        <button class="link-button" role="button">Yesterday</button>
+        <button class="link-button" role="button" onClick="openModal('yesterdayModal')">Yesterday</button>
       </div>
     </div>
   </header>
@@ -135,6 +135,12 @@
             </div>
           </div>
         </div>
+        <div id="yesterdayModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onClick="closeModal('yesterdayModal')">&times;</span>
+            <div id="yesterdayContent"></div>
+          </div>
+        </div>
       </article>
 
     </div>
@@ -209,6 +215,7 @@
     // assuming start at 2022/07/20, 18:30:00, PDT, also ignore daylight savings
     var puzzleIndex = Math.floor((Date.now() - 1658367000000) / (1000 * 60 * 60 * 24))
     var solution = processSolution(solutionsArray[puzzleIndex]);
+    var yesterdaySolution = processSolution(solutionsArray[puzzleIndex - 1])
     var currentWord = "";
     var currentRound = 0;
     var textToShare = 0;
@@ -318,6 +325,22 @@
       }
       solutionRow.appendChild(emojiDiv)
       document.getElementById('solutionArea').appendChild(solutionRow);
+
+
+      var yesterdayRow = document.createElement('div');
+      yesterdayRow.className = "solution-row";
+      yesterdayEmojiDiv = document.createElement('div');
+      yesterdayEmojiDiv.className = "emojiDiv";
+      yesterdayEmojiDiv.innerText = emojiMapping[i];
+      // yesterdayRow.id = `solution-${i + 4}`
+      for (var j = 0; j < yesterdaySolution[i][0].length; j++) {
+        var yesterdaySlot = document.createElement('div');
+        yesterdaySlot.className = "solution-slot yesterday-slot";
+        yesterdaySlot.innerText = yesterdaySolution[i][0][j];
+        yesterdayRow.appendChild(yesterdaySlot);
+      }
+      yesterdayRow.appendChild(yesterdayEmojiDiv)
+      document.getElementById('yesterdayContent').appendChild(yesterdayRow);
     }
 
     for (var i = 0; i < solution[0][0].length; i++) {

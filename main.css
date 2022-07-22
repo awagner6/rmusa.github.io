@@ -293,9 +293,14 @@ table td { border: 1px solid #e8e8e8; }
   text-transform: uppercase;
   font-weight: bold;
   font-size: 24px;
-  transform: scale(0);
-  transition: transform 1.5s;
+  /* transform: scale(0);
+  transition: transform 1.5s; */
 }
+
+.tile:active {
+  transform: scale(0.98);
+}
+
 
 .header-wrapper {
   display: flex;
@@ -328,9 +333,9 @@ table td { border: 1px solid #e8e8e8; }
   padding: 12px 12px 12px 0;
 }
 
-.showTile {
+/* .showTile {
   transform: scale(1);
-}
+} */
 
 #hintButton {
   margin-left: 8px;
@@ -484,6 +489,7 @@ table td { border: 1px solid #e8e8e8; }
 
 .button-84:active {
   outline: 0;
+  transform: scale(0.98);
 }
 
 .button-84:focus {
@@ -510,7 +516,7 @@ table td { border: 1px solid #e8e8e8; }
   }
 
   .emojiDiv {
-    margin-left: 12px;
+    margin-left: 6px;
   }
 
   .title {

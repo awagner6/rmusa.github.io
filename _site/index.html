@@ -174,14 +174,41 @@
 
   </footer> -->
   <script>
-    var solution = [
-      ['test', 'stet'],
-      ['texts'],
-      ['sextet'],
-      ['extents'],
-      ['existent'],
-      ['sixteenth']
-    ];
+    var solutions = `THIN HINT NIGHT THING HATING HALTING LATHING LATCHING HATCHLING
+    READ DEAR DARE AIRED RAIDER MARRIED ADMIRER DREAMIER REMAINDER
+    GETS GEST GENTS INGEST SIGNET TINGES SEATING TEASING SEDATING STEADING DESIGNATE
+    SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS
+    RECS CREST CORSET ESCORT SECTOR SCOOTER OUTSCORE COURTEOUS
+    TORE ROTE RETRO PORTER REPORT PRORATE PRAETOR OPERATOR CORPORATE
+    REPS SPREE PEERS PESTER PRESET PETERS STEEPER PRETEENS PRETENSE REPRESENT PRESENTER REPENTERS
+    DIVE VIED IVIED DIVIDE DIVINED DIVIDEND UNDIVIDED
+    PICS CLIPS SPLICE PICKLES PRICKLES CLERKSHIP
+    IONS COINS ICONS SCION SONIC COUSIN SUCTION MISCOUNT COSTUMING
+    SEED DEES SPEED DEEPS ESPIED PRESIDE PERISHED WHISPERED
+    NORI IRON NOIR INTRO NITRO RATION ORATING RIGATONI MIGRATION
+    ODDS DOSED DODGES GODDESS GODSENDS DODGINESS
+    GNAT TANG GRANT GRATIN RATING TARING RATTING RATTLING PRATTLING
+    GRIN RING GRAIN MARGIN ROAMING ORGANISM IGNORAMUS
+    TRUE TUNER NATURE CENTAUR UNCRATE UNTRACED UNDERACT UNCRATED UNCHARTED
+    REIN INERT INTER ORIENT PROTEIN POINTER ERUPTION IMPORTUNE
+    RARE RACER CAREER TERRACE CATERER RECRATE RETRACE RECREATE RACKETEER
+    SANE SEDAN DEANS ASCEND DANCES CANDIES DISTANCE SYNDICATE
+    LINE LIEN ALIEN FINALE INFLATE FILAMENT FULMINATE
+    CART ACTOR CAPTOR CARTOP APRICOT TROPICAL PICTORIAL
+    SING PINGS SPYING SPRINGY SPRAYING SPARINGLY
+    BRAS BARS BRATS BAREST BASTER BREAST BARTERS ARBITERS BARRISTER
+    SITS STIRS STAIRS SITARS STRAINS ARSONIST ASSERTION SENORITAS
+    REIN REIGN RINGED DINGER GRINNED RENDING ENDURING UNDERSIGN
+    CASE ACES SCALE LACES CASTLE CLEATS ELASTIC LACIEST CITADELS DIALECTS DISLOCATE
+    SERF REEFS FREES REFERS FERRETS REFOREST DEFROSTER
+    TORE ROTE ORATE OATER ORNATE ATONER SENATOR TREASON ATONERS RESONATE STONEWARE
+    DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE
+    SITE TIES TIERS RITES TIRES TRIES SISTER RESIST RELISTS LISTERS SLITHERS SHIRTLESS`
+    var solutionsArray = solutions.split("\n");
+
+    // assuming start at 2022/07/20, 18:30:00, PDT, also ignore daylight savings
+    var puzzleIndex = Math.floor((Date.now() - 1658367000000) / (1000 * 60 * 60 * 24))
+    var solution = processSolution(solutionsArray[puzzleIndex]);
     var currentWord = "";
     var currentRound = 0;
     var textToShare = 0;
@@ -201,9 +228,26 @@
       "Gr-eight!",
       "Maaa-arvelous",
     ]
+    var hints = [0, 0, 0, 0, 0, 0];
     var solveTimes = [];
 
     var startTime = Math.floor(Date.now() / 1000); //Get the starting time (right now) in seconds
+
+    function processSolution(solutionRow) {
+      var processedSolution = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ];
+      var words = solutionRow.trim().split(" ");
+      for (var i = 0; i < words.length; i++) {
+        processedSolution[words[i].length - 4].push(words[i].toLowerCase());
+      }
+      return processedSolution;
+    }
 
     function startTimeCounter() {
       var now = Math.floor(Date.now() / 1000); // get the time now
@@ -278,7 +322,7 @@
 
     for (var i = 0; i < solution[0][0].length; i++) {
       var newTile = document.createElement('div');
-      newTile.className = "tile showTile";
+      newTile.className = "tile";
       newTile.addEventListener('click', clickTile);
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
@@ -288,7 +332,7 @@
       flipper = document.createElement('div');
       front = document.createElement('div');
       back = document.createElement('div');
-      emojiTile.className = "tile showTile flip-container emoji-tile";
+      emojiTile.className = "tile flip-container emoji-tile";
       flipper.className = "flipper";
       front.className = "front";
       back.className = `back back-${i}`;
@@ -391,7 +435,7 @@
         feedbackMessage.classList.add("showIncorrectFeedback");
         feedbackContainer.appendChild(feedbackMessage);
         document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
-        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 300);
+        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 500);
         // setTimeout(() => {
         //   document.querySelector(`#solution-${currentRound + 4}`).lastChild.remove();
         // }, 500);
@@ -411,10 +455,11 @@
             h = checkTime(h)
             m = checkTime(m);
             s = checkTime(s);
-            textToShare = `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        #00X        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: X      🦜\n🦉  Streak: 00X  🐙\n🐐🐙🦜🐬🦒🦉🐐`
-            document.getElementById('shareNumber').innerText = "#004"
+            textToShare =
+              `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: ${hints.reduce((a, b) => a + b, 0)}      🦜\n🦉  Streak: 00X  🐙\n🐐🐙🦜🐬🦒🦉🐐`
+            document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString().padStart(3, '0');
             document.getElementById('shareTime').innerText = `${h}:${m}:${s}`
-            document.getElementById('shareHints').innerText = "Hints: X"
+            document.getElementById('shareHints').innerText = `Hints: ${hints.reduce((a, b) => a + b, 0)}`
             document.getElementById('shareStreak').innerText = "Streak: 005"
             // document.getElementById('totalTime').innerText = `Total time: ${h}:${m}:${s}`;
             // for (var i = 0; i < emojiMapping.length; i++) {
@@ -432,15 +477,15 @@
           tileToFlip.firstChild.children[1].innerText = findNewLetter(currentRound);
           setTimeout(() => {
             tileToFlip.firstChild.classList.add("flip");
-          }, 100);
+          }, 500);
           setTimeout(() => {
             var newTile = document.createElement('div');
-            newTile.className = "tile showTile";
+            newTile.className = "tile";
             newTile.addEventListener('click', clickTile);
             newTile.innerText = findNewLetter(currentRound);
             document.getElementById('tileArea').insertBefore(newTile, tileToFlip);
             tileToFlip.remove();
-          }, 500);
+          }, 900);
           // var newTile = document.createElement('div');
           // newTile.className = "tile";
           // newTile.addEventListener('click', clickTile);
@@ -460,17 +505,19 @@
         feedbackContainer.appendChild(feedbackMessage);
         document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
         reset();
-        console.log(document.querySelector(`#solution-${currentRound + 4}`).firstChild);
-        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 300);
+        setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 500);
         setTimeout(() => {
           reset();
           document.querySelector(`#solution-${currentRound + 4}`).lastChild.previousSibling.remove();
           document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
-        }, 500);
+        }, 700);
       }
     }
 
     function showFirstLetter() {
+      if (hints[currentRound] === 0) {
+        hints[currentRound] = 1;
+      }
       if (currentWord.toLowerCase() === solution[currentRound][0][0].toLowerCase()) {
         return;
       }

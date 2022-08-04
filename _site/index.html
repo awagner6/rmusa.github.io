@@ -57,8 +57,8 @@
         <div id="tileArea"></div>
 
         <div class="emoji-button-menu" onClick="() => {}">
-          <button class="emoji-button" role="button" onClick="goback()">⬅️</button>
           <button class="emoji-button" role="button" onClick="shuffle()">🔄</button>
+          <button id="deleteButton" class="button-84" role="button" onClick="goback()">Delete</button>
           <button id="hintButton" class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
         </div>
 
@@ -220,10 +220,10 @@
     var currentRound = 0;
     var textToShare = 0;
     var emojiMapping = [
-      '🦜',
+      '🦉',
       '🦒',
       '🐬',
-      '🦉',
+      '🦜',
       '🐙',
       '🐐',
     ]
@@ -356,6 +356,9 @@
       front = document.createElement('div');
       back = document.createElement('div');
       emojiTile.className = "tile flip-container emoji-tile";
+      if (i === solution.length - 1) {
+        emojiTile.classList.add('goat-tile');
+      }
       flipper.className = "flipper";
       front.className = "front";
       back.className = `back back-${i}`;
@@ -491,7 +494,9 @@
             //   emojiRow.innerText = emojiMapping[i].repeat(getEmojiNumber(solveTimes[i]));
             //   document.getElementById('emojiTimeDistribution').appendChild(emojiRow);
             // }
-            document.getElementById('congratsModal').style.display = "block";
+
+            document.querySelector('.goat-tile').classList.add('goat-tile-grow');
+            setTimeout(() => document.getElementById('congratsModal').style.display = "block", 5000);
             return;
           }
           document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");

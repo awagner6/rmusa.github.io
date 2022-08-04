@@ -142,6 +142,7 @@ table td { border: 1px solid #e8e8e8; }
   /* height: 66px; */
   display: inline-flex;
   margin: 24px 0;
+  position: relative;
   /* display: flex; */
 }
 
@@ -301,6 +302,25 @@ table td { border: 1px solid #e8e8e8; }
   transform: scale(0.96);
 }
 
+.emoji-tile:active {
+  transform: none;
+}
+
+.goat-tile {
+  border: none;
+  transition: all 5s ease;
+  position: absolute;
+  left: 632px;
+  top: 0;
+  z-index: 10;
+}
+
+.goat-tile-grow {
+  font-size: 150px !important;
+  left: calc(50% - 40px) !important;
+  top: -25vh !important;
+}
+
 
 .header-wrapper {
   display: flex;
@@ -342,11 +362,16 @@ table td { border: 1px solid #e8e8e8; }
   margin-bottom: 2px;
 }
 
+#deleteButton {
+  margin-left: 8px;
+  margin-bottom: 2px;
+}
+
 /* The Modal (background) */
 .modal {
   display: none;
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 100; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -447,6 +472,7 @@ table td { border: 1px solid #e8e8e8; }
   display: flex;
   align-items: center;
   margin-top: 8px;
+  justify-content: center;
 }
 
 /* CSS */
@@ -521,7 +547,7 @@ table td { border: 1px solid #e8e8e8; }
   }
 
   .emojiDiv {
-    margin-left: 6px;
+    margin-left: 8px;
   }
 
   .title {
@@ -564,6 +590,11 @@ table td { border: 1px solid #e8e8e8; }
 
   .solution-row {
     font-size: 18px;
+  }
+
+  .goat-tile {
+    left: calc(60vw + 42px);
+    top: calc(15vw + 10px);
   }
 }
 

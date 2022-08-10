@@ -66,6 +66,7 @@
 
         <div id="congratsModal" class="modal">
           <div class="modal-content">
+            <span class="close" onClick="closeModal('congratsModal')">&times;</span>
             <div class="column-flex">
               <div class="goat">🐐</div>
               <div class="goat-text">You reached the G.O.A.T. !!!</div>
@@ -126,6 +127,7 @@
         <div id="rulesModal" class="modal">
           <div class="modal-content">
             <span class="close" onClick="closeModal('rulesModal')">&times;</span>
+            <div class="rules-title">Rules</div>
             <div class="rules-info">
               <div>Unscramble a word to reveal the next letter.</div>
               <div>Each word must use every available letter exactly once.</div>
@@ -256,21 +258,6 @@
       return processedSolution;
     }
 
-    let prevTime = Number(localStorage.getItem('currentTime')) || 0
-
-    function startTimeCounter() {
-      console.log(diff);
-      var now = Math.floor(Date.now() / 1000); // get the time now
-      var diff = now - startTime + prevTime; // diff in seconds between now and start
-      localStorage.setItem('currentTime', diff);
-      var m = Math.floor(diff / 60); // get minutes value (quotient of diff)
-      var s = Math.floor(diff % 60); // get seconds value (remainder of diff)
-      m = checkTime(m); // add a leading zero if it's single digit
-      s = checkTime(s); // add a leading zero if it's single digit
-      document.getElementById("timer").innerHTML = m + ":" + s; // update the element where the timer will appear
-      var t = setTimeout(startTimeCounter, 500); // set a timeout to update the timer
-    }
-
     function checkTime(i) {
       if (i < 10) {
         i = "0" + i
@@ -293,8 +280,6 @@
         return 6
       }
     }
-
-    startTimeCounter();
 
     for (var i = 0; i < solution.length; i++) {
       var solutionRow = document.createElement('div');
@@ -393,7 +378,22 @@
       localStorage.setItem('shareTime', "");
     }
 
+    let prevTime = Number(localStorage.getItem('currentTime')) || 0;
+
+    function startTimeCounter() {
+      var now = Math.floor(Date.now() / 1000); // get the time now
+      var diff = now - startTime + prevTime; // diff in seconds between now and start
+      localStorage.setItem('currentTime', diff);
+      var m = Math.floor(diff / 60); // get minutes value (quotient of diff)
+      var s = Math.floor(diff % 60); // get seconds value (remainder of diff)
+      m = checkTime(m); // add a leading zero if it's single digit
+      s = checkTime(s); // add a leading zero if it's single digit
+      document.getElementById("timer").innerHTML = m + ":" + s; // update the element where the timer will appear
+      var t = setTimeout(startTimeCounter, 500); // set a timeout to update the timer
+    }
+
     shuffle();
+    startTimeCounter();
 
     function goback() {
       if (currentWord !== "") {

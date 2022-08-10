@@ -383,6 +383,7 @@ table td { border: 1px solid #e8e8e8; }
 
 /* Modal Content/Box */
 .modal-content {
+  position: relative;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -391,9 +392,17 @@ table td { border: 1px solid #e8e8e8; }
   max-width: 600px;
 }
 
+.rules-title {
+  font-size: 24px;
+  margin: auto;
+  margin-top: 8px;
+  width: 90%;
+}
+
 .rules-info {
   max-width: 90%;
   margin: auto;
+  margin-top: 24px;
 }
 .rules-info > div {
   margin: 16px 0;
@@ -447,7 +456,9 @@ table td { border: 1px solid #e8e8e8; }
 /* The Close Button */
 .close {
   color: #aaa;
-  float: right;
+  /* float: right; */
+  position: absolute;
+  right: 24px;
   font-size: 28px;
   font-weight: bold;
 }

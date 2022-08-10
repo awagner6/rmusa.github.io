@@ -259,6 +259,7 @@
     let prevTime = Number(localStorage.getItem('currentTime')) || 0
 
     function startTimeCounter() {
+      console.log(diff);
       var now = Math.floor(Date.now() / 1000); // get the time now
       var diff = now - startTime + prevTime; // diff in seconds between now and start
       localStorage.setItem('currentTime', diff);

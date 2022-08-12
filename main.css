@@ -308,7 +308,7 @@ table td { border: 1px solid #e8e8e8; }
 
 .goat-tile {
   border: none;
-  transition: all 5s ease;
+  transition: all 1s ease;
   position: absolute;
   left: 632px;
   top: 0;

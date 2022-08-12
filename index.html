@@ -119,7 +119,10 @@
               </div>
             </div>
             <div class="goat-modal-info-container">
-              <div id="nextAnigram">Next Anigram:</div>
+              <div>
+                <div>Next Anigram:</div>
+                <div id="nextAnigram">XX</div>
+              </div>
               <button id="shareButton" class="button-84" role="button" onClick="onClickShare()">Share</button>
             </div>
 
@@ -364,12 +367,13 @@
       }
       // today's puzzle already solved -- show success modal
       if (Number(localStorage.getItem('lastSolved')) === puzzleIndex + 1) {
-        textToShare =
-          `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${localStorage.getItem('shareTime')}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
-        document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString().padStart(3, '0');
+        textToShare = `🦉🦒🐬🦜🐙🐐\nAnigrams ${puzzleIndex + 1}\n${localStorage.getItem('shareTime')}\nHints: ${localStorage.getItem('shareHints') || 0}\nStreak: ${localStorage.getItem('streak').toString()}\n🦉🦒🐬🦜🐙🐐`;
+        // textToShare =
+        //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${localStorage.getItem('shareTime')}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
+        document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();
         document.getElementById('shareTime').innerText = localStorage.getItem('shareTime')
         document.getElementById('shareHints').innerText = `Hints: ${localStorage.getItem('shareHints') || 0}`
-        document.getElementById('shareStreak').innerText = `Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}`
+        document.getElementById('shareStreak').innerText = `Streak: ${localStorage.getItem('streak').toString()}`
         document.getElementById('congratsModal').style.display = "block"
       }
       // we have a partial solution for a previous day and can clear it
@@ -401,7 +405,7 @@
       hNext = checkTime(hNext); // add a leading zero if it's single digit
       mNext = checkTime(mNext); // add a leading zero if it's single digit
       sNext = checkTime(sNext); // add a leading zero if it's single digit
-      document.getElementById('nextAnigram').innerHTML = `Next Anigram: ${hNext}:${mNext}:${sNext}`
+      document.getElementById('nextAnigram').innerHTML = `${hNext}:${mNext}:${sNext}`
 
       var t = setTimeout(startTimeCounter, 500); // set a timeout to update the timer
     }
@@ -496,14 +500,15 @@
             m = checkTime(m);
             s = checkTime(s);
             localStorage.setItem('shareTime', `${h}:${m}:${s}`)
-            textToShare =
-              `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
-            document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString().padStart(3, '0');
+            textToShare = `🦉🦒🐬🦜🐙🐐\nAnigrams ${puzzleIndex + 1}\n${localStorage.getItem('shareTime')}\nHints: ${localStorage.getItem('shareHints') || 0}\nStreak: ${localStorage.getItem('streak').toString()}\n🦉🦒🐬🦜🐙🐐`;
+            // textToShare =
+            //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
+            document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();
             document.getElementById('shareTime').innerText = `${h}:${m}:${s}`
             document.getElementById('shareHints').innerText = `Hints: ${localStorage.getItem('shareHints') || 0}`
-            document.getElementById('shareStreak').innerText = `Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}`
+            document.getElementById('shareStreak').innerText = `Streak: ${localStorage.getItem('streak').toString()}`
             document.querySelector('.goat-tile').classList.add('goat-tile-grow');
-            setTimeout(() => document.getElementById('congratsModal').style.display = "block", 5000);
+            setTimeout(() => document.getElementById('congratsModal').style.display = "block", 1200);
             return;
           }
           document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");

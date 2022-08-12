@@ -307,7 +307,7 @@ table td { border: 1px solid #e8e8e8; }
 }
 
 .goat-tile {
-  border: none;
+  /* border: none; */
   transition: all 1.2s ease;
   position: absolute;
   left: 632px;
@@ -604,7 +604,7 @@ table td { border: 1px solid #e8e8e8; }
   }
 
   .goat-tile {
-    left: calc(60vw + 42px);
+    left: calc(60vw + 40px);
     top: calc(15vw + 10px);
   }
 }

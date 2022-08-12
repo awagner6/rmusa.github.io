@@ -13,6 +13,7 @@
   <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
   <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
   <link rel="canonical" href="http://localhost:4000/about/" />
+  <link rel="icon" href="favicon.svg" type="image/x-icon">
   <meta property="og:url" content="http://localhost:4000/about/" />
   <meta property="og:site_name" content="Anigrams" />
   <meta property="og:type" content="website" />
@@ -66,7 +67,7 @@
 
         <div id="congratsModal" class="modal">
           <div class="modal-content">
-            <span class="close" onClick="closeModal('congratsModal')">&times;</span>
+            <span class="close" onClick="closeCongratsModal()">&times;</span>
             <div class="column-flex">
               <div class="goat">🐐</div>
               <div class="goat-text">You reached the G.O.A.T. !!!</div>
@@ -117,7 +118,7 @@
               </div>
             </div>
             <div class="goat-modal-info-container">
-              <div>Next Anigram: XX:XX:XX</div>
+              <div id="nextAnigram">Next Anigram:</div>
               <button id="shareButton" class="button-84" role="button" onClick="onClickShare()">Share</button>
             </div>
 
@@ -214,7 +215,7 @@
     SITE TIES TIERS RITES TIRES TRIES SISTER RESIST RELISTS LISTERS SLITHERS SHIRTLESS`
     var solutionsArray = solutions.split("\n");
 
-    // assuming start at 2022/07/20, 18:30:00, PDT, also ignore daylight savings
+    // assuming start at 2022/07/20, 18:30:00, PDT, also ignore daylight savings, www.unixtimestamp.com
     var puzzleIndex = Math.floor((Date.now() - 1658367000000) / (1000 * 60 * 60 * 24))
     var solution = processSolution(solutionsArray[puzzleIndex]);
     var yesterdaySolution = processSolution(solutionsArray[puzzleIndex - 1])
@@ -389,6 +390,18 @@
       m = checkTime(m); // add a leading zero if it's single digit
       s = checkTime(s); // add a leading zero if it's single digit
       document.getElementById("timer").innerHTML = m + ":" + s; // update the element where the timer will appear
+
+      var nextAnigram = (1658367000000 + ((puzzleIndex + 1) * 1000 * 24 * 60 * 60)) / 1000;
+      var timeTilNext = nextAnigram - now;
+      var mNext = Math.floor(timeTilNext / 60); // get minutes value (quotient of diff)
+      var hNext = Math.floor(mNext / 60);
+      mNext = mNext % 60;
+      var sNext = Math.floor(timeTilNext % 60); // get seconds value (remainder of diff)
+      hNext = checkTime(hNext); // add a leading zero if it's single digit
+      mNext = checkTime(mNext); // add a leading zero if it's single digit
+      sNext = checkTime(sNext); // add a leading zero if it's single digit
+      document.getElementById('nextAnigram').innerHTML = `Next Anigram: ${hNext}:${mNext}:${sNext}`
+
       var t = setTimeout(startTimeCounter, 500); // set a timeout to update the timer
     }
 
@@ -574,6 +587,11 @@
           break;
         }
       }
+    }
+
+    function closeCongratsModal() {
+      document.getElementById("congratsModal").style.display = "none";
+      document.querySelector('.goat-tile').remove();
     }
 
     function closeModal(modalId) {

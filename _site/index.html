@@ -537,7 +537,6 @@
         feedbackMessage.classList.add("showIncorrectFeedback");
         feedbackContainer.appendChild(feedbackMessage);
         document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
-        reset();
         setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 500);
         setTimeout(() => {
           reset();

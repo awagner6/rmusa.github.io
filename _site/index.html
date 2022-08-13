@@ -297,9 +297,9 @@
       for (var j = 0; j < solution[i][0].length; j++) {
         var solutionSlot = document.createElement('div');
         solutionSlot.className = "solution-slot";
-        if (i === 0 && j === 0) {
-          solutionSlot.classList.add("active-solution-slot")
-        }
+        // if (i === 0 && j === 0) {
+        //   solutionSlot.classList.add("active-solution-slot")
+        // }
         solutionRow.appendChild(solutionSlot);
       }
       solutionRow.appendChild(emojiDiv)
@@ -350,6 +350,7 @@
     }
     // means we have saved data for today's puzzle
     if (Number(localStorage.getItem('currentDay')) === puzzleIndex + 1) {
+      // document.querySelector('#solution-4').firstChild.classList.remove("active-solution-slot");
       currentSolution = localStorage.getItem('currentSolution').split('|')
       for (var i = 0; i < currentSolution.length - 1; i++) {
         for (var j = 0; j < currentSolution[i].length; j++) {
@@ -384,6 +385,8 @@
       localStorage.setItem('shareHints', "");
       localStorage.setItem('shareTime', "");
     }
+
+    document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
 
     let prevTime = Number(localStorage.getItem('currentTime')) || 0;
 

@@ -444,9 +444,15 @@
     });
 
     function onClickShare() {
-      navigator.clipboard.writeText(textToShare)
-      document.getElementById('shareButton').innerText = "Copied to clipboard";
-      setTimeout(() => document.getElementById('shareButton').innerText = "Share", 1000);
+      if (navigator.share) {
+        navigator.share({
+          text: textToShare,
+        });
+      } else {
+        navigator.clipboard.writeText(textToShare)
+        document.getElementById('shareButton').innerText = "Copied to clipboard";
+        setTimeout(() => document.getElementById('shareButton').innerText = "Share", 1000);
+      }
     }
 
     function clickTile(ev) {

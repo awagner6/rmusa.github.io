@@ -44,6 +44,7 @@
       <div class="flex-container">
         <button class="link-button" role="button" onClick="openModal('rulesModal')">Rules</button>
         <button class="link-button" role="button" onClick="openModal('yesterdayModal')">Yesterday</button>
+        <button class="link-button" role="button" onClick="openModal('aboutModal')">About</button>
       </div>
     </div>
   </header>
@@ -147,6 +148,18 @@
           <div class="modal-content">
             <span class="close" onClick="closeModal('yesterdayModal')">&times;</span>
             <div id="yesterdayContent"></div>
+          </div>
+        </div>
+        <div id="aboutModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onClick="closeModal('aboutModal')">&times;</span>
+            <div class="about-content">
+              <div>Created by Adam Wagner</div>
+              <div>Developed by Rafael Musa</div>
+              <div>Gameplay development by Jacob Goldberg</div>
+              <br>
+              <div>Special thanks to Anna Wagner</div>
+            </div>
           </div>
         </div>
       </article>

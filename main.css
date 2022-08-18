@@ -407,6 +407,13 @@ table td { border: 1px solid #e8e8e8; }
   margin-top: 24px;
   font-weight: 300;
 }
+.about-content {
+  max-width: 90%;
+  margin: auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-weight: 300;
+}
 .rules-info > div {
   margin: 16px 0;
 }

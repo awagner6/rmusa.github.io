@@ -617,6 +617,7 @@ table td { border: 1px solid #e8e8e8; }
 }
 
 .used-tile {
+  color: white;
   opacity: 0.5;
   pointer-events: none;
 }

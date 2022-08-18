@@ -399,7 +399,9 @@
       localStorage.setItem('shareTime', "");
     }
 
-    document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
+    if (document.querySelector(`#solution-${currentRound + 4}`)) {
+      document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
+    }
 
     let prevTime = Number(localStorage.getItem('currentTime')) || 0;
 

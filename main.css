@@ -420,7 +420,7 @@ table td { border: 1px solid #e8e8e8; }
 
 .goat {
   font-size: 150px;
-  margin-top: -40px;
+  /* margin-top: -40px; */
 }
 
 .goat-text {

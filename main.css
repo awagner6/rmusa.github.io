@@ -359,13 +359,18 @@ table td { border: 1px solid #e8e8e8; }
   transform: scale(1);
 } */
 
-#hintButton {
+/* #hintButton {
+  margin-left: 8px;
+  margin-bottom: 2px;
+} */
+
+#deleteButton {
   margin-left: 8px;
   margin-bottom: 2px;
 }
 
-#deleteButton {
-  margin-left: 8px;
+#clearButton {
+  margin-right: 12px;
   margin-bottom: 2px;
 }
 

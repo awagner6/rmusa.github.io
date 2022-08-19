@@ -43,7 +43,7 @@
       <a class="title" rel="author" href="/">Anigrams</a>
       <div class="flex-container">
         <button class="link-button" role="button" onClick="openModal('rulesModal')">Rules</button>
-        <button class="link-button" role="button" onClick="openModal('yesterdayModal')">Yesterday</button>
+        <button id="yesterdayModalLink" class="link-button" role="button" onClick="openModal('yesterdayModal')">Yesterday</button>
         <button class="link-button" role="button" onClick="openModal('aboutModal')">About</button>
       </div>
     </div>
@@ -61,8 +61,11 @@
         <div id="tileArea"></div>
 
         <div class="emoji-button-menu" onClick="() => {}">
+          <button id="clearButton" class="button-84" role="button" onClick="reset()">Clear</button>
           <button class="emoji-button" role="button" onClick="shuffle()">🔄</button>
           <button id="deleteButton" class="button-84" role="button" onClick="goback()">Delete</button>
+        </div>
+        <div class="emoji-button-menu" onClick="() => {}">
           <button id="hintButton" class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
         </div>
 
@@ -158,7 +161,7 @@
               <div>Developed by Rafael Musa</div>
               <div>Gameplay development by Jacob Goldberg</div>
               <br>
-              <div>Special thanks to Anna Wagner</div>
+              <div>Special thanks to Anna Goldberg Wagner</div>
             </div>
           </div>
         </div>
@@ -233,10 +236,17 @@
     SITE TIES TIERS RITES TIRES TRIES SISTER RESIST RELISTS LISTERS SLITHERS SHIRTLESS`
     var solutionsArray = solutions.split("\n");
 
+    var badWordsList =
+      "SETI STIE ISET ASSHOLE ASSHOLES BITCH BITCHES SHIT SHITS SHITTING SHITTER SHITTY SHITTIER BULLSHIT FUCK FUCKS FUCKED FUCKING FUCKER FUCKERS CUNT CUNTS CUNTY CUNTIES TITS TITTIES TITTY COCK COCKS DICK DICKED DICKS PUSSY PUSSIES PUNANI PUNANIS TWAT TWATS SPIC SPICS NIGGER NIGGERS NIPS SPICK SPICKS BEANER BEANERS CHINK CHINKS CHINKER CHINKERS NIGGA NIGGAS NEGRO NEGROS CHOLO CHOLOS GOOK GOOKS WOGS GYPS GIPS KIKE KIKES KYKE KYKES DYKE DYKES FAGS MICK MICKS NIGLET NIGLETS PIKEY PIKEYS PIKER PIKERS RAGHEAD RAGHEADS REDSKIN REDSKINS SHYLOCK SHYLOCKS TARBABY TARBABIES WETBACK WETBACKS WOPS WENCH WENCHES FLOOZY FLOOZIE FLOOZIES BIMBO BIMBOS SHEMALE SHEMALES SLUT SLUTS TRANNY TRANNIE TRANNIES WHORE WHORES WHORED COCKSUCKER COCKSUCKERS NIGS"
+    var badWordsSet = new Set(badWordsList.split(" ").map((word) => word.toLowerCase()));
+
     // assuming start at 2022/07/20, 18:30:00, PDT, also ignore daylight savings, www.unixtimestamp.com
     var puzzleIndex = Math.floor((Date.now() - 1658367000000) / (1000 * 60 * 60 * 24))
+    if (puzzleIndex === 0) {
+      document.getElementById("yesterdayModalLink").remove();
+    }
     var solution = processSolution(solutionsArray[puzzleIndex]);
-    var yesterdaySolution = processSolution(solutionsArray[puzzleIndex - 1])
+    var yesterdaySolution = processSolution(solutionsArray[Math.max(puzzleIndex - 1, 0)])
     var currentWord = "";
     var currentRound = 0;
     var textToShare = 0;
@@ -613,7 +623,8 @@
         for (var i = currentRound + 4; i >= 0; i--) {
           tiles.insertBefore(tiles.children[Math.random() * i | 0], tiles.children[currentRound + 4]);
         }
-        if (!solution.flat().includes([...tiles.children].slice(0, currentRound + 4).map((child) => child.innerText).join('').toLowerCase())) {
+        const randomArrangement = [...tiles.children].slice(0, currentRound + 4).map((child) => child.innerText).join('').toLowerCase();
+        if (!solution.flat().includes(randomArrangement) && !badWordsSet.has(randomArrangement)) {
           break;
         }
       }

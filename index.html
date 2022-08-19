@@ -614,6 +614,7 @@
       currentWord = "";
       if (!preserveWord) {
         [...document.querySelectorAll(`#solution-${currentRound + 4} .solution-slot`)].map((child) => child.innerText = "");
+        document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
       }
     }
 

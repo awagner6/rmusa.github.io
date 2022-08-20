@@ -517,13 +517,11 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
           reset(true);
           currentRound++;
           if (currentRound === solution.length) {
-            // first solve
-            if (!localStorage.getItem('lastSolved')) {
-              localStorage.setItem('streak', 1)
-            }
             // solved yesterday
             if (Number(localStorage.getItem('lastSolved')) === puzzleIndex) {
               localStorage.setItem('streak', (Number(localStorage.getItem('streak')) || 0) + 1)
+            } else {
+              localStorage.setItem('streak', 1)
             }
             localStorage.setItem('lastSolved', puzzleIndex + 1)
             var now = Math.floor(Date.now() / 1000);

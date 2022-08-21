@@ -247,6 +247,7 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
     var puzzleIndex = Math.floor((Date.now() - 1660959000000) / (1000 * 60 * 60 * 24)) % 30
     if (puzzleIndex === 0) {
       document.getElementById("yesterdayModalLink").remove();
+      localStorage.setItem('streak', 0)
     }
     var solution = processSolution(solutionsArray[puzzleIndex]);
     var yesterdaySolution = processSolution(solutionsArray[Math.max(puzzleIndex - 1, 0)])

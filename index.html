@@ -243,8 +243,8 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       "SETI STIE ISET ASSHOLE ASSHOLES BITCH BITCHES SHIT SHITS SHITTING SHITTER SHITTY SHITTIER BULLSHIT FUCK FUCKS FUCKED FUCKING FUCKER FUCKERS CUNT CUNTS CUNTY CUNTIES TITS TITTIES TITTY COCK COCKS DICK DICKED DICKS PUSSY PUSSIES PUNANI PUNANIS TWAT TWATS SPIC SPICS NIGGER NIGGERS NIPS SPICK SPICKS BEANER BEANERS CHINK CHINKS CHINKER CHINKERS NIGGA NIGGAS NEGRO NEGROS CHOLO CHOLOS GOOK GOOKS WOGS GYPS GIPS KIKE KIKES KYKE KYKES DYKE DYKES FAGS MICK MICKS NIGLET NIGLETS PIKEY PIKEYS PIKER PIKERS RAGHEAD RAGHEADS REDSKIN REDSKINS SHYLOCK SHYLOCKS TARBABY TARBABIES WETBACK WETBACKS WOPS WENCH WENCHES FLOOZY FLOOZIE FLOOZIES BIMBO BIMBOS SHEMALE SHEMALES SLUT SLUTS TRANNY TRANNIE TRANNIES WHORE WHORES WHORED COCKSUCKER COCKSUCKERS NIGS"
     var badWordsSet = new Set(badWordsList.split(" ").map((word) => word.toLowerCase()));
 
-    // assuming start at 2022/07/20, 18:30:00, PDT, also ignore daylight savings, www.unixtimestamp.com
-    var puzzleIndex = Math.floor((Date.now() - 1660959000000) / (1000 * 60 * 60 * 24)) % 30
+    // assuming start at 2022/08/21, 18:30:00, PDT, also ignore daylight savings, www.unixtimestamp.com
+    var puzzleIndex = Math.floor((Date.now() - 1661131800000) / (1000 * 60 * 60 * 24)) % 30
     if (puzzleIndex === 0) {
       document.getElementById("yesterdayModalLink").remove();
       localStorage.setItem('streak', 0)
@@ -429,7 +429,7 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       s = checkTime(s); // add a leading zero if it's single digit
       document.getElementById("timer").innerHTML = m + ":" + s; // update the element where the timer will appear
 
-      var nextAnigram = (1660959000000 + ((puzzleIndex + 1) * 1000 * 24 * 60 * 60)) / 1000;
+      var nextAnigram = (1661131800000 + ((puzzleIndex + 1) * 1000 * 24 * 60 * 60)) / 1000;
       var timeTilNext = nextAnigram - now;
       var mNext = Math.floor(timeTilNext / 60); // get minutes value (quotient of diff)
       var hNext = Math.floor(mNext / 60);

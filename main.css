@@ -555,7 +555,7 @@ table td { border: 1px solid #e8e8e8; }
 }
 
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 639px) {
   #tileArea .tile {
     height: 15vw;
     width: 15vw;

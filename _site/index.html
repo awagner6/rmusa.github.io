@@ -410,7 +410,7 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       }
       // today's puzzle already solved -- show success modal
       if (Number(localStorage.getItem('lastSolved')) === puzzleIndex + 1) {
-        textToShare = `🦉🦒🐬🦜🐙🐐\nAnigrams ${puzzleIndex + 1}\n${localStorage.getItem('shareTime')}\nHints: ${localStorage.getItem('shareHints') || 0}\nStreak: ${localStorage.getItem('streak').toString()}\n🦉🦒🐬🦜🐙🐐`;
+        textToShare = `🦉🦒🐬🦜🐙🐐\nAnigrams ${puzzleIndex + 1}\n${localStorage.getItem('shareTime')}\nHints: ${localStorage.getItem('shareHints') || 0}\nStreak: ${localStorage.getItem('streak').toString()}\n🦉🦒🐬🦜🐙🐐\nanigrams.us`;
         // textToShare =
         //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${localStorage.getItem('shareTime')}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
         document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();
@@ -551,7 +551,7 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
             m = checkTime(m);
             s = checkTime(s);
             localStorage.setItem('shareTime', `${h}:${m}:${s}`)
-            textToShare = `🦉🦒🐬🦜🐙🐐\nAnigrams ${puzzleIndex + 1}\n${localStorage.getItem('shareTime')}\nHints: ${localStorage.getItem('shareHints') || 0}\nStreak: ${localStorage.getItem('streak').toString()}\n🦉🦒🐬🦜🐙🐐`;
+            textToShare = `🦉🦒🐬🦜🐙🐐\nAnigrams ${puzzleIndex + 1}\n${localStorage.getItem('shareTime')}\nHints: ${localStorage.getItem('shareHints') || 0}\nStreak: ${localStorage.getItem('streak').toString()}\n🦉🦒🐬🦜🐙🐐\nanigrams.us`;
             // textToShare =
             //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
             document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();

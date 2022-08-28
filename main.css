@@ -501,7 +501,7 @@ table td { border: 1px solid #e8e8e8; }
   justify-content: center;
 }
 
-#hintsRemainingText {
+#hintsRemainingText, #hintLettersText {
   text-align: center;
   margin-top: 12px;
 }

@@ -88,7 +88,7 @@
           <button id="hintButton" class="button-84" role="button" onClick="showNextLetter()">Show next letter</button>
         </div>
         <div id="hintsRemainingText">Hints remaining: <span id="hintsRemainingNumber">6</span></div>
-
+        <div id="hintLettersText">Hint letters: <span id="hintsLetters"></span></div>
         <!-- <div id="prevAnswers"></div> -->
 
         <div id="congratsModal" class="modal">
@@ -264,6 +264,8 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
     if (localStorage.getItem('hintsRemaining') === '0') {
       document.getElementById('hintButton').disabled = true;
     }
+    console.log(document.getElementById('hintLettersText'))
+    document.getElementById('hintLettersText').style.display = 'none';
 
     function processSolution(solutionRow) {
       var processedSolution = [
@@ -372,6 +374,10 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
         var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(solution[currentRound][0][i]);
         document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
       }
+      if (localStorage.getItem('currLevelHints') > 0) {
+        document.getElementById('hintLettersText').style.display = 'block';
+        document.getElementById('hintsLetters').innerHTML = solution[currentRound][0].substr(0, Number(localStorage.getItem('currLevelHints'))).toUpperCase();
+      }
       // today's puzzle already solved -- show success modal
       if (Number(localStorage.getItem('lastSolved')) === puzzleIndex + 1) {
         timeShareText = localStorage.getItem('shareHints') > 0 ? localStorage.getItem('shareTime') : `⭐${localStorage.getItem('shareTime')}⭐`
@@ -478,6 +484,8 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       if (solution.flat().includes(currentWord.toLowerCase()) && currentWord.length === currentRound + 4) {
         // new level means we're back to first letter for hints
         localStorage.setItem('currLevelHints', 0);
+        document.getElementById('hintsLetters').innerHTML = "";
+        document.getElementById('hintLettersText').style.display = 'none';
         document.getElementById('hintButton').disabled = true;
 
         // change active answer cell
@@ -573,6 +581,8 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       localStorage.setItem('hintsRemaining', prevHintsRemaining - 1);
       localStorage.setItem('currentDay', puzzleIndex + 1);
       var lettersToShow = Number(localStorage.getItem('currLevelHints'));
+      document.getElementById('hintsLetters').innerHTML = solution[currentRound][0].substr(0, lettersToShow).toUpperCase();
+      document.getElementById('hintLettersText').style.display = 'block';
       if (currentWord.toLowerCase() === solution[currentRound][0].substr(0, lettersToShow).toLowerCase()) {
         return;
       }

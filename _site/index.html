@@ -85,8 +85,9 @@
           <button id="deleteButton" class="button-84" role="button" onClick="goback()">Delete</button>
         </div>
         <div class="emoji-button-menu" onClick="() => {}">
-          <button id="hintButton" class="button-84" role="button" onClick="showFirstLetter()">Show first letter</button>
+          <button id="hintButton" class="button-84" role="button" onClick="showNextLetter()">Show next letter</button>
         </div>
+        <div id="hintsRemainingText">Hints remaining: <span id="hintsRemainingNumber">6</span></div>
 
         <!-- <div id="prevAnswers"></div> -->
 
@@ -190,40 +191,6 @@
 
     </div>
   </main>
-  <!-- <footer class="site-footer h-card">
-    <data class="u-url" href="/"></data>
-
-    <div class="wrapper">
-
-      <h2 class="footer-heading">Your awesome title</h2>
-
-      <div class="footer-col-wrapper">
-        <div class="footer-col footer-col-1">
-          <ul class="contact-list">
-            <li class="p-name">Your awesome title</li>
-            <li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col footer-col-2">
-          <ul class="social-media-list">
-            <li><a href="https://github.com/jekyll"><svg class="svg-icon">
-                  <use xlink:href="/assets/minima-social-icons.svg#github"></use>
-                </svg> <span class="username">jekyll</span></a></li>
-            <li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon">
-                  <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
-                </svg> <span class="username">jekyllrb</span></a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col footer-col-3">
-          <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </footer> -->
   <script>
     var solutions = `SITE TIES TIERS RITES TIRES TRIES SISTER RESIST RELISTS SLITHERS SHIRTLESS
 SING SIGN GINS PINGS SPYING SPRINGY SPRAYING SPARINGLY
@@ -292,9 +259,11 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       "Maaa-arvelous",
     ]
     var hints = [0, 0, 0, 0, 0, 0];
-    var solveTimes = [];
-
     var startTime = Math.floor(Date.now() / 1000); //Get the starting time (right now) in seconds
+    document.getElementById('hintsRemainingNumber').innerHTML = localStorage.getItem('hintsRemaining') || '6';
+    if (localStorage.getItem('hintsRemaining') === '0') {
+      document.getElementById('hintButton').disabled = true;
+    }
 
     function processSolution(solutionRow) {
       var processedSolution = [
@@ -317,22 +286,6 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
         i = "0" + i
       }; // add zero in front of numbers < 10
       return i;
-    }
-
-    function getEmojiNumber(solveTime) {
-      if (solveTime < 8) {
-        return 1
-      } else if (solveTime < 16) {
-        return 2
-      } else if (solveTime < 31) {
-        return 3
-      } else if (solveTime < 91) {
-        return 4
-      } else if (solveTime < 301) {
-        return 5
-      } else {
-        return 6
-      }
     }
 
     for (var i = 0; i < solution.length; i++) {
@@ -415,14 +368,19 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
           tileToFlip.remove();
         }
       }
+      for (var i = 0; i < localStorage.getItem('currLevelHints'); i++) {
+        var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(solution[currentRound][0][i]);
+        document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
+      }
       // today's puzzle already solved -- show success modal
       if (Number(localStorage.getItem('lastSolved')) === puzzleIndex + 1) {
-        textToShare = `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${localStorage.getItem('shareTime')}\r\nHints: ${localStorage.getItem('shareHints') || 0}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
+        timeShareText = localStorage.getItem('shareHints') > 0 ? localStorage.getItem('shareTime') : `⭐${localStorage.getItem('shareTime')}⭐`
+        textToShare = `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${timeShareText}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
         // textToShare =
         //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${localStorage.getItem('shareTime')}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
         document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();
         document.getElementById('shareTime').innerText = localStorage.getItem('shareTime')
-        document.getElementById('shareHints').innerText = `Hints: ${localStorage.getItem('shareHints') || 0}`
+        document.getElementById('shareHints').innerText = `Hints: ${localStorage.getItem('shareHints') || 0}`;
         document.getElementById('shareStreak').innerText = `Streak: ${localStorage.getItem('streak').toString()}`
         document.getElementById('congratsModal').style.display = "block"
       }
@@ -432,9 +390,11 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       localStorage.setItem('currentTime', "");
       localStorage.setItem('shareHints', "");
       localStorage.setItem('shareTime', "");
+      localStorage.setItem('currLevelHints', 0);
+      localStorage.setItem('hintsRemaining', 6);
     }
 
-    if (document.querySelector(`#solution-${currentRound + 4}`)) {
+    if (!Number(localStorage.getItem('currLevelHints')) && document.querySelector(`#solution-${currentRound + 4}`)) {
       document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
     }
 
@@ -516,14 +476,11 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       ev.target.classList.add("used-tile");
       // correct word
       if (solution.flat().includes(currentWord.toLowerCase()) && currentWord.length === currentRound + 4) {
-        // animate solution word
-        // [...document.getElementById('wordTarget').children].forEach((tile) => {
-        //   tile.classList.add("bounce");
-        // });
-        // change active answer cell
-        var solveTime = Math.floor(Date.now() / 1000);
-        solveTimes.push(currentRound === 0 ? solveTime - startTime : solveTime - startTime - solveTimes[solveTimes.length - 1]);
+        // new level means we're back to first letter for hints
+        localStorage.setItem('currLevelHints', 0);
+        document.getElementById('hintButton').disabled = true;
 
+        // change active answer cell
         localStorage.setItem('currentDay', puzzleIndex + 1);
         localStorage.setItem('currentSolution', (localStorage.getItem('currentSolution') || "") + currentWord + "|")
 
@@ -558,8 +515,9 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
             m = checkTime(m);
             s = checkTime(s);
             localStorage.setItem('shareTime', `${h}:${m}:${s}`)
+            timeShareText = localStorage.getItem('shareHints') > 0 ? localStorage.getItem('shareTime') : `⭐${localStorage.getItem('shareTime')}⭐`
             textToShare =
-              `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${localStorage.getItem('shareTime')}\r\nHints: ${localStorage.getItem('shareHints') || 0}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
+              `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${timeShareText}\r\nHints: ${localStorage.getItem('shareHints') || 0}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
             // textToShare =
             //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
             document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();
@@ -583,6 +541,9 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
             newTile.innerText = findNewLetter(currentRound);
             document.getElementById('tileArea').insertBefore(newTile, tileToFlip);
             tileToFlip.remove();
+            if (localStorage.getItem('hintsRemaining') !== '0') {
+              document.getElementById('hintButton').disabled = false;
+            }
           }, 900);
         }, 0)
       }
@@ -602,6 +563,26 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
           document.querySelector(`#solution-${currentRound + 4}`).lastChild.previousSibling.remove();
           document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
         }, 700);
+      }
+    }
+
+    function showNextLetter() {
+      var prevHintsRemaining = document.getElementById("hintsRemainingNumber").innerHTML;
+      document.getElementById("hintsRemainingNumber").innerHTML = prevHintsRemaining - 1;
+      localStorage.setItem('currLevelHints', Number(localStorage.getItem('currLevelHints') || 0) + 1);
+      localStorage.setItem('hintsRemaining', prevHintsRemaining - 1);
+      localStorage.setItem('currentDay', puzzleIndex + 1);
+      var lettersToShow = Number(localStorage.getItem('currLevelHints'));
+      if (currentWord.toLowerCase() === solution[currentRound][0].substr(0, lettersToShow).toLowerCase()) {
+        return;
+      }
+      reset()
+      for (var i = 0; i < lettersToShow; i++) {
+        var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(solution[currentRound][0][i]);
+        document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
+      }
+      if (prevHintsRemaining === "1") {
+        document.getElementById('hintButton').disabled = true;
       }
     }
 

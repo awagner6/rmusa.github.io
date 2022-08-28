@@ -578,6 +578,7 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       var prevHintsRemaining = document.getElementById("hintsRemainingNumber").innerHTML;
       document.getElementById("hintsRemainingNumber").innerHTML = prevHintsRemaining - 1;
       localStorage.setItem('currLevelHints', Number(localStorage.getItem('currLevelHints') || 0) + 1);
+      localStorage.setItem('shareHints', Number(localStorage.getItem('shareHints') || 0) + 1);
       localStorage.setItem('hintsRemaining', prevHintsRemaining - 1);
       localStorage.setItem('currentDay', puzzleIndex + 1);
       var lettersToShow = Number(localStorage.getItem('currLevelHints'));

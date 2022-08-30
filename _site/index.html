@@ -260,10 +260,6 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
     ]
     var hints = [0, 0, 0, 0, 0, 0];
     var startTime = Math.floor(Date.now() / 1000); //Get the starting time (right now) in seconds
-    document.getElementById('hintsRemainingNumber').innerHTML = localStorage.getItem('hintsRemaining') || '6';
-    if (localStorage.getItem('hintsRemaining') === '0') {
-      document.getElementById('hintButton').disabled = true;
-    }
     console.log(document.getElementById('hintLettersText'))
     document.getElementById('hintLettersText').style.display = 'none';
 
@@ -398,6 +394,11 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
       localStorage.setItem('shareTime', "");
       localStorage.setItem('currLevelHints', 0);
       localStorage.setItem('hintsRemaining', 6);
+    }
+
+    document.getElementById('hintsRemainingNumber').innerHTML = localStorage.getItem('hintsRemaining') || '6';
+    if (localStorage.getItem('hintsRemaining') === '0') {
+      document.getElementById('hintButton').disabled = true;
     }
 
     if (!Number(localStorage.getItem('currLevelHints')) && document.querySelector(`#solution-${currentRound + 4}`)) {

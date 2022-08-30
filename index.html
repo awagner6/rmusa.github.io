@@ -577,6 +577,10 @@ DATE ACTED CADET CARTED CRATED REDACT TRACED REDCOAT DEMOCRAT MOTORCADE`
 
     function showNextLetter() {
       var prevHintsRemaining = document.getElementById("hintsRemainingNumber").innerHTML;
+      // should never happen because the button should be disabled, but adding check just in case
+      if (prevHintsRemaining === "0") {
+        return;
+      }
       document.getElementById("hintsRemainingNumber").innerHTML = prevHintsRemaining - 1;
       localStorage.setItem('currLevelHints', Number(localStorage.getItem('currLevelHints') || 0) + 1);
       localStorage.setItem('shareHints', Number(localStorage.getItem('shareHints') || 0) + 1);

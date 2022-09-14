@@ -623,7 +623,7 @@ HOGS GOSH GHOST GOTHS THONGS SHOTGUN GUNSHOT HANGOUTS SHOGUNATE`
       }
       reset()
       for (var i = 0; i < lettersToShow; i++) {
-        var index = [...document.getElementById('tileArea').children].map((child) => child.innerText.toLowerCase()).indexOf(solution[currentRound][0][i]);
+        var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains("used-tile") ? '' : child.innerText.toLowerCase()).indexOf(solution[currentRound][0][i]);
         document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
       }
       if (prevHintsRemaining === "1") {

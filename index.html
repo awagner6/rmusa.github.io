@@ -406,7 +406,7 @@ HOGS GOSH GHOST GOTHS THONGS SHOTGUN GUNSHOT HANGOUTS SHOGUNATE`
       // today's puzzle already solved -- show success modal
       if (Number(localStorage.getItem('lastSolved')) === puzzleIndex + 1) {
         timeShareText = localStorage.getItem('shareHints') > 0 ? localStorage.getItem('shareTime') : `⭐${localStorage.getItem('shareTime')}⭐`
-        textToShare = `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${timeShareText}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
+        textToShare = `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${timeShareText}\r\nHints used: ${localStorage.getItem('shareHints') || 0}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
         // textToShare =
         //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${localStorage.getItem('shareTime')}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
         document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();
@@ -555,7 +555,7 @@ HOGS GOSH GHOST GOTHS THONGS SHOTGUN GUNSHOT HANGOUTS SHOGUNATE`
             localStorage.setItem('shareTime', `${h}:${m}:${s}`)
             timeShareText = localStorage.getItem('shareHints') > 0 ? localStorage.getItem('shareTime') : `⭐${localStorage.getItem('shareTime')}⭐`
             textToShare =
-              `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${timeShareText}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
+              `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${timeShareText}\r\nHints used: ${localStorage.getItem('shareHints') || 0}\r\nStreak: ${localStorage.getItem('streak').toString()}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
             // textToShare =
             //   `🐐🦉🦒🐬🦜🐙🐐\n🐙     Anigrams     🦉\n🦜        ${(puzzleIndex + 1).toString().padStart(3, '0')}        🦒\n🐬    ${h}:${m}:${s}    🐬\n🦒      Hints: ${localStorage.getItem('shareHints') || 0}      🦜\n🦉  Streak: ${localStorage.getItem('streak').toString().padStart(3, '0')}  🐙\n🐐🐙🦜🐬🦒🦉🐐`
             document.getElementById('shareNumber').innerText = (puzzleIndex + 1).toString();

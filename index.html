@@ -382,6 +382,9 @@ RANT TARN TRAIN RATION ORATION TANDOORI ADORATION`
       solutionRow.className = "solution-row";
       emojiDiv = document.createElement('div');
       emojiDiv.className = "emojiDiv";
+      if (i === solution.length - 1) {
+        emojiDiv.classList.add("goat-tile");
+      }
       emojiDiv.innerText = emojiMapping[i];
       solutionRow.id = `solution-${i + 4}`
       for (var j = 0; j < solution[i][0].length; j++) {
@@ -419,15 +422,16 @@ RANT TARN TRAIN RATION ORATION TANDOORI ADORATION`
       newTile.innerText = solution[0][0][i];
       document.getElementById('tileArea').appendChild(newTile);
     }
-    for (var i = 0; i < solution.length; i++) {
+    // remove -1 for goat tile
+    for (var i = 0; i < solution.length - 1; i++) {
       emojiTile = document.createElement('div');
       flipper = document.createElement('div');
       front = document.createElement('div');
       back = document.createElement('div');
       emojiTile.className = "tile flip-container emoji-tile";
-      if (i === solution.length - 1) {
-        emojiTile.classList.add('goat-tile');
-      }
+      // if (i === solution.length - 1) {
+      //   emojiTile.classList.add('goat-tile');
+      // }
       flipper.className = "flipper";
       front.className = "front";
       back.className = `back back-${i}`;
@@ -508,7 +512,8 @@ RANT TARN TRAIN RATION ORATION TANDOORI ADORATION`
       s = checkTime(s); // add a leading zero if it's single digit
       document.getElementById("timer").innerHTML = m + ":" + s; // update the element where the timer will appear
 
-      var nextAnigram = (1661131800000 + ((puzzleIndex + 1) * 1000 * 24 * 60 * 60)) / 1000;
+      // DST daylight savings change
+      var nextAnigram = (1661135400000 + ((puzzleIndex + 1) * 1000 * 24 * 60 * 60)) / 1000;
       var timeTilNext = nextAnigram - now;
       var mNext = Math.floor(timeTilNext / 60); // get minutes value (quotient of diff)
       var hNext = Math.floor(mNext / 60);

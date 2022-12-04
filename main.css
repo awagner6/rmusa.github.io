@@ -604,6 +604,7 @@ table td { border: 1px solid #e8e8e8; }
     flex-wrap: wrap;
     height: auto;
     margin: 0;
+    margin-bottom: 18px;
   }
 
   .button-84 {

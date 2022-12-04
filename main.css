@@ -496,6 +496,10 @@ table td { border: 1px solid #e8e8e8; }
   margin-right: 4px;
 }
 
+.show-next-button {
+  margin-top: 16px !important;
+}
+
 .emoji-button-menu {
   display: flex;
   align-items: center;
@@ -603,8 +607,8 @@ table td { border: 1px solid #e8e8e8; }
   #tileArea {
     flex-wrap: wrap;
     height: auto;
-    margin: 0;
-    margin-bottom: 18px;
+    /* margin: 0; */
+    margin-bottom: 16px 0;
   }
 
   .button-84 {

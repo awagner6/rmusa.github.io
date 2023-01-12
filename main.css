@@ -290,7 +290,7 @@ table td { border: 1px solid #e8e8e8; }
   width: 60px;
   display: inline-flex;
   margin: 4px;
-  border: 1px solid black;
+  border: 1px solid #888888;
   border-radius: 4px;
   justify-content: center;
   align-items: center;
@@ -571,15 +571,15 @@ table td { border: 1px solid #e8e8e8; }
   }
 }
 
-
 @media screen and (max-width: 639px) {
   #tileArea .tile {
     /* height: 15vw;
     width: 15vw;
     font-size: 28px; */
-    height: 7.4vw;
-    width: 7.4vw;
-    font-size: 14px;
+    height: 10.8vw;
+    width: 8.5vw;
+    font-size: 18px;
+    margin: 2px;
   }
 
   .solution-slot {

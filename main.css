@@ -249,6 +249,14 @@ table td { border: 1px solid #e8e8e8; }
   /* letter-spacing: 4px; */
 }
 
+.no-justify {
+  justify-content: normal;
+}
+
+#yesterdayContent {
+  margin-top: 24px;
+}
+
 .solution-slot-container {
   display: flex;
 }
@@ -279,6 +287,7 @@ table td { border: 1px solid #e8e8e8; }
 
 .emojiDiv {
   margin-right: 8px;
+  margin-left: 8px;
 }
 
 .active-solution-slot::after {

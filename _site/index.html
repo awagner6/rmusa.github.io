@@ -71,7 +71,10 @@
     <div class="wrapper">
       <article class="post">
         <!-- <div id="incorrectFeedback" class="incorrectFeedback">Word not in dictionary</div> -->
-        <div id="introInfo">Unscramble a word to reveal the next letter</div>
+        <div id="introInfo">
+          <div>Unscramble a word to reveal the next letter</div>
+          <div>Level</div>
+        </div>
         <div id="timer"></div>
         <div id="solutionArea"></div>
 
@@ -413,19 +416,30 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
       emojiDiv = document.createElement('div');
       emojiDiv.className = "emojiDiv";
       if (i === solution.length - 1) {
-        emojiDiv.classList.add("goat-tile");
+        // emojiDiv.classList.add("goat-tile");
+        emojiDiv.className = "goat-tile-container"
+        goat = document.createElement('div');
+        goat.className = 'emojiDiv goat-tile';
+        goat.innerText = emojiMapping[i];
+        emojiDiv.appendChild(goat);
+      } else {
+        emojiDiv.innerText = emojiMapping[i];
       }
-      emojiDiv.innerText = emojiMapping[i];
-      solutionRow.id = `solution-${i + 4}`
+      // solutionRow.id = `solution-${i + 4}`
+      solutionSlotContainer = document.createElement('div');
+      solutionSlotContainer.className = "solution-slot-container";
+      solutionSlotContainer.id = `solution-${i + 4}`
+      solutionRow.appendChild(solutionSlotContainer);
       for (var j = 0; j < solution[i][0].length; j++) {
         var solutionSlot = document.createElement('div');
         solutionSlot.className = "solution-slot";
         // if (i === 0 && j === 0) {
         //   solutionSlot.classList.add("active-solution-slot")
         // }
-        solutionRow.appendChild(solutionSlot);
+        solutionSlotContainer.appendChild(solutionSlot);
       }
       solutionRow.appendChild(emojiDiv)
+      solutionSlotContainer.appendChild(document.createElement('div'))
       document.getElementById('solutionArea').appendChild(solutionRow);
 
 
@@ -627,7 +641,7 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
         feedbackMessage.className = "incorrectFeedback";
         feedbackMessage.classList.add("showIncorrectFeedback");
         feedbackContainer.appendChild(feedbackMessage);
-        document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
+        document.querySelector(`#solution-${currentRound + 4}`).parentElement.lastChild.appendChild(feedbackContainer);
         setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 500);
         setTimeout(() => {
           reset(true);
@@ -691,11 +705,11 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
         feedbackMessage.className = "incorrectFeedback";
         feedbackMessage.classList.add("showIncorrectFeedback");
         feedbackContainer.appendChild(feedbackMessage);
-        document.querySelector(`#solution-${currentRound + 4}`).lastChild.before(feedbackContainer);
+        document.querySelector(`#solution-${currentRound + 4}`).parentElement.lastChild.appendChild(feedbackContainer);
         setTimeout(() => feedbackMessage.classList.remove("showIncorrectFeedback"), 500);
         setTimeout(() => {
           reset();
-          document.querySelector(`#solution-${currentRound + 4}`).lastChild.previousSibling.remove();
+          document.querySelector(`#solution-${currentRound + 4}`).parentElement.lastChild.lastChild.remove();
           document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
         }, 700);
       }

@@ -613,7 +613,9 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
     }
 
     function clickTile(ev) {
+      console.log(currentWord);
       currentWord += ev.target.innerText;
+      console.log(currentWord);
 
       document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length})`).innerText = ev.target.innerText;
       document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length})`).classList.remove("active-solution-slot")
@@ -710,7 +712,7 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
         setTimeout(() => {
           reset();
           document.querySelector(`#solution-${currentRound + 4}`).parentElement.lastChild.lastChild.remove();
-          document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
+          // document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
         }, 700);
       }
     }
@@ -721,6 +723,7 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
       if (prevHintsRemaining === "0") {
         return;
       }
+      reset();
       document.getElementById("hintsRemainingNumber").innerHTML = prevHintsRemaining - 1;
       localStorage.setItem('currLevelHints', Number(localStorage.getItem('currLevelHints') || 0) + 1);
       localStorage.setItem('shareHints', Number(localStorage.getItem('shareHints') || 0) + 1);
@@ -728,15 +731,15 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
       localStorage.setItem('currentDay', puzzleIndex + 1);
       var lettersToShow = Number(localStorage.getItem('currLevelHints'));
       document.getElementById('hintsLetters').innerHTML = solution[currentRound][0].substr(0, lettersToShow).toUpperCase();
-      document.getElementById('hintLettersText').style.display = 'block';
+      // document.getElementById('hintLettersText').style.display = 'block';
       if (currentWord.toLowerCase() === solution[currentRound][0].substr(0, lettersToShow).toLowerCase()) {
         return;
       }
-      reset()
-      for (var i = 0; i < lettersToShow; i++) {
-        var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains("used-tile") ? '' : child.innerText.toLowerCase()).indexOf(solution[currentRound][0][i]);
-        document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
-      }
+      // reset()
+      // for (var i = 0; i < lettersToShow; i++) {
+      var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains("used-tile") ? '' : child.innerText.toLowerCase()).indexOf(solution[currentRound][0][lettersToShow - 1]);
+      document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
+      // }
       if (prevHintsRemaining === "1") {
         document.getElementById('hintButton').disabled = true;
       }
@@ -768,14 +771,25 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
     }
 
     function reset(preserveWord = false) {
-      [...document.querySelectorAll('.used-tile')].map((usedTile) => {
-        usedTile.classList.remove('used-tile');
+      hintWord = document.getElementById('hintsLetters').innerHTML;
+      hintLetters = hintWord.split('');
+      numHints = hintLetters.length;
+      console.log(hintLetters);
+      [...document.querySelectorAll('.used-tile')].forEach((usedTile) => {
+        indexInHints = hintLetters.indexOf(usedTile.innerText.toUpperCase());
+        if (indexInHints === -1) {
+          usedTile.classList.remove('used-tile');
+        } else {
+          hintLetters.splice(indexInHints, 1);
+        }
       });
       document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length + 1})`).classList.remove("active-solution-slot");
-      currentWord = "";
+      currentWord = preserveWord ? "" : hintWord;
       if (!preserveWord) {
-        [...document.querySelectorAll(`#solution-${currentRound + 4} .solution-slot`)].map((child) => child.innerText = "");
-        document.querySelector(`#solution-${currentRound + 4}`).firstChild.classList.add("active-solution-slot");
+        solutionSlots = [...document.querySelectorAll(`#solution-${currentRound + 4} .solution-slot`)];
+        solutionSlots.splice(0, numHints);
+        solutionSlots.map((child) => child.innerText = "");
+        document.querySelector(`#solution-${currentRound + 4} :nth-child(${numHints + 1})`).classList.add("active-solution-slot");
       }
     }
 

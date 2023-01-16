@@ -575,7 +575,7 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
     startTimeCounter();
 
     function goback() {
-      var hintsUsed = 6 - document.getElementById("hintsRemainingNumber").innerHTML;
+      var hintsUsed = localStorage.getItem('currLevelHints');
       // if (currentWord !== "") {
       if (currentWord.length > hintsUsed) {
         var lastLetter = currentWord[currentWord.length - 1];

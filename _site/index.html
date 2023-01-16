@@ -510,7 +510,7 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
         document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
       }
       if (localStorage.getItem('currLevelHints') > 0) {
-        document.getElementById('hintLettersText').style.display = 'block';
+        // document.getElementById('hintLettersText').style.display = 'block';
         document.getElementById('hintsLetters').innerHTML = solution[currentRound][0].substr(0, Number(localStorage.getItem('currLevelHints'))).toUpperCase();
       }
       // today's puzzle already solved -- show success modal
@@ -575,7 +575,9 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
     startTimeCounter();
 
     function goback() {
-      if (currentWord !== "") {
+      var hintsUsed = 6 - document.getElementById("hintsRemainingNumber").innerHTML;
+      // if (currentWord !== "") {
+      if (currentWord.length > hintsUsed) {
         var lastLetter = currentWord[currentWord.length - 1];
         currentWord = currentWord.slice(0, -1)
         document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length + 1})`).innerText = "";
@@ -613,9 +615,7 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
     }
 
     function clickTile(ev) {
-      console.log(currentWord);
       currentWord += ev.target.innerText;
-      console.log(currentWord);
 
       document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length})`).innerText = ev.target.innerText;
       document.querySelector(`#solution-${currentRound + 4} :nth-child(${currentWord.length})`).classList.remove("active-solution-slot")
@@ -774,7 +774,6 @@ ODOR DOOR ROOD RODEO MOORED ROOMED DOOMER MOTORED ODOMETER METEOROID`
       hintWord = document.getElementById('hintsLetters').innerHTML;
       hintLetters = hintWord.split('');
       numHints = hintLetters.length;
-      console.log(hintLetters);
       [...document.querySelectorAll('.used-tile')].forEach((usedTile) => {
         indexInHints = hintLetters.indexOf(usedTile.innerText.toUpperCase());
         if (indexInHints === -1) {

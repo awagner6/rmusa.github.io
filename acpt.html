@@ -51,7 +51,7 @@
         <div class="emoji-button-menu" onClick="() => {}">
           <button id="hintButton" class="button-84 show-next-button" role="button" onClick="onClickHint()">Show next letter</button>
         </div>
-        <div id="hintsRemainingText">Hints remaining: <span id="hintsRemainingNumber">6</span></div>
+        <!-- <div id="hintsRemainingText">Hints remaining: <span id="hintsRemainingNumber">6</span></div> -->
 
         <div id="congratsModal" class="modal">
           <div class="modal-content">
@@ -145,11 +145,9 @@
         </div>
         <div id="countdownModal" class="modal">
           <div class="modal-content">
-            <div>Nice work! Your timer is paused now.</div>
+            <span>Nice work! The next puzzle is starting in </span>
+            <span id="betweenCountdown" />
             <br />
-            <div>Click the button when you're ready for the next puzzle.</div>
-            <br />
-            <button class="button-84" role="button" onClick="startNextLevel()">Start next puzzle</button>
           </div>
         </div>
         <div id="endModal" class="modal">
@@ -236,6 +234,8 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
     var currentWord = "";
     var currentRound = 0;
     var textToShare = 0;
+    // 4 minutes per puzzle
+    var msecPerPuzzle = 4 * 60 * 1000;
     var emojiMapping = [
       '🦉',
       '🦒',
@@ -255,6 +255,7 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
     var startTime = Math.floor(Date.now() / 1000); //Get the starting time (right now) in seconds
 
     function processSolution(solutionRow) {
+      console.log(solutionRow)
       var processedSolution = [
         [],
         [],
@@ -280,9 +281,9 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
     function setupLevel(puzzleIndex) {
       currentRound = 0;
       currentWord = "";
-      if (totalHintsUsed < 6) {
-        document.getElementById('hintButton').disabled = false
-      }
+      // if (totalHintsUsed < 6) {
+      //   document.getElementById('hintButton').disabled = false
+      // }
       document.getElementById('solutionArea').innerHTML = '';
       document.getElementById('tileArea').innerHTML = '';
       solution = processSolution(solutionsArray[puzzleIndex]);
@@ -388,12 +389,14 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
 
     function startGame() {
       closeModal('startModal')
-      timer = startTimer();
+      // 4 minutes per puzzle
+      timer = startTimer(msecPerPuzzle, 'timer-acpt');
     }
 
-    function startTimer() {
+    function startTimer(countdownMsec, elementId) {
+      var ended = false;
       var startTimeTimer, timer, obj,
-        display = document.getElementById('timer-acpt');
+        display = document.getElementById(elementId);
       obj = {};
       obj.resume = function() {
         startTimeTimer = new Date().getTime();
@@ -402,15 +405,25 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
       };
       obj.pause = function() {
         ms = obj.step();
-        times.push(ms);
+        times.push(msecPerPuzzle - ms);
         clearInterval(timer);
       };
       obj.step = function() {
-        var now = new Date().getTime() - startTimeTimer,
+        var now = countdownMsec - (new Date().getTime() - startTimeTimer),
           m = Math.floor(now / 60000),
           s = Math.floor(now / 1000) % 60;
         s = (s < 10 ? "0" : "") + s;
         display.innerHTML = m + ":" + s;
+        // time is up!
+        if (m == 0 && s === '00' && !ended) {
+          clearInterval(timer);
+          ended = true;
+          if (elementId === 'timer-acpt') {
+            processEndOfLevel();
+          } else {
+            startNextLevel();
+          }
+        }
         return now;
       };
       obj.resume();
@@ -524,13 +537,14 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
             // document.getElementById('shareStreak').innerText = `Streak: ${localStorage.getItem('streak').toString()}`
             // document.querySelector('.goat-tile').classList.add('goat-tile-grow');
             // setTimeout(() => document.getElementById('congratsModal').style.display = "block", 1200);
-            timer.pause();
-            if (puzzleIndex === 3) {
-              document.removeEventListener('keydown', onKeyDown)
-              openModal('endModal');
-            } else {
-              openModal('countdownModal');
-            }
+            // timer.pause();
+            processEndOfLevel();
+            // if (puzzleIndex === 3) {
+            //   document.removeEventListener('keydown', onKeyDown)
+            //   openModal('endModal');
+            // } else {
+            //   openModal('countdownModal');
+            // }
             // startCountdown();
             // setTimeout(() => {
             //   closeModal('countdownModal')
@@ -582,7 +596,8 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
       puzzleIndex += 1;
       setupLevel(puzzleIndex);
       closeModal('countdownModal')
-      timer.resume();
+      timer = startTimer(msecPerPuzzle, 'timer-acpt')
+      // timer.resume();
     }
 
     function submitData() {
@@ -628,13 +643,13 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
     function showNextLetter() {
       document.getElementById('hintButton').innerHTML = "Show next letter";
       document.getElementById('hintButton').onclick = onClickHint;
-      var prevHintsRemaining = document.getElementById("hintsRemainingNumber").innerHTML;
+      // var prevHintsRemaining = document.getElementById("hintsRemainingNumber").innerHTML;
       // should never happen because the button should be disabled, but adding check just in case
-      if (prevHintsRemaining === "0") {
-        return;
-      }
+      // if (prevHintsRemaining === "0") {
+      //   return;
+      // }
       reset();
-      document.getElementById("hintsRemainingNumber").innerHTML = prevHintsRemaining - 1;
+      // document.getElementById("hintsRemainingNumber").innerHTML = prevHintsRemaining - 1;
       // localStorage.setItem('currLevelHints', Number(localStorage.getItem('currLevelHints') || 0) + 1);
       // localStorage.setItem('shareHints', Number(localStorage.getItem('shareHints') || 0) + 1);
       // localStorage.setItem('hintsRemaining', prevHintsRemaining - 1);
@@ -651,9 +666,9 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
       var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains("used-tile") ? '' : child.innerText.toLowerCase()).indexOf(solution[currentRound][0][currHintsUsed - 1]);
       document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
       // }
-      if (prevHintsRemaining === "1") {
-        document.getElementById('hintButton').disabled = true;
-      }
+      // if (prevHintsRemaining === "1") {
+      //   document.getElementById('hintButton').disabled = true;
+      // }
     }
 
     function findNewLetter(round) {
@@ -665,6 +680,18 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
         }
       }
       return newLetters[newLetters.length - 1];
+    }
+
+    function processEndOfLevel() {
+      timer.pause();
+      if (puzzleIndex === 3) {
+        document.removeEventListener('keydown', onKeyDown)
+        openModal('endModal');
+        console.log(times)
+      } else {
+        timer = startTimer((msecPerPuzzle - times[puzzleIndex]) + 10 * 1000, 'betweenCountdown')
+        openModal('countdownModal');
+      }
     }
 
     function reset(preserveWord = false) {

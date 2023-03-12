@@ -62,7 +62,7 @@
     var scores = firebase.database().ref();
     scores.on('value', (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+      // console.log(data);
       updateLeaderboard(data);
     });
 
@@ -79,10 +79,10 @@
         tr.appendChild(createTableData(index + 1))
         tr.appendChild(createTableData(name))
         times.forEach((time) => {
-          tr.appendChild(createTableData(time))
+          tr.appendChild(createTableData(convertMs(time)))
         })
         tr.appendChild(createTableData(hintsUsed))
-        tr.appendChild(createTableData(times.reduce((x, y) => x + y)))
+        tr.appendChild(createTableData(convertMs(times.reduce((x, y) => x + y))))
         table.appendChild(tr);
       });
     }
@@ -91,6 +91,13 @@
       var td = document.createElement('td');
       td.innerHTML = value;
       return td;
+    }
+
+    function convertMs(t) {
+      m = Math.floor(t / 60000);
+      s = Math.floor(t / 1000) % 60;
+      s = (s < 10 ? "0" : "") + s;
+      return m + ":" + s;
     }
   </script>
 </body>

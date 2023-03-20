@@ -18,7 +18,7 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
   <meta property="twitter:title" content="🦉🦒🐬 Anigrams 🦜🐙🐐" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,700">
   <link rel="stylesheet" href="main.css">
 </head>
 
@@ -26,10 +26,6 @@
   <header class="site-header" role="banner">
     <div class="header-wrapper">
       <a class="title" rel="author" href="/">Anigrams</a>
-      <div class="flex-container">
-        <button class="link-button" role="button" onClick="openModal('rulesModal')">Rules</button>
-        <button class="link-button" role="button" onClick="openModal('aboutModal')">About</button>
-      </div>
     </div>
   </header>
   <main class="page-content" aria-label="Content">
@@ -113,34 +109,6 @@
               <button id="shareButton" class="button-84" role="button" onClick="onClickShare()">Share</button>
             </div>
 
-          </div>
-        </div>
-
-        <div id="rulesModal" class="modal">
-          <div class="modal-content">
-            <span class="close" onClick="closeModal('rulesModal')">&times;</span>
-            <div class="rules-title">Rules</div>
-            <div class="rules-info">
-              <div>Unscramble a word to reveal the next letter.</div>
-              <div>Each word must use every available letter exactly once.</div>
-              <div>There may be multiple acceptable words at any given level, but you only need to enter one to advance.</div>
-              <div>Feeling stuck? Use the "Show next letter" button for a hint... But use it wisely, as you only get 6 hints for the whole game!</div>
-              <div>A new Anigrams puzzle will post every day at 9:30pm EST, 6:30pm PST</div>
-            </div>
-          </div>
-        </div>
-        <div id="aboutModal" class="modal">
-          <div class="modal-content">
-            <span class="close" onClick="closeModal('aboutModal')">&times;</span>
-            <div class="about-content">
-              <div>Created by Adam Wagner</div>
-              <div>Developed by Rafael Musa</div>
-              <div>Gameplay development by Jacob Goldberg</div>
-              <br>
-              <div>Special thanks to Anna Goldberg Wagner</div>
-              <br>
-              <div>Think we missed a word? Want to share some feedback? Have other questions? Hit us up at <a href="mailto:info@anigrams.us">info@anigrams.us</a></div>
-            </div>
           </div>
         </div>
         <div id="countdownModal" class="modal">

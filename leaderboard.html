@@ -35,8 +35,11 @@
             <th>Puzzle 2</th>
             <th>Puzzle 3</th>
             <th>Puzzle 4</th>
-            <th>Hints Used</th>
+            <th>Puzzle 5</th>
             <th>Total Time</th>
+            <th>Hints Used</th>
+            <th>DNF</th>
+            <th>Final Score</th>
           </tr>
         </thead>
         <tbody id="leaderboardBody">
@@ -73,6 +76,7 @@
       scores.forEach(({
         name,
         hintsUsed,
+        dnf,
         times
       }, index) => {
         var tr = document.createElement('tr')
@@ -81,8 +85,9 @@
         times.forEach((time) => {
           tr.appendChild(createTableData(convertMs(time)))
         })
-        tr.appendChild(createTableData(hintsUsed))
         tr.appendChild(createTableData(convertMs(times.reduce((x, y) => x + y))))
+        tr.appendChild(createTableData(hintsUsed))
+        tr.appendChild(createTableData(dnf))
         table.appendChild(tr);
       });
     }
@@ -94,6 +99,7 @@
     }
 
     function convertMs(t) {
+      t = t + 1000;
       m = Math.floor(t / 60000);
       s = Math.floor(t / 1000) % 60;
       s = (s < 10 ? "0" : "") + s;

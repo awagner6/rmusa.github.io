@@ -145,9 +145,11 @@
         </div>
         <div id="countdownModal" class="modal">
           <div class="modal-content">
-            <span>Nice work! The next puzzle is starting in </span>
-            <span id="betweenCountdown" />
-            <br />
+            <span id="endOfPuzzleMessage">Nice work!</span>
+            <span> The next puzzle will be available in </span>
+            <span id="betweenCountdown"> </span>
+            <div><strong>Do not leave this site</strong> or your progress will be lost!</div>
+            <div><button id="startNextButton" class="button-84" role="button" onClick="startNextLevel()">Start next puzzle</button></div>
           </div>
         </div>
         <div id="endModal" class="modal">
@@ -155,17 +157,54 @@
             <label for="nameInput">What name would you like to use for our leaderboard?</label>
             <input id="nameInput" type="text">
             <div id="nameInputError">Name already in use</div>
+            <br /><br />
             <button class="button-84" role="button" onClick="submitData()">Save data</button>
           </div>
         </div>
         <div id="startModal" class="modal">
           <div class="modal-content">
             <div class="start-modal-content">
-              <div>Welcome to Anigrams ACPT</div>
-              <div>Use the letters provided to unscramble words.</div>
-              <div>You'll solve four puzzles in a row. You can use as many hints as you'd like, but they'll cost you 30 seconds each!</div>
-              <div>Solve as fast as you can -- your times will be saved to a leaderboard.</div>
-              <button class="button-84" role="button" onClick="startGame()">Start Game</button>
+              <div id='acpt-welcome-title'>
+                Welcome to ACPT <br />
+                🦉🦒🐬Anigrams🦜🐙🐐
+              </div>
+              <br /><br />
+              <div id="rules-title"><u>Rules</u></div>
+              <br />
+              To start, you'll be given four letters. Unscramble them into a word by tapping the letter tiles in order. Once you do, a fifth letter will be revealed. Repeat the process, unscrambling a five-letter word, then a six-letter word, and so
+              on, all the way up to nine.
+              <br /><br />
+              Each word must use every available letter exactly once.
+              <br /><br />
+              There may be multiple acceptable words at any given level, but you only need to enter one to advance.
+              <br /><br />
+              The game ends once you unscramble a nine letter word.
+              <br /><br />
+              <u>Scoring</u>
+              <br />
+              <span>You'll solve <strong>five puzzles</strong> in a row. For each puzzle, you'll have a maximum of <strong>four minutes</strong> to solve.</span>
+              <br />
+              Solve as fast as you can -- your times will be saved to a leaderboard.
+              <br /><br />
+              When you complete a puzzle, your timer will pause until the next puzzle begins.
+              <br /><br />
+              If you do not complete the puzzle in 4 minutes, an additional 45 seconds will be added to your score per level you missed.
+              <br /><br />
+              <span>If you're stuck, you can double-tap the "Show Next Letter" button to reveal the next letter of a word. You can use this feature as much as you like, but it'll <strong>add 30 seconds to your score</strong> each time.</span>
+              <br />
+              <span>You can also Clear or Delete tapped-in letters using the buttons provided, or shuffle your letters using the 🔄 button. There are <strong>no penalties</strong> for using these buttons.</span>
+              <br />
+              <strong>Important</strong>
+              <br />
+              <span>Once you start the game, <strong>do not leave, minimize, or refresh the site</strong> or else your progress may be lost.</span>
+              <br />
+              Do not tap the "Begin" button below until instructed to do so.
+              <br /><br />
+              Good luck!
+              <br /><br />
+              P.S. No, the emojis are not part of the game. They're just there to look cute.
+              <br /><br />
+              <button class="button-84" role="button" onClick="startGame()">Start Puzzle 1</button>
             </div>
           </div>
         </div>
@@ -216,7 +255,8 @@
     var solutions = `SITE TIES TIERS RITES TIRES TRIES SISTER RESIST RELISTS SLITHERS SHIRTLESS
 SING SIGN GINS PINGS SPYING SPRINGY SPRAYING SPARINGLY
 READ DEAR DARE AIRED RAIDER MARRIED ADMIRER DREAMIER REMAINDER
-SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
+SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES
+ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
 
     var solutionsArray = solutions.split("\n");
 
@@ -234,6 +274,7 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
     var currentWord = "";
     var currentRound = 0;
     var textToShare = 0;
+    var totalDNF = 0;
     // 4 minutes per puzzle
     var msecPerPuzzle = 4 * 60 * 1000;
     var emojiMapping = [
@@ -419,9 +460,10 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
           clearInterval(timer);
           ended = true;
           if (elementId === 'timer-acpt') {
-            processEndOfLevel();
+            processEndOfLevel(true);
           } else {
-            startNextLevel();
+            document.getElementById('startNextButton').style.display = "inline-flex"
+            // startNextLevel();
           }
         }
         return now;
@@ -596,6 +638,7 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
       puzzleIndex += 1;
       setupLevel(puzzleIndex);
       closeModal('countdownModal')
+      document.getElementById('startNextButton').style.display = "none"
       timer = startTimer(msecPerPuzzle, 'timer-acpt')
       // timer.resume();
     }
@@ -611,8 +654,9 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
         } else {
           firebase.database().ref(userName).set({
             name: userName,
-            times: times,
+            times: times.map(time => Math.floor(time / 1000) * 1000),
             hintsUsed: totalHintsUsed,
+            dnf: totalDNF,
           });
           closeModal('endModal')
           openModal('solutionsModal')
@@ -682,14 +726,18 @@ SUED USED DUES DUNES NUDES UNDIES INSURED SUNDRIES SIDEBURNS BURNSIDES`
       return newLetters[newLetters.length - 1];
     }
 
-    function processEndOfLevel() {
+    function processEndOfLevel(didTimeRunOut = false) {
       timer.pause();
-      if (puzzleIndex === 3) {
+      if (didTimeRunOut) {
+        totalDNF += 1
+      }
+      if (puzzleIndex === 4) {
         document.removeEventListener('keydown', onKeyDown)
         openModal('endModal');
-        console.log(times)
       } else {
         timer = startTimer((msecPerPuzzle - times[puzzleIndex]) + 10 * 1000, 'betweenCountdown')
+        document.getElementById('endOfPuzzleMessage').innerText = didTimeRunOut ? "Time's up!" : "Nice job!"
+        document.getElementById('startNextButton').innerText = `Start Puzzle ${puzzleIndex + 2}`
         openModal('countdownModal');
       }
     }

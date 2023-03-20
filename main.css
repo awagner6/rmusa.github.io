@@ -12,6 +12,10 @@ main {
   display: block;
 }
 
+strong {
+  display: inline;
+}
+
 /** Headings */
 h1, h2, h3, h4, h5, h6 { font-weight: 400; }
 
@@ -91,6 +95,21 @@ a:hover { color: #111; text-decoration: underline; }
   bottom: -8px;
   border: 6px solid;
   border-color: #25292e #25292e transparent transparent;
+}
+
+#startNextButton {
+  display: none;
+  margin-top: 24px;
+}
+
+#acpt-welcome-tile {
+  /* margin: auto; */
+  margin-bottom: 12px !important;
+}
+
+#rules-title {
+  margin-top: -36px;
+  margin-bottom: 0;
 }
 
 #nameInputError {

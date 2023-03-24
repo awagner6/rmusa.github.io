@@ -184,6 +184,20 @@
             </div>
           </div>
         </div>
+        <div id="acptModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onClick="closeModal('acptModal')">&times;</span>
+            <div class="acpt-content">
+              <br>
+              <div id="acpt-title">Play Anigrams live!</div>
+              <br>
+              <div id="acpt-body">On Friday, March 30th at 8pm EDT, join New York Times crossword editor Will Shortz and Anigrams creator Adam Wagner for a special live Anigrams contest as part of the 45th annual American Crossword Puzzle Tournament.
+              </div>
+              <br>
+              <button id="shareButton" class="button-84" role="button" onClick="window.open('https://www.crosswordtournament.com/info/brochure.htm', '_blank');">Register here</button>
+            </div>
+          </div>
+        </div>
       </article>
 
     </div>
@@ -429,6 +443,8 @@ DRUG URGED ARGUED GUARDED UNGRADED UNDERGRAD UNDERDRAG
 VANE NAVE VENA RAVEN TAVERN VETERAN RELEVANT LEVANTER PREVALENT
 SEAS ASSE SEARS ARSES RASSE ERASES TEASERS RESEATS TESSERA SEATERS TEARLESS RESLATES STEALERS TESSELAR TASSELER ALERTNESS
 GENE GENRE GREEN REGENT GERENT INTEGER TREEING REGIMENT METERING GERMINATE GERMANITE RETEAMING`
+
+    openModal('acptModal')
 
     var solutionsArray = solutions.split("\n");
 

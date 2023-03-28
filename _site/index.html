@@ -63,7 +63,8 @@
       <div class="flex-container">
         <button class="link-button" role="button" onClick="openModal('rulesModal')">Rules</button>
         <button id="yesterdayModalLink" class="link-button" role="button" onClick="openModal('yesterdayModal')">Yesterday</button>
-        <button class="link-button" role="button" onClick="openModal('aboutModal')">About</button>
+        <!-- <button class="link-button" role="button" onClick="openModal('aboutModal')">About</button> -->
+        <button class="link-button" role="button" onClick="openModal('patreonModal')">Patreon</button>
       </div>
     </div>
   </header>
@@ -161,6 +162,12 @@
               <div>There may be multiple acceptable words at any given level, but you only need to enter one to advance.</div>
               <div>Feeling stuck? Use the "Show next letter" button for a hint... But use it wisely, as you only get 6 hints for the whole game!</div>
               <div>A new Anigrams puzzle will post every day at 9:30pm EST, 6:30pm PST</div>
+              <br>
+              <div>Created by Adam Wagner</div>
+              <div>Developed by Rafael Musa</div>
+              <div>Gameplay development by Jacob Goldberg</div>
+              <div>Special thanks to Anna Goldberg Wagner</div>
+              <div>Think we missed a word? Want to share some feedback? Have other questions? Hit us up at <a href="mailto:info@anigrams.us">info@anigrams.us</a></div>
             </div>
           </div>
         </div>
@@ -184,21 +191,42 @@
             </div>
           </div>
         </div>
-        <div id="acptModal" class="modal">
+        <div id="patreonModal" class="modal">
           <div class="modal-content">
-            <span class="close" onClick="closeModal('acptModal')">&times;</span>
-            <div class="acpt-content">
+            <span class="close" onClick="closeModal('patreonModal')">&times;</span>
+            <div class="about-content">
+              <div>Anigrams is on <a href="https://www.patreon.com/user?u=65757168">Patreon</a>!</div>
               <br>
-              <div id="acpt-title">Play Anigrams live!</div>
+              <div>By joining the community, you'll get access to bonus Anigrams challenges, early looks at/input in potential new features, the opportunity to submit puzzles (with your name in the byline!), occasional Q&As with me, and (coming
+                next
+                week!) a full, playable backlog of previous Anigrams puzzles.</div>
               <br>
-              <div id="acpt-body">On Friday, March 31st at 8pm EDT, join New York Times crossword editor Will Shortz and Anigrams creator Adam Wagner for a special live Anigrams contest as part of the 45th annual American Crossword Puzzle Tournament.
-              </div>
+              <div>Most importantly, you'll enable me to continue to grow this game and develop new ones within the Anigrams family. I hope you'll consider joining!</div>
               <br>
-              <button id="shareButton" class="button-84" role="button" onClick="window.open('https://www.crosswordtournament.com/info/brochure.htm', '_blank');">Register here</button>
+              <div>-Adam</div>
+              <br>
+              <button id="shareButton" class="button-84" role="button" onClick="window.open('https://www.patreon.com/user?u=65757168', '_blank');">Go to Patreon</button>
             </div>
           </div>
         </div>
-      </article>
+    </div>
+    </div>
+    <div id="acptModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onClick="closeModal('acptModal')">&times;</span>
+        <div class="acpt-content">
+          <br>
+          <div id="acpt-title">Play Anigrams live!</div>
+          <br>
+          <div id="acpt-body">On Friday, March 31st at 8pm EDT, join New York Times crossword editor Will Shortz and Anigrams creator Adam Wagner for a special live Anigrams contest as part of the 45th annual American Crossword Puzzle
+            Tournament.
+          </div>
+          <br>
+          <button id="shareButton" class="button-84" role="button" onClick="window.open('https://www.crosswordtournament.com/info/brochure.htm', '_blank');">Register here</button>
+        </div>
+      </div>
+    </div>
+    </article>
 
     </div>
   </main>

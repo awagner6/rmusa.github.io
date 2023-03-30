@@ -184,6 +184,7 @@
         </div>
       </article>
     </div>
+    <div id="noDesktop">For the sake of fairness, ACPT Anigrams is only available on mobile.</div>
   </main>
   <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
@@ -460,20 +461,20 @@ ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
       }
     }
 
-    function onKeyDown(e) {
-      if (!e.repeat) {
-        if (e.key === 'Backspace') {
-          goback();
-          return;
-        }
-        var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains('used-tile') ? '?' : child.innerText.toLowerCase()).indexOf(e.key);
-        if (index !== -1) {
-          document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
-        }
-      }
-    }
-
-    document.addEventListener('keydown', onKeyDown);
+    // function onKeyDown(e) {
+    //   if (!e.repeat) {
+    //     if (e.key === 'Backspace') {
+    //       goback();
+    //       return;
+    //     }
+    //     var index = [...document.getElementById('tileArea').children].map((child) => child.classList.contains('used-tile') ? '?' : child.innerText.toLowerCase()).indexOf(e.key);
+    //     if (index !== -1) {
+    //       document.querySelector(`#tileArea :nth-child(${index + 1})`).click();
+    //     }
+    //   }
+    // }
+    //
+    // document.addEventListener('keydown', onKeyDown);
 
     function onClickShare() {
       if (navigator.share) {
@@ -622,7 +623,7 @@ ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
         } else {
           firebase.database().ref(userName).set({
             name: userName,
-            times: times.map(time => Math.floor(time / 1000) * 1000),
+            times: times.map(time => Math.floor(time / 1000) * 1000 + 1000),
             hintsUsed: totalHintsUsed,
             dnf: totalDNF,
           });
@@ -700,7 +701,7 @@ ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
         totalDNF += (6 - currentRound)
       }
       if (puzzleIndex === 4) {
-        document.removeEventListener('keydown', onKeyDown)
+        // document.removeEventListener('keydown', onKeyDown)
         openModal('endModal');
       } else {
         timer = startTimer((msecPerPuzzle - times[puzzleIndex]) + 10 * 1000, 'betweenCountdown')

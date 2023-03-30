@@ -56,6 +56,26 @@ a:hover { color: #111; text-decoration: underline; }
   margin-bottom: 16px;
 }
 
+#noDesktop {
+  background:white;
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1000px) {
+  #noDesktop {
+    display: none;
+  }
+}
+
+
 #acpt-body {
   text-align: left;
 }

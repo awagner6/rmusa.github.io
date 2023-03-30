@@ -72,6 +72,7 @@
     function updateLeaderboard(data) {
       var table = document.getElementById('leaderboardBody');
       table.innerHTML = '';
+      console.log(data);
       var scores = Object.values(data).sort((a, b) => (a.times.reduce((x, y) => x + y) + a.dnf * 45000 + a.hintsUsed * 30000) - (b.times.reduce((x, y) => x + y) + b.dnf * 45000 + b.hintsUsed * 30000));
       scores.forEach(({
         name,
@@ -100,7 +101,6 @@
     }
 
     function convertMs(t) {
-      t = t + 1000;
       m = Math.floor(t / 60000);
       s = Math.floor(t / 1000) % 60;
       s = (s < 10 ? "0" : "") + s;

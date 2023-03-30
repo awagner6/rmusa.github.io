@@ -38,7 +38,7 @@
             <th>Puzzle 5</th>
             <th>Total Time</th>
             <th>Hints Used</th>
-            <th>DNF</th>
+            <th>Incomplete words</th>
             <th>Final Score</th>
           </tr>
         </thead>
@@ -72,7 +72,7 @@
     function updateLeaderboard(data) {
       var table = document.getElementById('leaderboardBody');
       table.innerHTML = '';
-      var scores = Object.values(data).sort((a, b) => a.times.reduce((x, y) => x + y) - b.times.reduce((x, y) => x + y));
+      var scores = Object.values(data).sort((a, b) => (a.times.reduce((x, y) => x + y) + a.dnf * 45000 + a.hintsUsed * 30000) - (b.times.reduce((x, y) => x + y) + b.dnf * 45000 + b.hintsUsed * 30000));
       scores.forEach(({
         name,
         hintsUsed,
@@ -88,6 +88,7 @@
         tr.appendChild(createTableData(convertMs(times.reduce((x, y) => x + y))))
         tr.appendChild(createTableData(hintsUsed))
         tr.appendChild(createTableData(dnf))
+        tr.appendChild(createTableData(convertMs(times.reduce((x, y) => x + y) + dnf * 45000 + hintsUsed * 30000)))
         table.appendChild(tr);
       });
     }

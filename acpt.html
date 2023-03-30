@@ -265,7 +265,6 @@ ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
     var startTime = Math.floor(Date.now() / 1000); //Get the starting time (right now) in seconds
 
     function processSolution(solutionRow) {
-      console.log(solutionRow)
       var processedSolution = [
         [],
         [],
@@ -609,6 +608,7 @@ ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
       closeModal('countdownModal')
       document.getElementById('startNextButton').style.display = "none"
       timer = startTimer(msecPerPuzzle, 'timer-acpt')
+      document.getElementById('hintButton').disabled = false;
       // timer.resume();
     }
 
@@ -618,7 +618,6 @@ ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
 
       firebase.database().ref().child(userName).get().then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
           document.getElementById('nameInputError').style.display = "block";
         } else {
           firebase.database().ref(userName).set({
@@ -698,7 +697,7 @@ ODDS DOSED DODGES GODDESS GODSENDS DODGINESS`
     function processEndOfLevel(didTimeRunOut = false) {
       timer.pause();
       if (didTimeRunOut) {
-        totalDNF += 1
+        totalDNF += (6 - currentRound)
       }
       if (puzzleIndex === 4) {
         document.removeEventListener('keydown', onKeyDown)

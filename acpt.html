@@ -425,7 +425,8 @@ RIMS MIRS MISER EMIRS MIRES RIMES SIMMER MERISM MIMERS MEMOIRS MISNOMER PERSIMMO
         s = (s < 10 ? "0" : "") + s;
         display.innerHTML = m + ":" + s;
         // time is up!
-        if (m == 0 && s === '00' && !ended) {
+        console.log(m, s);
+        if (((m == 0 && s === '00') || m < 0) && !ended) {
           clearInterval(timer);
           ended = true;
           if (elementId === 'timer-acpt') {

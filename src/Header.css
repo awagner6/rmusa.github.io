@@ -1,0 +1,55 @@
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: calc(800px - (30px * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.site-header {
+  border-bottom: 1px solid #e8e8e8;
+  min-height: 55.95px;
+  position: relative;
+}
+
+.link-button {
+  background: none !important;
+  border: none;
+  text-decoration: underline;
+  font-size: 16px;
+  color: black;
+  padding: 1px 6px;
+}
+
+.title {
+  font-size: 42px;
+  color: black !important;
+  padding: 12px 12px 12px 0;
+}
+
+.no-justify {
+  justify-content: normal !important;
+}
+
+@media screen and (max-width: 639px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .link-button {
+    font-size: 14px;
+  }
+
+  .yesterday-slot {
+    height: 25px;
+    width: 25px;
+  }
+}

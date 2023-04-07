@@ -1,0 +1,36 @@
+.wrapper {
+  max-width: -webkit-calc(800px - (30px * 2));
+  max-width: calc(800px - (30px * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-top: 20px;
+}
+
+.intro-info {
+  font-size: 18px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+body {
+  font-family: 'Roboto';
+  font-weight: 400;
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    max-width: -webkit-calc(800px - (30px));
+    max-width: calc(800px - (30px));
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .intro-info {
+    font-size: 14px;
+    margin: 0;
+  }
+}

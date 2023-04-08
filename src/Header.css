@@ -39,6 +39,15 @@
   justify-content: normal !important;
 }
 
+.new-feature-title {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.new-feature-start-button {
+  margin-right: 8px;
+}
+
 @media screen and (max-width: 639px) {
   .title {
     font-size: 28px;

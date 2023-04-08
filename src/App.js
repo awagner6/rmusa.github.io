@@ -61,6 +61,7 @@ function App() {
     }
     shuffle();
     startTimeCounter(startTime, prevTime, puzzleIndex)
+    openModal('newFeatureModal')
   }, []);
 
   const findNewLetter = useCallback((round) => {

@@ -69,7 +69,26 @@ function Header({ yesterdaySolution }) {
             <br />
             <div>-Adam</div>
             <br />
-            <button id="shareButton" class="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Go to Patreon</button>
+            <button class="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Go to Patreon</button>
+          </div>
+        </div>
+      </div>
+      <div id="newFeatureModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onClick={() => closeModal('newFeatureModal')}>&times;</span>
+          <div class="about-content">
+            <div class="new-feature-title">NEW: Unlimited hints</div>
+            <br />
+            <div>We want Anigrams to be challenging, but not discouraging. We're testing out the possibility of removing the 6-hint maximum and allowing unlimited uses of the "Show Next Letter" button, so that more solvers can get across the finish line.</div>
+            <br />
+            <div>We've also heard your feedback about how accidentally tapping the Show Next Letter button is a frustrating reality, so we've changed that button to now be a 'double tap.' The first time you tap, you'll be prompted "Are you sure?" and the second time you'll be shown the letter.</div>
+            <br />
+            <div>If you have thoughts about the changes, we'd love to hear them. Please reach out at info@anigrams.us. And if you'd like to have a say on future changes, please consider joining the Anigrams Patreon community.</div>
+            <br />
+            <div>Happy solving!</div>
+            <br />
+            <span class="new-feature-start-button"><button class="button-84" onClick={() => closeModal('newFeatureModal')}>Start Puzzle</button></span>
+            <button class="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
           </div>
         </div>
       </div>

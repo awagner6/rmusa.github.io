@@ -44,7 +44,7 @@ function Header({ yesterdaySolution }) {
             </div><br />
             <div>Feeling stuck? Use the "Show next letter" button for a hint... But use it wisely, as you only get 6
               hints for the whole game!</div><br />
-            <div>A new Anigrams puzzle will post every day at 9:30pm EST, 6:30pm PST.</div>
+            <div>A new Anigrams puzzle will post every day at 9:30pm EST, 6:30pm PST</div>
             <br /><br />
             <div>Created by Adam Wagner</div><br />
             <div>Developed by Rafael Musa</div><br />

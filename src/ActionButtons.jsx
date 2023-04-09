@@ -4,7 +4,7 @@ import './Button.css';
 import { SolutionContext } from './SolutionContext';
 
 function ActionButtons() {
-  const { shuffle, tileOrder, setTileOrder, solution, currentRound, currentWord, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex } = useContext(SolutionContext);
+  const { shuffle, tileOrder, setTileOrder, solution, currentRound, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex } = useContext(SolutionContext);
   const [hintClicked, setHintClicked] = useState(false);
 
 
@@ -41,6 +41,7 @@ function ActionButtons() {
           ? <button disabled={currentRound === 6} id="confirmButton" className="button-84 show-next-button" onClick={() => showNextLetter(puzzleIndex)}>Are you sure?</button>
           : <button disabled={currentRound === 6} id="hintButton" className="button-84 show-next-button" onClick={onClickHint}>Show next letter</button>}
       </div>
+      <div class="hints-used">{`Hints used: ${totalHintsUsed}`}</div>
     </>
   );
 };

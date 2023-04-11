@@ -99,10 +99,10 @@ function App() {
   const onClickTile = useCallback((ev) => {
     if (currentRound === 6) return;
     const letter = ev.target.innerText;
-    setCurrentWord(prev => prev + letter);
     const index = [...ev.target.parentNode.children].indexOf(ev.target)
     tileOrder[index] = tileOrder[index].toUpperCase();
     setTileOrder(tileOrder);
+    setCurrentWord(prev => prev + letter);
   }, [currentWord, setCurrentWord, tileOrder, setTileOrder]);
 
   const shuffle = useCallback(() => {

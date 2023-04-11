@@ -15,7 +15,7 @@ function TileArea() {
   } = useContext(SolutionContext);
   const tiles = [];
   for (var i = 0; i < tileOrder.length; i++) {
-    tiles.push(<div key={i} onClick={onClickTile} className={`tile${isUpperCase(tileOrder[i]) ? ' used-tile' : ''}`}>{isUpperCase(tileOrder[i]) ? '' : tileOrder[i]}</div>);
+    tiles.push(<div key={i} onMouseDown={onClickTile} onTouchStart={onClickTile} className={`tile${isUpperCase(tileOrder[i]) ? ' used-tile' : ''}`}>{isUpperCase(tileOrder[i]) ? '' : tileOrder[i]}</div>);
   }
   for (let j = tileOrder.length; j < 9; j++) {
     tiles.push(

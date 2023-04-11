@@ -33,6 +33,7 @@ function App() {
   const [totalHintsUsed, setTotalHintsUsed] = useState(haveSavedData ? Number(localStorage.getItem('shareHints')) : 0);
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
   const [showFeedback, setShowFeedback] = useState(FEEDBACK_TYPE.NONE);
+  const [actionsDisabled, setActionsDisabled] = useState(false);
   localStorage.setItem('currLevelHints', currentLevelHints);
   localStorage.setItem('shareHints', totalHintsUsed);
   localStorage.setItem('currentSolution', userSolution.join('|'));
@@ -138,6 +139,7 @@ function App() {
         localStorage.setItem('currentDay', puzzleIndex + 1);
         // correct word
         setCurrentLevelHints(0);
+        setActionsDisabled(true);
         setCurrentRound(currentRound + 1);
         if (currentRound + 1 !== solution.length) {
           var tileToFlip = document.querySelector('.emoji-tile')
@@ -148,6 +150,7 @@ function App() {
             const newOrder = tileOrder.map((v) => v.toLowerCase());
             newOrder.push(newLetter.toLowerCase());
             setTileOrder(newOrder)
+            setActionsDisabled(false)
           }, 700);
         }
         setIsFeedbackVisible(true);
@@ -198,7 +201,7 @@ function App() {
       tileOrder, setTileOrder, solution,
       currentWord, setCurrentWord, currentRound,
       setCurrentRound, shuffle, puzzleIndex,
-      userSolution, setUserSolution,
+      userSolution, setUserSolution, actionsDisabled,
       totalHintsUsed, setTotalHintsUsed,
       showFeedback, setShowFeedback, isFeedbackVisible,
       currentLevelHints, setCurrentLevelHints, clear, goBack, onClickTile

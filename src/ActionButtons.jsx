@@ -34,7 +34,7 @@ function ActionButtons() {
     <>
       <div className="button-menu">
         <button disabled={shouldDisable} id="clearButton" className="button-84" onClick={clear}>Clear</button>
-        <button disabled={shouldDisable} className="emoji-button" onClick={shuffle}>🔄</button>
+        <button disabled={shouldDisable} id="shuffleButton" className="emoji-button" onClick={shuffle}>🔄</button>
         <button disabled={shouldDisable} id="deleteButton" className="button-84" onClick={goBack}>Delete</button>
       </div>
       <div className="button-menu">

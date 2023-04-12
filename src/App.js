@@ -121,6 +121,10 @@ function App() {
         document.getElementById('deleteButton').click();
         return;
       }
+      if (e.key === " ") {
+        e.preventDefault();
+        document.getElementById('shuffleButton').click();
+      }
       const index = tileOrder.indexOf(e.key.toLowerCase());
       if (index !== -1) {
         document.querySelector(`#tileArea :nth-child(${index + 1})`).click();

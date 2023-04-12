@@ -77,15 +77,17 @@ function Header({ yesterdaySolution }) {
         <div class="modal-content">
           <span class="close" onClick={() => closeModal('newFeatureModal')}>&times;</span>
           <div class="about-content">
-            <div class="new-feature-title">NEW: Unlimited hints</div>
+            <div class="new-feature-title">NEW: Spacebar shuffle</div>
             <br />
-            <div>I want Anigrams to be challenging, but not discouraging. Starting today, I'm testing out the possibility of removing the 6-hint maximum and allowing unlimited uses of the "Show Next Letter" button, so that more solvers can get across the finish line.</div>
+            <div>You can now shuffle letter tiles by hitting the spacebar when playing Anigrams on your desktop computer. Thanks to Patreon member Slugbiker for the suggestion!</div>
             <br />
-            <div>I've also heard your feedback about how accidentally tapping the Show Next Letter button is frustrating, so that button is now a 'double tap.' The first time you tap, you'll be prompted "Are you sure?" and the second time you'll be shown the letter.</div>
+            <div>If you'd like to give feedback, please reach out at info@anigrams.us, or consider joining my Patreon community using the button below.</div>
             <br />
-            <div>If you have thoughts about the changes, I'd love to hear them. Please reach out at info@anigrams.us. And if you'd like to have a say on future changes, please consider joining the Anigrams Patreon community.</div>
+            <div class="new-feature-title">COMING SOON: Modes</div>
             <br />
-            <div>Happy solving!</div>
+            <div>Thank you to everyone who has reached out with feedback about the Unlimited Hints experiment. With so much support for both the 6-hints version of Anigrams and the unlimited-hint version, I've decided the best way forward is to allow players to choose from multiple game modes.</div>
+            <br />
+            <div>Coming soon, you'll be able to choose from three options before playing: "Unlimited Mode" (unlimited hints), "Challenging Mode" (6 hints) and "Diabolical Mode" (zero hints). Stay tuned!</div>
             <br />
             <div>-Adam</div>
             <br />

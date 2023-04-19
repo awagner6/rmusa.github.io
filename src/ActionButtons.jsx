@@ -2,9 +2,10 @@ import React, { useContext, useState } from 'react';
 import './ActionButtons.css';
 import './Button.css';
 import { SolutionContext } from './SolutionContext';
+import { MODES } from './constants';
 
 function ActionButtons() {
-  const { shuffle, actionsDisabled, tileOrder, setTileOrder, solution, currentRound, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex } = useContext(SolutionContext);
+  const { shuffle, mode, actionsDisabled, tileOrder, setTileOrder, solution, currentRound, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex } = useContext(SolutionContext);
   const [hintClicked, setHintClicked] = useState(false);
 
 
@@ -29,7 +30,7 @@ function ActionButtons() {
   }
 
   const shouldDisable = actionsDisabled || currentRound === 6;
-
+  const hintsExhausted = mode === MODES.HARD && totalHintsUsed === 6;
   return (
     <>
       <div className="button-menu">
@@ -37,12 +38,19 @@ function ActionButtons() {
         <button disabled={shouldDisable} id="shuffleButton" className="emoji-button" onClick={shuffle}>🔄</button>
         <button disabled={shouldDisable} id="deleteButton" className="button-84" onClick={goBack}>Delete</button>
       </div>
-      <div className="button-menu">
-        {hintClicked
-          ? <button disabled={shouldDisable} id="confirmButton" className="button-84 show-next-button" onClick={() => showNextLetter(puzzleIndex)}>Are you sure?</button>
-          : <button disabled={shouldDisable} id="hintButton" className="button-84 show-next-button" onClick={onClickHint}>Show next letter</button>}
-      </div>
-      <div class="hints-used">{`Hints used: ${totalHintsUsed}`}</div>
+      {mode !== MODES.DIABOLICAL && (
+        <div className="button-menu">
+          {hintClicked
+            ? <button disabled={hintsExhausted || shouldDisable} id="confirmButton" className="button-84 show-next-button" onClick={() => showNextLetter(puzzleIndex)}>Are you sure?</button>
+            : <button disabled={hintsExhausted || shouldDisable} id="hintButton" className="button-84 show-next-button" onClick={onClickHint}>Show next letter</button>}
+        </div>
+      )}
+      {mode === MODES.NORMAL &&
+        <div className="hints-used">{`Hints used: ${totalHintsUsed}`}</div>
+      }
+      {mode === MODES.HARD &&
+        <div className="hints-used">{`Hints remaining: ${6 - totalHintsUsed}`}</div>
+      }
     </>
   );
 };

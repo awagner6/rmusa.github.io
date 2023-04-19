@@ -16,6 +16,9 @@
   text-transform: uppercase;
   font-weight: 400;
   font-size: 24px;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .tile:active {

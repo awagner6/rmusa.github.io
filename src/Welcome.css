@@ -1,0 +1,49 @@
+.welcome {
+  font-size: 32px;
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.welcomeEmojis {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.welcomeButtonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.welcomeButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.welcomeButton {
+  margin-bottom: 4px;
+}
+
+.welcomeBody {
+  max-width: 600px;
+  margin: auto;
+  padding: 0 24px;
+}
+
+.welcomeAnigramsCopy {
+  margin-bottom: 4px;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 800px) {
+  .welcomeButtonWrapper {
+    flex-direction: column;
+  }
+}

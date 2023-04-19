@@ -49,7 +49,8 @@ export function startTimeCounter(startTime, prevTime, puzzleIndex) {
   hNext = checkTime(hNext); // add a leading zero if it's single digit
   mNext = checkTime(mNext); // add a leading zero if it's single digit
   sNext = checkTime(sNext); // add a leading zero if it's single digit
-  document.getElementById('nextAnigram').innerHTML = `${hNext}:${mNext}:${sNext}`
-
+  if (document.getElementById('nextAnigram')) {
+    document.getElementById('nextAnigram').innerHTML = `${hNext}:${mNext}:${sNext}`
+  }
   var t = setTimeout(() => startTimeCounter(startTime, prevTime, puzzleIndex), 500); // set a timeout to update the timer
 }

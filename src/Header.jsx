@@ -17,9 +17,9 @@ function Header({ yesterdaySolution }) {
           </div>
         </div>
       </header>
-      <div id="yesterdayModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onClick={() => closeModal('yesterdayModal')}>&times;</span>
+      <div id="yesterdayModal" className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={() => closeModal('yesterdayModal')}>&times;</span>
           <div id="yesterdayContent">
             {yesterdaySolution.map(
               (solutionRow, i) =>
@@ -33,11 +33,11 @@ function Header({ yesterdaySolution }) {
           </div>
         </div>
       </div>
-      <div id="rulesModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onClick={() => closeModal('rulesModal')}>&times;</span>
-          <div class="rules-title">Rules</div>
-          <div class="about-content">
+      <div id="rulesModal" className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={() => closeModal('rulesModal')}>&times;</span>
+          <div className="rules-title">Rules</div>
+          <div className="about-content">
             <div>Unscramble a word to reveal the next letter.</div><br />
             <div>Each word must use every available letter exactly once.</div><br />
             <div>There may be multiple acceptable words at any given level, but you only need to enter one to advance.
@@ -55,10 +55,10 @@ function Header({ yesterdaySolution }) {
           </div>
         </div>
       </div>
-      <div id="patreonModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onClick={() => closeModal('patreonModal')}>&times;</span>
-          <div class="about-content">
+      <div id="patreonModal" className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={() => closeModal('patreonModal')}>&times;</span>
+          <div className="about-content">
             <div>Anigrams is on <a href="https://www.patreon.com/user?u=65757168">Patreon</a>!</div>
             <br />
             <div>By joining the community, you'll get access to bonus Anigrams challenges, early looks at/input in potential new features, the opportunity to submit puzzles (with your name in the byline!), occasional Q&As with me, and (coming
@@ -69,21 +69,21 @@ function Header({ yesterdaySolution }) {
             <br />
             <div>-Adam</div>
             <br />
-            <button class="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Go to Patreon</button>
+            <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Go to Patreon</button>
           </div>
         </div>
       </div>
-      <div id="newFeatureModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onClick={() => closeModal('newFeatureModal')}>&times;</span>
-          <div class="about-content">
-            <div class="new-feature-title">NEW: Spacebar shuffle</div>
+      <div id="newFeatureModal" className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={() => closeModal('newFeatureModal')}>&times;</span>
+          <div className="about-content">
+            <div className="new-feature-title">NEW: Spacebar shuffle</div>
             <br />
             <div>You can now shuffle letter tiles by hitting the spacebar when playing Anigrams on your desktop computer. Thanks to Patreon member Slugbiker for the suggestion!</div>
             <br />
             <div>If you'd like to give feedback, please reach out at info@anigrams.us, or consider joining my Patreon community using the button below.</div>
             <br />
-            <div class="new-feature-title">COMING SOON: Modes</div>
+            <div className="new-feature-title">COMING SOON: Modes</div>
             <br />
             <div>Thank you to everyone who has reached out with feedback about the Unlimited Hints experiment. With so much support for both the 6-hints version of Anigrams and the unlimited-hint version, I've decided the best way forward is to allow players to choose from multiple game modes.</div>
             <br />
@@ -91,8 +91,8 @@ function Header({ yesterdaySolution }) {
             <br />
             <div>-Adam</div>
             <br />
-            <span class="new-feature-start-button"><button class="button-84" onClick={() => closeModal('newFeatureModal')}>Start Puzzle</button></span>
-            <button class="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
+            <span className="new-feature-start-button"><button className="button-84" onClick={() => closeModal('newFeatureModal')}>Start Puzzle</button></span>
+            <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
           </div>
         </div>
       </div>

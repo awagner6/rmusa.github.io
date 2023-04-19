@@ -4,19 +4,17 @@ import './CongratsModal.css';
 import { SolutionContext } from './SolutionContext';
 
 function CongratsModal() {
-  const { puzzleIndex } = useContext(SolutionContext);
+  const { puzzleIndex, mode } = useContext(SolutionContext);
   const [shareClicked, setShareClicked] = useState(false);
   const timeShareText = localStorage.getItem('shareHints') > 0 ? localStorage.getItem('shareTime') : `⭐${localStorage.getItem('shareTime')}⭐`;
-  const textToShare = `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${timeShareText}\r\nHints used: ${localStorage.getItem('shareHints') || 0}\r\nStreak: ${localStorage.getItem('streak')}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
+  const textToShare = `🦉🦒🐬🦜🐙🐐\r\nAnigrams ${puzzleIndex + 1}\r\n${mode.charAt(0).toUpperCase() + mode.slice(1)} mode\r\n${timeShareText}\r\nHints used: ${localStorage.getItem('shareHints') || 0}\r\nStreak: ${localStorage.getItem('streak')}\r\n🦉🦒🐬🦜🐙🐐\r\nanigrams.us`;
 
   const onClickShare = () => {
-    console.log('he')
     if (navigator.share) {
       navigator.share({
         text: textToShare,
       });
     } else {
-      console.log('yooo')
       navigator.clipboard.writeText(textToShare)
       setShareClicked(true);
       setTimeout(() => setShareClicked(false), 1000);
@@ -43,12 +41,12 @@ function CongratsModal() {
           </div>
           <div className="share-content-row">
             <div>🐙</div>
-            <div>Anigrams</div>
+            <div>{`Anigrams ${puzzleIndex + 1}`}</div>
             <div>🦉</div>
           </div>
           <div className="share-content-row">
             <div>🦜</div>
-            <div id="shareNumber">{puzzleIndex + 1}</div>
+            <div id="shareNumber">{`${mode.charAt(0).toUpperCase() + mode.slice(1)} mode`}</div>
             <div>🦒</div>
           </div>
           <div className="share-content-row">

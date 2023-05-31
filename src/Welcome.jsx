@@ -42,7 +42,7 @@ function Welcome() {
           <div>Solve without hints</div>
         </div>
       </div >
-      <div className="welcomeButtonContainer">
+      <div className="welcomeButtonContainer noWelcomeMargin">
         <div className="welcomeAnigramsCopy">Access even more Anigrams goodness (including access to the Archive!)</div>
         <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
       </div>

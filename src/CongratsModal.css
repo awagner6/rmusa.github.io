@@ -13,7 +13,7 @@
 .goat-modal-info-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 32px;
   margin-bottom: 12px;
 }
@@ -31,4 +31,32 @@
 .goat-text {
   font-size: 24px;
   margin-bottom: 42px;
+}
+
+.nextAnigramContent {
+  text-align: center;
+}
+
+#shareButton {
+  margin-right: 12px;
+}
+
+#archiveButton {
+  margin-left: 12px;
+}
+
+.badge {
+  position: absolute;
+  top: -16px;
+  right: -10px;
+  padding: 4px 6px;
+  border-radius: 16px;
+  background: red;
+  color: white;
+  font-size: 10px;
+}
+
+.archiveButtonContainer {
+  display: inline;
+  position: relative;
 }

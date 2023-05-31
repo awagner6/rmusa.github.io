@@ -19,7 +19,8 @@ function Welcome() {
     <>
       <div className="welcome">Welcome to Anigrams!</div>
       <div className="welcomeEmojis">🦉🦒🐬🦜🐙🐐</div>
-      <div className="welcomeBody">You can now choose to solve Anigrams with unlimited hints, six hints, or zero hints. Pick a game mode below to get started! Just one note: once you select a game mode, you won't be able to edit your selection until tomorrow's Anigrams drops. So choose carefully!
+      <div className="welcomeBody"><strong>The Archive has arrived!</strong> Patreon members can now play the backlog of previous Anigrams puzzles by hitting the "Archive" button at the end of the game.
+
       </div>
       <div className="welcomeButtonWrapper">
         <div className="welcomeButtonContainer">
@@ -42,7 +43,7 @@ function Welcome() {
         </div>
       </div >
       <div className="welcomeButtonContainer">
-        <div className="welcomeAnigramsCopy">Access even more Anigrams goodness</div>
+        <div className="welcomeAnigramsCopy">Access even more Anigrams goodness (including access to the Archive!)</div>
         <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
       </div>
     </>

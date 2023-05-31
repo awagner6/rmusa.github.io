@@ -11,19 +11,21 @@ import { processSolution, openModal, startTimeCounter, checkTime } from './utils
 import CongratsModal from './CongratsModal';
 
 function App() {
+  const [archiveIndex, setArchiveIndex] = useState(null);
   // assuming start at 2022/08/21, 18:30:00, PDT, also ignore daylight savings, www.unixtimestamp.com
   // use 1661131800000 when in daylight savings
   // use 1661135400000 when in standard time
-  const puzzleIndex = useMemo(() => Math.floor((Date.now() - 1661131800000) / (1000 * 60 * 60 * 24)), []);
+  const todaysIndex = useMemo(() => Math.floor((Date.now() - 1661131800000) / (1000 * 60 * 60 * 24)), []);
+  const puzzleIndex = useMemo(() => archiveIndex || todaysIndex, [archiveIndex, todaysIndex]);
   const solution = useMemo(() => processSolution(SOLUTIONS.split("\n")[puzzleIndex]), [puzzleIndex]);
-  const yesterdaySolution = useMemo(() => processSolution(SOLUTIONS.split("\n")[puzzleIndex - 1]), [puzzleIndex]);
+  const yesterdaySolution = useMemo(() => processSolution(SOLUTIONS.split("\n")[todaysIndex - 1]), [todaysIndex]);
 
-  const haveSavedData = Number(localStorage.getItem('currentDay')) === puzzleIndex + 1;
+  const haveSavedData = !archiveIndex && Number(localStorage.getItem('currentDay')) === puzzleIndex + 1;
   const currentSolution = (localStorage.getItem('currentSolution') || '').split('|').filter(n => n);
   const storedHints = Number(localStorage.getItem('currLevelHints'));
 
   const prevTime = useMemo(() => haveSavedData ? Number(localStorage.getItem('currentTime')) || 0 : 0, []);
-  const startTime = useMemo(() => Math.floor(Date.now() / 1000), []);
+  const startTime = useMemo(() => Math.floor(Date.now() / 1000), [puzzleIndex]);
 
   const [tileOrder, setTileOrder] = useState(haveSavedData ? (solution[Math.min(currentSolution.length, 5)][0].slice(0, storedHints).toUpperCase() + solution[Math.min(currentSolution.length, 5)][0].slice(storedHints)).split('') : solution[0][0].split(''));
   const [currentWord, setCurrentWord] = useState(haveSavedData ? solution[Math.min(currentSolution.length, 5)][0].slice(0, storedHints) : '');
@@ -34,26 +36,34 @@ function App() {
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
   const [showFeedback, setShowFeedback] = useState(FEEDBACK_TYPE.NONE);
   const [actionsDisabled, setActionsDisabled] = useState(false);
-  localStorage.setItem('currLevelHints', currentLevelHints);
-  localStorage.setItem('shareHints', totalHintsUsed);
-  localStorage.setItem('currentSolution', userSolution.join('|'));
+  const [timeElapsed, setTimeElapsed] = useState('');
+
+
+  const setToLocalStorage = (key, value) => {
+    if (!archiveIndex) {
+      localStorage.setItem(key, value)
+    }
+  }
+  setToLocalStorage('currLevelHints', currentLevelHints);
+  setToLocalStorage('shareHints', totalHintsUsed);
+  setToLocalStorage('currentSolution', userSolution.join('|'));
 
   const { mode } = useParams();
-  localStorage.setItem('currentMode', mode);
+  setToLocalStorage('currentMode', mode);
 
   useEffect(() => {
     // we have saved data for today's puzzle
     if (Number(localStorage.getItem('currentDay')) !== puzzleIndex + 1) {
       // here we have some partial solution for another day and can clear
-      localStorage.setItem('currentSolution', "");
-      localStorage.setItem('currentTime', "");
-      localStorage.setItem('currLevelHints', 0);
+      setToLocalStorage('currentSolution', "");
+      setToLocalStorage('currentTime', "");
+      setToLocalStorage('currLevelHints', 0);
     }
     if (haveSavedData && currentSolution.length === 6) {
       openModal('congratsModal');
     }
     shuffle();
-    startTimeCounter(startTime, prevTime, puzzleIndex)
+    startTimeCounter(startTime, prevTime, Math.floor((Date.now() - 1661131800000) / (1000 * 60 * 60 * 24)), !!archiveIndex)
   }, []);
 
   const findNewLetter = useCallback((round) => {
@@ -104,7 +114,7 @@ function App() {
         break;
       }
     }
-  }, [tileOrder, setTileOrder]);
+  }, [tileOrder, setTileOrder, solution]);
 
   const onKeyDown = useCallback((e) => {
     if (!e.repeat) {
@@ -131,7 +141,7 @@ function App() {
   useEffect(() => {
     if (currentWord.length === currentRound + 4) {
       if (solution.flat().includes(currentWord.toLowerCase()) && currentWord.length === currentRound + 4) {
-        localStorage.setItem('currentDay', puzzleIndex + 1);
+        setToLocalStorage('currentDay', puzzleIndex + 1);
         // correct word
         setCurrentLevelHints(0);
         setActionsDisabled(true);
@@ -160,13 +170,13 @@ function App() {
         if (currentRound + 1 === solution.length) {
           // solved yesterday
           if (Number(localStorage.getItem('lastSolved')) === puzzleIndex) {
-            localStorage.setItem('streak', (Number(localStorage.getItem('streak')) || 0) + 1)
+            setToLocalStorage('streak', (Number(localStorage.getItem('streak')) || 0) + 1)
           } else {
-            localStorage.setItem('streak', 1)
+            setToLocalStorage('streak', 1)
           }
-          localStorage.setItem('lastSolved', puzzleIndex + 1)
+          setToLocalStorage('lastSolved', puzzleIndex + 1)
           var now = Math.floor(Date.now() / 1000);
-          var diff = now - startTime + prevTime;
+          var diff = now - startTime + (archiveIndex ? 0 : prevTime);
           var totalMinutes = Math.floor(diff / 60);
           var h = Math.floor(totalMinutes / 60);
           var m = Math.floor(totalMinutes % 60);
@@ -174,7 +184,8 @@ function App() {
           h = checkTime(h)
           m = checkTime(m);
           s = checkTime(s);
-          localStorage.setItem('shareTime', `${h}:${m}:${s}`)
+          setToLocalStorage('shareTime', `${h}:${m}:${s}`)
+          setTimeElapsed(`${h}:${m}:${s}`)
           document.getElementById('goat-row-feedback').remove();
           document.querySelector('.goat-tile').classList.add('goat-tile-grow');
           setTimeout(() => openModal('congratsModal'), 1200);
@@ -193,11 +204,11 @@ function App() {
 
   return (
     <SolutionContext.Provider value={{
-      tileOrder, setTileOrder, solution,
-      currentWord, setCurrentWord, currentRound,
-      setCurrentRound, shuffle, puzzleIndex,
-      userSolution, setUserSolution, actionsDisabled,
-      totalHintsUsed, setTotalHintsUsed,
+      tileOrder, setTileOrder, solution, setActionsDisabled,
+      currentWord, setCurrentWord, currentRound, timeElapsed,
+      setCurrentRound, shuffle, puzzleIndex, setIsFeedbackVisible,
+      userSolution, setUserSolution, actionsDisabled, archiveIndex,
+      totalHintsUsed, setTotalHintsUsed, setArchiveIndex,
       showFeedback, setShowFeedback, isFeedbackVisible, mode,
       currentLevelHints, setCurrentLevelHints, clear, goBack, onClickTile
     }}>

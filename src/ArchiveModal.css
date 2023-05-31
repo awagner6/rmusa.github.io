@@ -1,0 +1,41 @@
+.archive-label {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.archive-title {
+  margin-top: 12px;
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.archive-confirm {
+  margin-top: 12px;
+  margin-right: 12px;
+}
+
+.archive-error-text {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.archive-invalid-input {
+  border: none;
+  outline: 2px solid red;
+  border-radius: 5px;
+}
+
+#passwordDisclaimer {
+  margin-top: 36px;
+  margin-bottom: 12px;
+}
+
+.archive-body {
+  margin-bottom: 8px;
+}
+
+#archive-index-input,
+#archive-password-input {
+  margin-bottom: 8px;
+}

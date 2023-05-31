@@ -29,10 +29,12 @@ export function checkTime(i) {
   return i;
 }
 
-export function startTimeCounter(startTime, prevTime, puzzleIndex) {
+export function startTimeCounter(startTime, prevTime, puzzleIndex, isArchive) {
   var now = Math.floor(Date.now() / 1000); // get the time now
   var diff = now - startTime + prevTime; // diff in seconds between now and start
-  localStorage.setItem('currentTime', diff);
+  if (!isArchive) {
+    localStorage.setItem('currentTime', diff);
+  }
   var m = Math.floor(diff / 60); // get minutes value (quotient of diff)
   var s = Math.floor(diff % 60); // get seconds value (remainder of diff)
   m = checkTime(m); // add a leading zero if it's single digit

@@ -5,7 +5,7 @@ import { SolutionContext } from './SolutionContext';
 import { MODES } from './constants';
 
 function ActionButtons() {
-  const { shuffle, mode, actionsDisabled, tileOrder, setTileOrder, solution, currentRound, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex } = useContext(SolutionContext);
+  const { shuffle, mode, actionsDisabled, tileOrder, setTileOrder, solution, currentRound, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex, archiveIndex } = useContext(SolutionContext);
   const [hintClicked, setHintClicked] = useState(false);
 
 
@@ -17,7 +17,9 @@ function ActionButtons() {
   const showNextLetter = (puzzleIndex) => {
     setHintClicked(false);
     const newWord = solution[currentRound][0].slice(0, currentLevelHints + 1);
-    localStorage.setItem('currentDay', puzzleIndex + 1);
+    if (!archiveIndex) {
+      localStorage.setItem('currentDay', puzzleIndex + 1);
+    }
     setCurrentLevelHints(currentLevelHints + 1);
     setTotalHintsUsed(totalHintsUsed + 1);
     const newOrder = tileOrder.map((v) => v.toLowerCase());

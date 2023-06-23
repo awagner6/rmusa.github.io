@@ -45,7 +45,7 @@ function SolutionRow({ length, round }) {
           {emojiMapping[round]}
           <div id={length === 9 ? "goat-row-feedback" : undefined} className="feedbackContainer">
             <div className={`incorrectFeedback${shouldShowFeedback ? ' showIncorrectFeedback' : ''}`}>
-              {showFeedback === FEEDBACK_TYPE.CORRECT ? feedbackMessages[currentRound] : "Incorrect word"}
+              {showFeedback === FEEDBACK_TYPE.CORRECT ? feedbackMessages[currentRound - 1] : "Incorrect word"}
             </div>
           </div>
         </div>

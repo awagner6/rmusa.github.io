@@ -7,7 +7,7 @@ export const processSolution = (solutionRow) => {
     [],
     []
   ];
-  var words = solutionRow.trim().split(" ");
+  var words = solutionRow.trim().split(" ").filter(i => i);
   for (var i = 0; i < words.length; i++) {
     processedSolution[words[i].length - 4].push(words[i].toLowerCase());
   }

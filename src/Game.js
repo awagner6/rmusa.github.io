@@ -6,7 +6,7 @@ import SolutionArea from './SolutionArea';
 import TileArea from './TileArea';
 import ActionButtons from './ActionButtons';
 import { SolutionContext } from './SolutionContext';
-import { FEEDBACK_TYPE, SOLUTIONS } from './constants';
+import { FEEDBACK_TYPE, SOLUTIONS, BAD_WORDS } from './constants';
 import { processSolution, openModal, startTimeCounter, checkTime } from './utils';
 import CongratsModal from './CongratsModal';
 
@@ -109,7 +109,7 @@ function App() {
   const shuffle = useCallback(() => {
     while (true) {
       const newOrder = tileOrder.sort(() => Math.random() - 0.5);
-      if (!solution.flat().includes(newOrder.join(''))) {
+      if (!solution.flat().includes(newOrder.join('')) && !BAD_WORDS.has(newOrder.join(''))) {
         setTileOrder([...newOrder]);
         break;
       }

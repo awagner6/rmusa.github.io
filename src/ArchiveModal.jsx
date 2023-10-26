@@ -34,7 +34,7 @@ function ArchiveModal() {
   }, [indexInput, passwordInput])
 
   const onClickPlayArchive = () => {
-    if (hashCode(passwordInput) === 1292077035) {
+    if (hashCode(passwordInput) === 1120594901) {
       setArchiveIndex(indexInput - 1);
       // janky shuffle solution
       const newFourLetterSolutions = processSolution(SOLUTIONS.split("\n")[indexInput - 1])[0];

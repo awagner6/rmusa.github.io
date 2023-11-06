@@ -8,7 +8,7 @@ function Welcome() {
 
   useEffect(() => {
     // daylight savings
-    const puzzleIndex = Math.floor((Date.now() - 1661131800000) / (1000 * 60 * 60 * 24));
+    const puzzleIndex = Math.floor((Date.now() - 1661135400000) / (1000 * 60 * 60 * 24));
     const haveSavedData = Number(localStorage.getItem('currentDay')) === puzzleIndex + 1;
     if (haveSavedData) {
       navigate(`/play/${localStorage.getItem('currentMode') || "normal"}`)

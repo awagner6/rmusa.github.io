@@ -42,7 +42,7 @@ export function startTimeCounter(startTime, prevTime, puzzleIndex, isArchive) {
   // document.getElementById("timer").innerHTML = m + ":" + s; // update the element where the timer will appear
 
   // DST daylight savings change
-  var nextAnigram = (1661131800000 + ((puzzleIndex + 1) * 1000 * 24 * 60 * 60)) / 1000;
+  var nextAnigram = (1661135400000 + ((puzzleIndex + 1) * 1000 * 24 * 60 * 60)) / 1000;
   var timeTilNext = nextAnigram - now;
   var mNext = Math.floor(timeTilNext / 60); // get minutes value (quotient of diff)
   var hNext = Math.floor(mNext / 60);

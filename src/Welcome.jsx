@@ -18,6 +18,7 @@ function Welcome() {
   return (
     <>
       <div className="welcome">Welcome to Anigrams!</div>
+      <div className="welcomeSubtitle">A daily word game</div>
       <div className="welcomeEmojis">🦉🦒🐬🦜🐙🐐</div>
       <div className="welcomeBody"><strong>UPDATE: </strong>
         You can now PAUSE Anigrams using the button in the bottom-right corner of the screen. The game will NOT pause automatically if you let your screen go idle.

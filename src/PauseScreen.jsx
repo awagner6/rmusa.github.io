@@ -10,7 +10,7 @@ function PauseScreen() {
     <div id="paused">
       <div className="pausedContainer">
         <div className="pausedTitle">The game is paused!</div>
-        <button id="unpause" className="button-84" onClick={() => setIsPaused(false)}>Continue</button>
+        <button id="unpause" className="button-84" onClick={() => setIsPaused(false)}>Resume</button>
       </div>
     </div>
   )

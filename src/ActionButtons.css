@@ -33,6 +33,11 @@
   margin-top: 12px;
 }
 
+.pauseButtonContainer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 @media screen and (max-width: 639px) {
   .emoji-button {
     font-size: 40px;

@@ -5,7 +5,7 @@ import { SolutionContext } from './SolutionContext';
 import { MODES } from './constants';
 
 function ActionButtons() {
-  const { shuffle, mode, actionsDisabled, tileOrder, setTileOrder, solution, currentRound, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex, archiveIndex } = useContext(SolutionContext);
+  const { shuffle, mode, actionsDisabled, tileOrder, setTileOrder, solution, currentRound, setCurrentWord, currentLevelHints, setCurrentLevelHints, clear, goBack, totalHintsUsed, setTotalHintsUsed, puzzleIndex, archiveIndex, isPaused, setIsPaused, setToLocalStorage } = useContext(SolutionContext);
   const [hintClicked, setHintClicked] = useState(false);
 
 
@@ -53,6 +53,9 @@ function ActionButtons() {
       {mode === MODES.HARD &&
         <div className="hints-used">{`Hints remaining: ${6 - totalHintsUsed}`}</div>
       }
+      <div className="pauseButtonContainer">
+        <button disabled={shouldDisable} id="pauseButton" className="button-84" onClick={() => { setToLocalStorage('currentDay', puzzleIndex + 1); setIsPaused(!isPaused); }}>Pause</button>
+      </div>
     </>
   );
 };

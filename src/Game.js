@@ -9,6 +9,7 @@ import { SolutionContext } from './SolutionContext';
 import { FEEDBACK_TYPE, SOLUTIONS, BAD_WORDS } from './constants';
 import { processSolution, openModal, startTimeCounter, checkTime } from './utils';
 import CongratsModal from './CongratsModal';
+import PauseScreen from './PauseScreen';
 
 function App() {
   const [archiveIndex, setArchiveIndex] = useState(null);
@@ -24,9 +25,6 @@ function App() {
   const currentSolution = (localStorage.getItem('currentSolution') || '').split('|').filter(n => n);
   const storedHints = Number(localStorage.getItem('currLevelHints'));
 
-  const prevTime = useMemo(() => haveSavedData ? Number(localStorage.getItem('currentTime')) || 0 : 0, []);
-  const startTime = useMemo(() => Math.floor(Date.now() / 1000), [puzzleIndex]);
-
   const [tileOrder, setTileOrder] = useState(haveSavedData ? (solution[Math.min(currentSolution.length, 5)][0].slice(0, storedHints).toUpperCase() + solution[Math.min(currentSolution.length, 5)][0].slice(storedHints)).split('') : solution[0][0].split(''));
   const [currentWord, setCurrentWord] = useState(haveSavedData ? solution[Math.min(currentSolution.length, 5)][0].slice(0, storedHints) : '');
   const [currentRound, setCurrentRound] = useState(haveSavedData ? currentSolution.length : 0);
@@ -37,7 +35,16 @@ function App() {
   const [showFeedback, setShowFeedback] = useState(FEEDBACK_TYPE.NONE);
   const [actionsDisabled, setActionsDisabled] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState('');
+  const [isPaused, setIsPaused] = useState(false);
 
+  const prevTime = useMemo(() => haveSavedData ? Number(localStorage.getItem('currentTime')) || 0 : 0, [isPaused]);
+  // const prevTime = useMemo(() => Number(localStorage.getItem('currentTime')) || 0, [isPaused]);
+  // const prevTime = 0;
+  const startTime = useMemo(() => Math.floor(Date.now() / 1000), [puzzleIndex, isPaused]);
+
+  useEffect(() => {
+    setToLocalStorage('prevTime', prevTime);
+  }, [prevTime]);
 
   const setToLocalStorage = (key, value) => {
     if (!archiveIndex) {
@@ -63,8 +70,14 @@ function App() {
       openModal('congratsModal');
     }
     shuffle();
-    startTimeCounter(startTime, prevTime, Math.floor((Date.now() - 1661135400000) / (1000 * 60 * 60 * 24)), !!archiveIndex)
+    // startTimeCounter(startTime, prevTime, Math.floor((Date.now() - 1661135400000) / (1000 * 60 * 60 * 24)), !!archiveIndex)
   }, []);
+
+  useEffect(() => {
+    if (!isPaused) {
+      startTimeCounter(startTime, prevTime, Math.floor((Date.now() - 1661135400000) / (1000 * 60 * 60 * 24)), !!archiveIndex)
+    }
+  }, [isPaused]);
 
   const findNewLetter = useCallback((round) => {
     const oldLetters = solution[round - 1][0].split('').sort().join('');
@@ -208,11 +221,12 @@ function App() {
       currentWord, setCurrentWord, currentRound, timeElapsed,
       setCurrentRound, shuffle, puzzleIndex, setIsFeedbackVisible,
       userSolution, setUserSolution, actionsDisabled, archiveIndex,
-      totalHintsUsed, setTotalHintsUsed, setArchiveIndex,
-      showFeedback, setShowFeedback, isFeedbackVisible, mode,
+      totalHintsUsed, setTotalHintsUsed, setArchiveIndex, isPaused, setIsPaused,
+      showFeedback, setShowFeedback, isFeedbackVisible, mode, setToLocalStorage,
       currentLevelHints, setCurrentLevelHints, clear, goBack, onClickTile
     }}>
       <Header yesterdaySolution={yesterdaySolution} />
+      {isPaused && <PauseScreen />}
       <div className="wrapper">
         <div className="intro-info">
           <div>Unscramble a word to reveal the next letter</div>

@@ -35,6 +35,11 @@
   margin-bottom: 4px;
 }
 
+.patreonButton {
+  margin-top: 24px;
+  margin-bottom: 4px;
+}
+
 .welcomeBody {
   max-width: 600px;
   margin: auto;
@@ -43,7 +48,7 @@
 
 .welcomeAnigramsCopy {
   margin-bottom: 4px;
-  margin-top: 24px;
+  /* margin-top: 24px; */
   padding: 0px 24px;
   text-align: center;
 }
@@ -51,5 +56,9 @@
 @media screen and (max-width: 800px) {
   .welcomeButtonWrapper {
     flex-direction: column;
+  }
+
+  .welcomeButtonContainer {
+    margin-left: 0px;
   }
 }

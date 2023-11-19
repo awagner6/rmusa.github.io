@@ -19,8 +19,11 @@ function Welcome() {
     <>
       <div className="welcome">Welcome to Anigrams!</div>
       <div className="welcomeEmojis">🦉🦒🐬🦜🐙🐐</div>
-      <div className="welcomeBody"><strong>The Archive has arrived!</strong> Patreon members can now play the backlog of previous Anigrams puzzles by hitting the "Archive" button at the end of the game.
-
+      <div className="welcomeBody"><strong>UPDATE: </strong>
+        You can now PAUSE Anigrams using the button in the bottom-right corner of the screen. The game will NOT pause automatically if you let your screen go idle.
+        <br />
+        <br />
+        Thank you to Patreon member christinealicia for the feature suggestion!
       </div>
       <div className="welcomeButtonWrapper">
         <div className="welcomeButtonContainer">
@@ -43,8 +46,8 @@ function Welcome() {
         </div>
       </div >
       <div className="welcomeButtonContainer noWelcomeMargin">
-        <div className="welcomeAnigramsCopy">Access even more Anigrams goodness (including access to the Archive!)</div>
-        <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
+        <button className="button-84 patreonButton" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
+        <div className="welcomeAnigramsCopy">Access the archive of previous Anigrams puzzles, suggest new features, and play bonus puzzles</div>
       </div>
     </>
   )

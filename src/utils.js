@@ -54,5 +54,7 @@ export function startTimeCounter(startTime, prevTime, puzzleIndex, isArchive) {
   if (document.getElementById('nextAnigram')) {
     document.getElementById('nextAnigram').innerHTML = `${hNext}:${mNext}:${sNext}`
   }
-  var t = setTimeout(() => startTimeCounter(startTime, prevTime, puzzleIndex), 500); // set a timeout to update the timer
+  if (!document.getElementById('paused')) {
+    var t = setTimeout(() => startTimeCounter(startTime, prevTime, puzzleIndex), 500); // set a timeout to update the timer
+  }
 }

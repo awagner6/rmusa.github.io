@@ -1,0 +1,22 @@
+#paused {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: rgb(209, 209, 209);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pausedContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pausedTitle {
+  margin-bottom: 12px;
+  font-size: 18px;
+}

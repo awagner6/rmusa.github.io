@@ -14,7 +14,7 @@ import PauseScreen from './PauseScreen';
 function App() {
   const [archiveIndex, setArchiveIndex] = useState(null);
   // assuming start at 2022/08/21, 18:30:00, PDT, also ignore daylight savings, www.unixtimestamp.com
-  // use 1661131800000 when in daylight savings
+  // use 1661131800000 when in daylight saving
   // use 1661135400000 when in standard time
   const todaysIndex = useMemo(() => Math.floor((Date.now() - 1661135400000) / (1000 * 60 * 60 * 24)), []);
   const puzzleIndex = useMemo(() => archiveIndex || todaysIndex, [archiveIndex, todaysIndex]);

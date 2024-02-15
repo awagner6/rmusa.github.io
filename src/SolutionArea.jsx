@@ -4,6 +4,7 @@ import { SolutionContext } from './SolutionContext';
 
 function SolutionArea() {
   const { solution } = useContext(SolutionContext);
+  console.log(solution)
   return (
     <div>
       {solution.map(

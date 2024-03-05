@@ -21,10 +21,10 @@ function Welcome() {
       <div className="welcomeSubtitle">A daily word game</div>
       <div className="welcomeEmojis">🦉🦒🐬🦜🐙🐐</div>
       <div className="welcomeBody"><strong>UPDATE: </strong>
-        You can now PAUSE Anigrams using the button in the bottom-right corner of the screen. The game will NOT pause automatically if you let your screen go idle.
+        Anigrams is coming to The Orca Awards: an annual celebration of the year's best crosswords! Join Anigrams creator Adam Wagner and developer Rafael Musa for a special, live-streamed game of Anigrams as part of the awards broadcast.
         <br />
         <br />
-        Thank you to Patreon member christinealicia for the feature suggestion!
+        Stream will go live <a href="https://twitch.tv/boswords">HERE</a> on Wednesday, March 6th at 9pm EST. See you there!
       </div>
       <div className="welcomeButtonWrapper">
         <div className="welcomeButtonContainer">

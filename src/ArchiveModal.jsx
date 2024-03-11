@@ -8,7 +8,7 @@ const hashCode = s => s.split('').reduce((a, b) => { a = ((a << 5) - a) + b.char
 
 function ArchiveModal() {
   // daylight savings
-  const todayIndex = Math.floor((Date.now() - 1661135400000) / (1000 * 60 * 60 * 24)) + 1
+  const todayIndex = Math.floor((Date.now() - 1661131800000) / (1000 * 60 * 60 * 24)) + 1
   const {
     setArchiveIndex,
     setTileOrder,

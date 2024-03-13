@@ -20,11 +20,9 @@ function Welcome() {
       <div className="welcome">Welcome to Anigrams!</div>
       <div className="welcomeSubtitle">A daily word game</div>
       <div className="welcomeEmojis">🦉🦒🐬🦜🐙🐐</div>
-      <div className="welcomeBody"><strong>UPDATE: </strong>
-        Anigrams is coming to The Orca Awards: an annual celebration of the year's best crosswords! Join Anigrams creator Adam Wagner and developer Rafael Musa for a special, live-streamed game of Anigrams as part of the awards broadcast.
+      <div className="welcomeBody">
+        Today's Anigrams is a special guest puzzle contributed by Shannon Rapp and Will Eisenberg! If you'd like to submit an Anigrams puzzle of your own, feel free to reach out to info@anigrams.us anytime.
         <br />
-        <br />
-        Stream will go live <a href="https://twitch.tv/boswords">HERE</a> on Wednesday, March 6th at 9pm EST. See you there!
       </div>
       <div className="welcomeButtonWrapper">
         <div className="welcomeButtonContainer">

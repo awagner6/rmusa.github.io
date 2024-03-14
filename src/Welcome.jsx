@@ -20,10 +20,9 @@ function Welcome() {
       <div className="welcome">Welcome to Anigrams!</div>
       <div className="welcomeSubtitle">A daily word game</div>
       <div className="welcomeEmojis">🦉🦒🐬🦜🐙🐐</div>
-      <div className="welcomeBody">
-        Today's Anigrams is a special guest puzzle contributed by Shannon Rapp and Will Eisenberg! If you'd like to submit an Anigrams puzzle of your own, feel free to reach out to info@anigrams.us anytime.
+      {/* <div className="welcomeBody">
         <br />
-      </div>
+      </div> */}
       <div className="welcomeButtonWrapper">
         <div className="welcomeButtonContainer">
           <Link to="/play/normal" style={{ textDecoration: 'none' }}>

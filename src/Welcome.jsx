@@ -41,7 +41,7 @@ function Welcome() {
         </div>
       </div>
       <div className="welcomeButtonContainer noWelcomeMargin">
-        <button className="button-84 patreonButton" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
+        <button className="button-84 patreonButton" onClick={() => window.open('https://www.patreon.com/adamwagner', '_blank')}>Join Patreon</button>
         <div className="welcomeAnigramsCopy">Access the archive of previous Anigrams puzzles, suggest new features, and play bonus puzzles</div>
       </div>
       <div className="welcomeButtonContainer noWelcomeMargin">

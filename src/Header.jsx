@@ -59,7 +59,7 @@ function Header({ yesterdaySolution }) {
         <div className="modal-content">
           <span className="close" onClick={() => closeModal('patreonModal')}>&times;</span>
           <div className="about-content">
-            <div>Anigrams is on <a href="https://www.patreon.com/user?u=65757168">Patreon</a>!</div>
+            <div>Anigrams is on <a href="https://www.patreon.com/adamwagner">Patreon</a>!</div>
             <br />
             <div>By joining the community, you'll get access to bonus Anigrams challenges, early looks at/input in potential new features, the opportunity to submit puzzles (with your name in the byline!), occasional Q&As with me, and (coming
               next
@@ -69,7 +69,7 @@ function Header({ yesterdaySolution }) {
             <br />
             <div>-Adam</div>
             <br />
-            <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Go to Patreon</button>
+            <button className="button-84" onClick={() => window.open('https://www.patreon.com/adamwagner', '_blank')}>Go to Patreon</button>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@ function Header({ yesterdaySolution }) {
             <div>-Adam</div>
             <br />
             <span className="new-feature-start-button"><button className="button-84" onClick={() => closeModal('newFeatureModal')}>Start Puzzle</button></span>
-            <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
+            <button className="button-84" onClick={() => window.open('https://www.patreon.com/adamwagner', '_blank')}>Join Patreon</button>
           </div>
         </div>
       </div>

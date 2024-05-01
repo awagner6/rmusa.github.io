@@ -79,7 +79,7 @@ function ArchiveModal() {
         </div>
         <button className="button-84 archive-confirm" onClick={onClickPlayArchive} disabled={indexInvalid || !indexInput || !passwordInput}>Play</button>
         <div id="passwordDisclaimer">*The password to access archive puzzles is only available for Patreon members. Not a member yet?</div>
-        <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
+        <button className="button-84" onClick={() => window.open('https://www.patreon.com/adamwagner', '_blank')}>Join Patreon</button>
       </div>
     </div>
   )

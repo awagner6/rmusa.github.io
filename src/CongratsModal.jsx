@@ -84,7 +84,7 @@ function CongratsModal() {
           <div className="goat-modal-info-container">
             <div>
               <button id="shareButton" className="button-84" role="button" onClick={onClickShare}>{shareClicked ? "Copied to clipboard" : "Share"}</button>
-              <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
+              <button className="button-84" onClick={() => window.open('https://www.patreon.com/adamwagner', '_blank')}>Join Patreon</button>
             </div>
             <div className="congrats-modal-button-row">
               <button id="archiveButton" className="button-84" onClick={onClickArchive}>Archive</button>

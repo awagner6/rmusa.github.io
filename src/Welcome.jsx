@@ -45,7 +45,7 @@ function Welcome() {
         </div>
         {/* New game announcement */}
         <div className="welcomeButtonContainer">
-          <button className="button-84 OrerUpButton" onClick={() => window.open('https://www.orderup.games', '_blank')}>Order Up</button>
+          <button className="button-84 OrderUpButton" onClick={() => window.open('https://www.orderup.games', '_blank')}>Order Up</button>
           <div className="welcomeAnigramsCopy">NEW: Adam's latest daily puzzle game has arrived! In Order Up, you have to arrange a list of items in order based on a hidden theme. Give it a try at the link above!</div>
         </div>
       </div>

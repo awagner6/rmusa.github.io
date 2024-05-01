@@ -43,7 +43,6 @@ function Welcome() {
           <button className="button-84 patreonButton" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
           <div className="welcomeAnigramsCopy">Access the archive of previous Anigrams puzzles, suggest new features, and play bonus puzzles</div>
         </div>
-        {/* New game announcement */}
         <div className="welcomeButtonContainer">
           <button className="button-84 OrderUpButton" onClick={() => window.open('https://www.orderup.games', '_blank')}>Order Up</button>
           <div className="welcomeAnigramsCopy">NEW: Adam's latest daily puzzle game has arrived! In Order Up, you have to arrange a list of items in order based on a hidden theme. Give it a try at the link above!</div>

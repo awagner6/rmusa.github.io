@@ -85,8 +85,11 @@ function CongratsModal() {
             <div>
               <button id="shareButton" className="button-84" role="button" onClick={onClickShare}>{shareClicked ? "Copied to clipboard" : "Share"}</button>
               <button className="button-84" onClick={() => window.open('https://www.patreon.com/user?u=65757168', '_blank')}>Join Patreon</button>
-              <div className="archiveButtonContainer">
-                <button id="archiveButton" className="button-84" onClick={onClickArchive}>Archive</button>
+            </div>
+            <div className="congrats-modal-button-row">
+              <button id="archiveButton" className="button-84" onClick={onClickArchive}>Archive</button>
+              <div className="newButtonContainer">
+                <button className="button-84" onClick={() => window.open('https://www.orderup.games', '_blank')}>Order Up</button>
                 <span className="badge">NEW</span>
               </div>
             </div>

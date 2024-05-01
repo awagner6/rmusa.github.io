@@ -75,7 +75,7 @@ function App() {
 
   useEffect(() => {
     if (!isPaused) {
-      startTimeCounter(startTime, prevTime, Math.floor((Date.now() - 1661135400000) / (1000 * 60 * 60 * 24)), !!archiveIndex)
+      startTimeCounter(startTime, prevTime, Math.floor((Date.now() - 1661131800000) / (1000 * 60 * 60 * 24)), !!archiveIndex)
     }
   }, [isPaused]);
 

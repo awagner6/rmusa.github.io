@@ -20,7 +20,11 @@ function Welcome() {
       <div className="welcome">Welcome to Anigrams!</div>
       <div className="welcomeSubtitle">A daily word game</div>
       <div className="welcomeEmojis">🦉🦒🐬🦜🐙🐐</div>
-      <div className="welcomeButtonWrapper">
+      <div className="pauseMessageContainer">
+        <div className="pauseMessage">Anigrams is now paused.</div>
+        <div className="pauseMessage">Stay tuned for an exciting update about the future of the game!</div>
+      </div>
+      {/* <div className="welcomeButtonWrapper">
         <div className="welcomeButtonContainer">
           <Link to="/play/normal" style={{ textDecoration: 'none' }}>
             <button className="button-84 welcomeButton">Normal Mode</button>
@@ -47,7 +51,7 @@ function Welcome() {
       <div className="welcomeButtonContainer noWelcomeMargin">
         <button className="button-84 patreonButton" onClick={() => window.open('https://www.orderup.games', '_blank')}>Order Up</button>
         <div className="welcomeAnigramsCopy">NEW! Adam's latest daily puzzle game has arrived! In Order Up, you have to arrange a list of items in order around a hidden theme. Try it at the link above!</div>
-      </div>
+      </div> */}
     </>
   )
 };

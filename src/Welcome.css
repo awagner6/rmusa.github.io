@@ -40,6 +40,17 @@
   margin-bottom: 4px;
 }
 
+.pauseMessage {
+  margin-top: 16px;
+}
+
+.pauseMessageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .patreonButton {
   margin-top: 24px;
   margin-bottom: 4px;
